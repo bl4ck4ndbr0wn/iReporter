@@ -252,7 +252,6 @@ footer .social-links ul {
     flex-direction: row;
     justify-content: space-around;
     margin: 3rem;
-    padding: ;
   }
   footer .footer-copyright .container {
     flex-direction: column;
@@ -289,4 +288,179 @@ footer .social-links ul {
 .fa-linkedin {
   background: ;
   color: #007bb5;
+}
+
+/* auth */
+.auth {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  color: var(--color-dark-gray);
+  background: var(--color-primary-dark);
+  background-image: linear-gradient(
+      to right bottom,
+      var(--color-primary-dark-8),
+      var(--color-primary-light-8)
+    ),
+    url("https://unsplash.it/1500?random");
+  background-size: cover;
+  background-position: center;
+}
+
+.auth .container {
+  background: linear-gradient(
+    to right bottom,
+    var(--color-light-brown),
+    var(--color-red)
+  );
+  border-radius: 0.5rem;
+  width: 45rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.auth .container h1 {
+  font-size: 2.4rem;
+  padding: 1rem;
+  font-weight: 400;
+  letter-spacing: 10;
+  color: var(--color-white);
+}
+
+.logo-auth {
+  text-align: center;
+  padding: 1rem;
+  margin: 1rem;
+}
+
+.logo-auth a img {
+  width: 28rem;
+}
+
+.auth-item {
+  color: var(--color-white);
+  padding: 2.5rem 2.5rem 0;
+  margin: 2rem 2rem 0;
+  border-radius: 0.3rem;
+}
+
+input {
+  border: 0;
+  color: inherit;
+  font: inherit;
+  margin: 0;
+  outline: 0;
+  padding: 0;
+  -webkit-transition: background-color 0.3s;
+  transition: background-color 0.3s;
+}
+.user:before {
+  content: "\f007";
+  font: 1.4rem FontAwesome;
+  color: var(--color-dark-gray);
+}
+.user-email::before {
+  content: "\f0e0";
+  font: 1.4rem FontAwesome;
+  color: var(--color-dark-gray);
+}
+.lock:before {
+  content: "\f023";
+  font: 1.4rem FontAwesome;
+  color: var(--color-dark-gray);
+}
+.form input[type="email"] {
+  background: red;
+  width: 100%;
+}
+.form input[type="password"],
+.form input[type="text"],
+.form input[type="email"],
+.form input[type="submit"] {
+  width: 100%;
+}
+
+.form-auth label,
+.form-auth input[type="text"],
+.form-auth input[type="email"],
+.form-auth input[type="password"],
+.form-auth input[type="submit"] {
+  border-radius: 0.25rem;
+  padding: 1rem;
+  color: var(--color-dark-gray);
+}
+
+.form-auth label {
+  background-color: #222222;
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+.form-auth input[type="text"],
+.form-auth input[type="email"],
+.form-auth input[type="password"] {
+  background-color: var(--color-white);
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+}
+
+.form-auth input[type="text"]:focus,
+.form-auth input[type="text"]:hover,
+.form-auth input[type="email"]:focus,
+.form-auth input[type="email"]:hover,
+.form-auth input[type="password"]:focus,
+.form-auth input[type="password"]:hover {
+  background-color: var(--color-grey-dark-1);
+}
+
+.form-auth input[type="submit"] {
+  background-color: var(--color-light-blue);
+  color: var(--color-grey-dark-1);
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.form-auth input[type="submit"]:focus,
+.form-auth input[type="submit"]:hover {
+  background-color: var(--color-primary-dark);
+  color: var(--color-grey-light-1);
+}
+
+.form-field {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 2rem;
+}
+.hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 0.1rem;
+  margin: -0.1rem;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 0.1rem;
+}
+
+.text--center {
+  text-align: center;
+}
+
+header .container .auth-item p {
+  font-size: 1.3rem;
+}
+
+header .container .auth-item p a {
+  text-decoration: none;
+  font-size: 1.4rem;
+  margin: 2rem;
+  color: var(--color-primary-dark);
+}
+header .container .auth-item p a:hover {
+  font-size: 1.5rem;
+  color: var(--color-primary);
 }
