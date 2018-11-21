@@ -8,7 +8,7 @@
       rel="stylesheet"
     />
 
-    <title>IReporter - Login into your Account</title>
+    <title>IReporter - Register for a new Account</title>
 
     <!-- css Scripts -->
     <link rel="stylesheet" href="css/style.min.css" />
@@ -21,22 +21,33 @@
             <img src="img/logo.png" class="brightness" alt="IReport Logo" />
           </a>
         </div>
-        <h1 class="text--center">Sign in</h1>
+        <h1 class="text--center">Sign up</h1>
         <div class="auth-item">
           <form id="auth-form" class="form form-auth">
             <div class="form-field">
               <label class="user" for="auth-username">
-                <span class="hidden">Username</span>
+                <span class="hidden">Full Name</span>
               </label>
               <input
                 id="auth-username"
                 type="text"
                 class="form-input"
-                placeholder="Username"
+                placeholder="Full Name"
                 required
               />
             </div>
-
+            <div class="form-field">
+              <label class="user-email" for="auth-username">
+                <span class="hidden">Email</span>
+              </label>
+              <input
+                id="auth-username"
+                type="email"
+                class="form-input"
+                placeholder="Email"
+                required
+              />
+            </div>
             <div class="form-field">
               <label class="lock" for="auth-password">
                 <span class="hidden">Password</span>
@@ -51,16 +62,27 @@
             </div>
 
             <div class="form-field">
-              <input type="submit" value="Sign in" />
+              <label class="lock" for="auth-password">
+                <span class="hidden">Confirm Password</span>
+              </label>
+              <input
+                id="auth-password"
+                type="password"
+                class="form-input"
+                placeholder="Confirm Password"
+                required
+              />
+            </div>
+
+            <div class="form-field">
+              <input type="submit" value="Sign Up" />
             </div>
           </form>
-          <p>
-            Do not have a driver account? <a href="register.html">Sign up</a>
-          </p>
+          <p>Already have an account? <a href="login.html">Sign in</a></p>
         </div>
       </div>
     </header>
     <!-- JS Scripts -->
-    <script src="js/bundle.min.js"></script>
+    <script src="js/bundle.js"></script>
   </body>
 </html>
