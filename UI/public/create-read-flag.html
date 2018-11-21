@@ -56,8 +56,6 @@
             id="report-form"
             class="form form-report"
             enctype="multipart/form-data"
-            method="POST"
-            action="...backend URL..."
           >
             <div class="form-field d-flex">
               <label class="form-label" for="report-title">
@@ -68,7 +66,6 @@
                 type="text"
                 class="form-input"
                 placeholder="Claim Title"
-                required
               />
             </div>
             <div class="form-field d-flex  ">
@@ -80,7 +77,6 @@
                 type="text"
                 class="form-select"
                 placeholder="Claim Title"
-                required
               >
                 <option value="Use of Shell Companies"
                   >Use of Shell Companies</option
@@ -107,7 +103,6 @@
                 type="text"
                 class="form-input"
                 placeholder="Claim category"
-                required
               />
             </div>
             <div class="form-field d-flex">
@@ -128,6 +123,20 @@
               </label>
               <input type="file" name="file" id="file" class="inputfile" />
               <label for="file">Choose an Image or a video file</label>
+            </div>
+            <div id="map"></div>
+            <button id="myLocation" class="btn">Use My Location</button>
+            <div id="locationList"></div>
+            <div class="form-field d-flex">
+              <label class="form-label" for="report-address">
+                <span class="label-text">Address (latitude: longitude)</span>
+              </label>
+              <textarea
+                id="report-address"
+                class="form-textarea"
+                placeholder="Claim Address"
+              >
+              </textarea>
             </div>
 
             <div class="form-field">
