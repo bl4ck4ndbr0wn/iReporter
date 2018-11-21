@@ -1,0 +1,201 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600"
+      rel="stylesheet"
+    />
+
+    <title>IReporter - Localized Solutions that curb Corruption</title>
+
+    <!-- css Scripts -->
+    <link rel="stylesheet" href="css/style.min.css" />
+  </head>
+  <body>
+    <header class="header-container">
+      <div class="logo">
+        <a href="index.html" title="iReporter">
+          <img src="img/logo.png" alt="iReporter Logo" />
+        </a>
+      </div>
+      <nav>
+        <ul>
+          <li><a class="active" title="Home">Home</a></li>
+          <li><a title="reports">Reports</a></li>
+          <li><a href="create-read-flag.html">Create Read Flag</a></li>
+          <li><a href="profile.html" title="Rides">Profile</a></li>
+          <li><a href="admin.html" title="Rides">Admin dashboard</a></li>
+          <li><a class="btn" href="login.html" title="login">Signin</a></li>
+          <li>
+            <a class="btn" href="register.html" title="register">Signup</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Banner Area -->
+    <section class="banner banner-page">
+      <div class="banner-content">
+        <h1 class="banner-content__title breadcrumb_title">
+          Create Red Flag Record
+        </h1>
+        <ul class="breadcrumb">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Records</a></li>
+          <li>Creat New Red Flag record</li>
+        </ul>
+      </div>
+    </section>
+    <section class="report">
+      <div class="report-content">
+        <div class="report-content_title">Create New Red Flag</div>
+        <div class="report-content_body">
+          <form
+            id="report-form"
+            class="form form-report"
+            enctype="multipart/form-data"
+          >
+            <div class="form-field d-flex">
+              <label class="form-label" for="report-title">
+                <span class="label-text">Title</span>
+              </label>
+              <input
+                id="report-title"
+                type="text"
+                class="form-input"
+                placeholder="Claim Title"
+              />
+            </div>
+            <div class="form-field d-flex  ">
+              <label class="form-label" for="report-category">
+                <span class="label-text">category</span>
+              </label>
+              <select
+                id="report-title"
+                type="text"
+                class="form-select"
+                placeholder="Claim Title"
+              >
+                <option value="Use of Shell Companies"
+                  >Use of Shell Companies</option
+                >
+                <option value="An Inadequate Internal Audit Program"
+                  >An Inadequate Internal Audit Program</option
+                >
+                <option value="Failure to Internally Assess Compliance Programs"
+                  >Failure to Internally Assess Compliance Programs</option
+                >
+                <option value="Failure to Internally Assess Compliance Programs"
+                  >Failure to Internally Assess Compliance Programs</option
+                ><option value="Other"
+                  >Other(if slected other, specify it in the field below</option
+                >
+              </select>
+            </div>
+            <div class="form-field d-flex ">
+              <label class="form-label" for="report-category">
+                <span class="label-text">Category</span>
+              </label>
+              <input
+                id="report-category"
+                type="text"
+                class="form-input"
+                placeholder="Claim category"
+              />
+            </div>
+            <div class="form-field d-flex">
+              <label class="form-label" for="report-description">
+                <span class="label-text">Desctiption</span>
+              </label>
+              <textarea
+                id="report-description"
+                class="form-textarea"
+                placeholder="Claim description"
+              >
+              </textarea>
+            </div>
+
+            <div class="form-field d-flex">
+              <label class="form-label" for="report-image">
+                <span class="label-text">Image or video upload</span>
+              </label>
+              <input type="file" name="file" id="file" class="inputfile" />
+              <label for="file">Choose an Image or a video file</label>
+            </div>
+            <div id="map"></div>
+            <button id="myLocation" class="btn">Use My Location</button>
+            <div id="locationList"></div>
+            <div class="form-field d-flex">
+              <label class="form-label" for="report-address">
+                <span class="label-text">Address (latitude: longitude)</span>
+              </label>
+              <textarea
+                id="report-address"
+                class="form-textarea"
+                placeholder="Claim Address"
+              >
+              </textarea>
+            </div>
+
+            <div class="form-field">
+              <input type="submit" value="Save new changes" />
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <footer class="page-footer">
+      <div class="container">
+        <div class="col">
+          <h5 class="white-text">IReporter</h5>
+          <p class="grey-text">
+            Corruption is a huge bane to Africa’s development. African countries
+            must develop novel and localised solutions that will curb this
+            menace.
+          </p>
+        </div>
+        <div class="col">
+          <h5 class="white-text">Company</h5>
+          <ul>
+            <li><a class="grey-text" href="#!">About</a></li>
+            <li><a class="grey-text" href="#!">Contact Us</a></li>
+            <li><a class="grey-text" href="#!">Our Blog</a></li>
+          </ul>
+        </div>
+
+        <div class="col">
+          <div class="logo-footer">
+            <a href="index.html" title="IReporter">
+              <img src="img/logo.png" alt="IReporter Logo" class="brightness" />
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="social-links">
+          <ul>
+            <li><a href="#" class="fa fa-facebook"></a></li>
+            <li><a href="#" class="fa fa-google"></a></li>
+            <li><a href="#" class="fa fa-linkedin"></a></li>
+            <li><a href="#" class="fa fa-twitter"></a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-copyright">
+        <div class="container">
+          <p>
+            © 2018 Copyright IReporter by Alpha Nganga Ndirangu
+            <a class="grey-text" href="#!">Github Project</a>
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- JS Scripts -->
+    <script src="js/bundle.min.js"></script>
+  </body>
+</html>
