@@ -24,6 +24,7 @@
         <ul>
           <li><a class="active" title="Home">Home</a></li>
           <li><a title="reports">Reports</a></li>
+          <li><a href="create-read-flag.html">Create Read Flag</a></li>
           <li><a href="profile.html" title="Rides">Profile</a></li>
           <li><a href="admin.html" title="Rides">Admin dashboard</a></li>
           <li><a class="btn" href="login.html" title="login">Signin</a></li>
@@ -38,13 +39,89 @@
     <section class="banner banner-page">
       <div class="banner-content">
         <h1 class="banner-content__title breadcrumb_title">
-          Create Read Flag Record
+          Create Red Flag Record
         </h1>
         <ul class="breadcrumb">
           <li><a href="#">Home</a></li>
           <li><a href="#">Records</a></li>
-          <li>Creat New Read Flag record</li>
+          <li>Creat New Red Flag record</li>
         </ul>
+      </div>
+    </section>
+    <section class="report">
+      <div class="report-content">
+        <div class="report-content_title">Create New Red Flag</div>
+        <div class="report-content_body">
+          <form id="report-form" class="form form-report">
+            <div class="form-field d-flex">
+              <label class="form-label" for="report-title">
+                <span class="label-text">Title</span>
+              </label>
+              <input
+                id="report-title"
+                type="text"
+                class="form-input"
+                placeholder="Claim Title"
+                required
+              />
+            </div>
+            <div class="form-field d-flex  ">
+              <label class="form-label" for="report-category">
+                <span class="label-text">category</span>
+              </label>
+              <select
+                id="report-title"
+                type="text"
+                class="form-select"
+                placeholder="Claim Title"
+                required
+              >
+                <option value="Use of Shell Companies"
+                  >Use of Shell Companies</option
+                >
+                <option value="An Inadequate Internal Audit Program"
+                  >An Inadequate Internal Audit Program</option
+                >
+                <option value="Failure to Internally Assess Compliance Programs"
+                  >Failure to Internally Assess Compliance Programs</option
+                >
+                <option value="Failure to Internally Assess Compliance Programs"
+                  >Failure to Internally Assess Compliance Programs</option
+                ><option value="Other"
+                  >Other(if slected other, specify it in the field below</option
+                >
+              </select>
+            </div>
+            <div class="form-field d-flex ">
+              <label class="form-label" for="report-category">
+                <span class="label-text">Category</span>
+              </label>
+              <input
+                id="report-category"
+                type="text"
+                class="form-input"
+                placeholder="Claim category"
+                required
+              />
+            </div>
+            <div class="form-field d-flex">
+              <label class="form-label" for="report-description">
+                <span class="label-text">Desctiption</span>
+              </label>
+              <textarea
+                id="report-description"
+                type="text"
+                class="form-textarea"
+                placeholder="Claim description"
+              >
+              </textarea>
+            </div>
+
+            <div class="form-field">
+              <input type="submit" value="Save new changes" />
+            </div>
+          </form>
+        </div>
       </div>
     </section>
 
