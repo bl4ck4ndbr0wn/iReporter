@@ -119,6 +119,7 @@ header ul li .btn:hover {
   height: 75vh;
   display: flex;
 }
+
 .banner-content {
   display: flex;
   flex-direction: column;
@@ -164,6 +165,38 @@ header ul li .btn:hover {
   color: var(--color-white);
 }
 
+.banner-page {
+  height: 25vh;
+}
+
+.breadcrumb_title {
+  font-size: 3.5rem;
+}
+
+ul.breadcrumb {
+  padding: 1rem 1.6rem;
+  list-style: none;
+  background-color: var(--color-grey-light-1);
+}
+
+ul.breadcrumb li {
+  display: inline;
+  font-size: 1.8rem;
+}
+
+ul.breadcrumb li + li:before {
+  padding: 0.8rem;
+  color: black;
+  content: "/\00a0";
+}
+
+ul.breadcrumb li a {
+  color: var(--color-light-blue);
+  text-decoration: none;
+}
+ul.breadcrumb li a:hover {
+  color: var(--color-primary-dark);
+}
 /* Footer -------------------------------------------- */
 footer {
   display: flex;
@@ -188,7 +221,7 @@ footer .container .col {
   filter: brightness(0.25);
   width: 18rem;
 }
-/* .blur { filter: blur(3px); }
+/* .blur { filter: blur.(rem); }
 .invert { filter: invert(100%); }
 .sepia { filter: sepia(100%); }
 .huerotate { filter: hue-rotate(180deg); }
