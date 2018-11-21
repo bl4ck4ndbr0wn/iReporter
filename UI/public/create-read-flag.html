@@ -52,7 +52,13 @@
       <div class="report-content">
         <div class="report-content_title">Create New Red Flag</div>
         <div class="report-content_body">
-          <form id="report-form" class="form form-report">
+          <form
+            id="report-form"
+            class="form form-report"
+            enctype="multipart/form-data"
+            method="POST"
+            action="...backend URL..."
+          >
             <div class="form-field d-flex">
               <label class="form-label" for="report-title">
                 <span class="label-text">Title</span>
@@ -118,10 +124,10 @@
 
             <div class="form-field d-flex">
               <label class="form-label" for="report-image">
-                <span class="label-text">Image upload</span>
+                <span class="label-text">Image or video upload</span>
               </label>
               <input type="file" name="file" id="file" class="inputfile" />
-              <label for="file">Choose an Image</label>
+              <label for="file">Choose an Image or a video file</label>
             </div>
 
             <div class="form-field">
