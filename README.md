@@ -36,16 +36,12 @@ general public. Users can also report on things that needs government interventi
 #### To run the code just run:
 
 ```
-yarn install or npm install
-yarn serve or npm run serve
-```
+npm install -g live-server
 
-This creates a dist directory that gets rendered on your browser.
+git clone {url}
+cd into iReporter
 
-#### To clean The dist directory
-
-```
-gulp clean
+live-server UI/
 ```
 
 The results are shown in the browser's console.
