@@ -15,7 +15,7 @@
   --color-white: #ffffff;
   --color-black: #000000;
   -line: 0.1rem solid var(--color-grey-light-1);
-  --title-line: 0.1rem solid var(--color-light-blue);
+  --title-line: 0.2rem solid var(--color-light-blue);
   --color-button-brown: #fffaff;
   --shadow-light: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   --line: 0.1rem solid var(--color-light-gray);
@@ -611,6 +611,9 @@ header .container .auth-item p a:hover {
   display: flex;
   align-items: center;
   justify-content: space-around;
+
+  border-bottom: 0.1rem solid #009ddc;
+  padding: 3rem;
 }
 .summary-user {
   display: flex;
@@ -620,6 +623,23 @@ header .container .auth-item p a:hover {
   padding: 0.5rem;
   margin: 1.2rem;
   border-radius: 5%;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.samary-user_profile {
+  background-color: transparent;
+  box-shadow: none;
+  border-radius: 50%;
+}
+
+.summary-user-box-profile {
+  text-align: center;
+  padding: 0.5rem;
+  margin: 1.2rem;
+  width: 100%;
 }
 .summary-photo {
   height: 4.5rem;
