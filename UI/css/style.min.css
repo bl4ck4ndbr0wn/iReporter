@@ -280,6 +280,15 @@ footer .social-links ul {
 .fa-linkedin {
   color: #007bb5;
 }
+
+.fa-trash {
+  color: #dd4b39;
+}
+
+.fa-edit {
+  color: #39dd39;
+}
+
 .auth {
   display: flex;
   justify-content: center;
