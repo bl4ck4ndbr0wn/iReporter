@@ -16,6 +16,10 @@
   --color-black: #000000;
   -line: 0.1rem solid var(--color-grey-light-1);
   --title-line: 0.1rem solid var(--color-light-blue);
+  --color-button-brown: #fffaff;
+  --shadow-light: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  --line: 0.1rem solid var(--color-light-gray);
+  --bg-large: 68.75;
 }
 * {
   margin: 0;
@@ -67,7 +71,7 @@ header ul li {
 }
 header ul li a {
   text-decoration: none;
-  color: var(--color-dark-gray);
+  color: var(--color-grey-dark-1);
 }
 li a.active {
   color: var(--color-black);
@@ -281,7 +285,7 @@ footer .social-links ul {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  color: var(--color-dark-gray);
+  color: var(--color-grey-dark-1);
   background: var(--color-primary-dark);
   background-image: linear-gradient(
       to right bottom,
@@ -337,17 +341,17 @@ input {
 .user:before {
   content: "\f007";
   font: 1.4rem FontAwesome;
-  color: var(--color-dark-gray);
+  color: var(--color-grey-dark-1);
 }
 .user-email::before {
   content: "\f0e0";
   font: 1.4rem FontAwesome;
-  color: var(--color-dark-gray);
+  color: var(--color-grey-dark-1);
 }
 .lock:before {
   content: "\f023";
   font: 1.4rem FontAwesome;
-  color: var(--color-dark-gray);
+  color: var(--color-grey-dark-1);
 }
 .form input[type="email"] {
   background: red;
@@ -366,7 +370,7 @@ input {
 .form-auth label {
   border-radius: 0.25rem;
   padding: 1rem;
-  color: var(--color-dark-gray);
+  color: var(--color-grey-dark-1);
 }
 .form-auth label {
   background-color: #222;
@@ -429,7 +433,7 @@ input {
 .form-report textarea {
   border-radius: 0.25rem;
   padding: 1rem;
-  color: var(--color-dark-gray);
+  color: var(--color-grey-dark-1);
 }
 .form-report input[type="submit"] {
   background-color: var(--color-light-blue);
@@ -521,3 +525,314 @@ header .container .auth-item p a:hover {
   border-radius: 0.3rem;
 }
 /*# sourceMappingURL=maps/style.min.css.map */
+
+/* Admin */
+.content {
+  display: flex;
+}
+
+.sidebar {
+  background-color: var(--color-grey-dark-1);
+  flex: 0 0 18%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.side-nav {
+  font-size: 1.4rem;
+  list-style: none;
+  margin-top: 3.5rem;
+  padding: 0;
+}
+.side_item {
+  position: relative;
+}
+.side_item:not(:last-child) {
+  margin-bottom: 0.5rem;
+}
+.side_item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0.3rem;
+  background-color: var(--color-primary);
+  transform: scaleY(0);
+  transition: transform 0.2s, width 0.4s cubic-bezier(1, 0, 0, 1) 0.2s,
+    background-color 0.1s;
+}
+.side-item-active::before,
+.side_item:hover::before {
+  transform: scaleY(1);
+  width: 100%;
+}
+.side_item:active::before {
+  background-color: var(--color-primary-light);
+}
+.side-link:link,
+.side-link:visited {
+  color: var(--color-light-gray);
+  text-decoration: none;
+  text-transform: uppercase;
+  display: block;
+  padding: 1.5rem 3rem;
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+}
+.side-icon {
+  width: 1.7rem;
+  height: 1.7rem;
+  margin-right: 2rem;
+  fill: currentColor;
+}
+.legal {
+  font-size: 1.2rem;
+  color: var(--color-white);
+  text-align: center;
+  padding: 2.5rem;
+}
+.record-view {
+  background-color: #f8f8f8;
+  flex: 1;
+}
+.summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.summary-user {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  box-shadow: var(--shadow-light);
+  padding: 0.5rem;
+  margin: 1.2rem;
+  border-radius: 5%;
+}
+.summary-photo {
+  height: 4.5rem;
+  width: 4.5rem;
+  border-radius: 50%;
+  margin-right: 1.5rem;
+}
+.summary-user-box {
+  margin-right: 3rem;
+}
+.summary-user-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+.summary-user-date {
+  font-size: 1rem;
+  color: var(--color-grey-dark-1);
+}
+.summary-rating {
+  color: var(--color-primary);
+  font-size: 2.2rem;
+  font-weight: 300;
+}
+.btn-inline {
+  border: none;
+  color: var(--color-primary);
+  font-size: inherit;
+  border-bottom: 0.1rem solid currentColor;
+  padding-bottom: 0.2rem;
+  display: inline-block;
+  background-color: transparent;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-inline:hover {
+  color: var(--color-light-brown);
+}
+.btn-inline:focus {
+  outline: 0;
+  animation: pulsate 1s infinite;
+}
+.btn-inline span {
+  margin-left: 0.3rem;
+  transition: margin-left 0.2s;
+}
+.btn-inline:hover span {
+  margin-left: 0.8rem;
+}
+@keyframes pulsate {
+  0% {
+    transform: scale(1);
+    box-shadow: none;
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 1rem 4rem rgba(0, 0, 0, 0.5);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: none;
+  }
+}
+.detail {
+  font-size: 1.4rem;
+  display: flex;
+  padding: 4.5rem;
+  background-color: var(--color-light-gray-1);
+  border-bottom: var(--line);
+}
+.description {
+  background-color: #fff;
+  box-shadow: var(--shadow-light);
+  padding: 3rem;
+  flex: 0 0 100%;
+  margin-right: 4.5rem;
+}
+
+.description-3 {
+  background-color: #fff;
+  box-shadow: var(--shadow-light);
+  padding: 3rem;
+  flex: 0 0 30%;
+  margin-right: 4.5rem;
+}
+.description-4 {
+  background-color: #fff;
+  box-shadow: var(--shadow-light);
+  padding: 3rem;
+  flex: 0 0 40%;
+  margin-right: 4.5rem;
+}
+.description-5 {
+  background-color: #fff;
+  box-shadow: var(--shadow-light);
+  padding: 3rem;
+  flex: 0 0 50%;
+  margin-right: 4.5rem;
+}
+/*# sourceMappingURL=maps/style.min.css.map */
+/* Tablex - Flexbox responsive table */
+.tablex {
+  display: flex;
+}
+.tablex .tablex__item {
+  order: 0;
+  flex-grow: 0;
+  flex-shrink: 1;
+  flex-basis: 100%;
+  width: 100%;
+  box-sizing: border-box;
+}
+.tablex[data-gutter="1"] .tablex__item {
+  padding: 5px;
+}
+.tablex[data-gutter="2"] .tablex__item {
+  padding: 10px;
+}
+.tablex[data-gutter="3"] .tablex__item {
+  padding: 15px;
+}
+.tablex[data-gutter="4"] .tablex__item {
+  padding: 20px;
+}
+.tablex[data-gutter="5"] .tablex__item {
+  padding: 25px;
+}
+.tablex[data-gutter="6"] .tablex__item {
+  padding: 30px;
+}
+.tablex[data-gutter="7"] .tablex__item {
+  padding: 35px;
+}
+.tablex[data-gutter="8"] .tablex__item {
+  padding: 40px;
+}
+.tablex[data-gutter="9"] .tablex__item {
+  padding: 45px;
+}
+.tablex[data-gutter="10"] .tablex__item {
+  padding: 50px;
+}
+.tablex.tablex--bordered.tablex--columns .tablex__item:not(.tablex__item--foot),
+.tablex.tablex--bordered.tablex--rows .tablex__item {
+  border-bottom: solid 1px #121212;
+}
+.tablex.tablex--colored .tablex__item {
+  background: #fefefe;
+}
+.tablex.tablex--colored .tablex__item.tablex__item--head {
+  background: #656565;
+  color: white;
+}
+.tablex.tablex--colored .tablex__item.tablex__item--foot {
+  background: #ccc;
+}
+
+@media only screen and (max-width: 641px) {
+  .tablex {
+    flex-direction: column;
+    flex-wrap: no-wrap;
+  }
+  .tablex .tablex__item.tablex__item--foot {
+    margin-bottom: 1rem;
+  }
+  .tablex.tablex--bordered.tablex--rows .tablex__item.tablex__item--foot {
+    border-bottom: none;
+  }
+}
+@media only screen and (min-width: 640px) {
+  .tablex {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .tablex.tablex--columns .tablex__item.tablex__item--head {
+    order: -1;
+  }
+  .tablex.tablex--columns .tablex__item.tablex__item--foot {
+    order: 1;
+  }
+  .tablex.tablex--bordered.tablex--rows {
+    border-top: solid 1px #121212;
+  }
+  .tablex[data-columns="1"] .tablex__item {
+    flex-basis: 100%;
+    width: 100%;
+  }
+  .tablex[data-columns="2"] .tablex__item {
+    flex-basis: 50%;
+    width: 50%;
+  }
+  .tablex[data-columns="3"] .tablex__item {
+    flex-basis: 33.3333333333%;
+    width: 33.3333333333%;
+  }
+  .tablex[data-columns="4"] .tablex__item {
+    flex-basis: 25%;
+    width: 25%;
+  }
+  .tablex[data-columns="5"] .tablex__item {
+    flex-basis: 20%;
+    width: 20%;
+  }
+  .tablex[data-columns="6"] .tablex__item {
+    flex-basis: 16.6666666667%;
+    width: 16.6666666667%;
+  }
+  .tablex[data-columns="7"] .tablex__item {
+    flex-basis: 14.2857142857%;
+    width: 14.2857142857%;
+  }
+  .tablex[data-columns="8"] .tablex__item {
+    flex-basis: 12.5%;
+    width: 12.5%;
+  }
+  .tablex[data-columns="9"] .tablex__item {
+    flex-basis: 11.1111111111%;
+    width: 11.1111111111%;
+  }
+  .tablex[data-columns="10"] .tablex__item {
+    flex-basis: 10%;
+    width: 10%;
+  }
+}
