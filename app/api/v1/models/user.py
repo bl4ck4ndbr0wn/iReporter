@@ -9,10 +9,10 @@ class User:
     id = 1
 
     def __init__(self, username=None, password=None, firstname=None, lastname=None,
-                 othernames=None, email=None, phonenumber=None):
+                 othername=None, email=None, phonenumber=None):
         self.firstname = firstname
         self.lastname = lastname
-        self.othernames = othernames
+        self.othername = othername
         self.email = email
         self.phoneNumber = phonenumber
         self.username = username
@@ -35,6 +35,20 @@ class User:
         """
         for user in user_table:
             if user.username == username:
+                return user
+        return None
+
+    @staticmethod
+    def find_by_id(user_id):
+        """
+        Find a user by their id.
+
+        :param id: username
+        :type id: int
+        :return: User instance
+        """
+        for user in user_table:
+            if user.id == user_id:
                 return user
         return None
 

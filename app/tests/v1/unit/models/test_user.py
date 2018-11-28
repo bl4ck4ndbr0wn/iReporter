@@ -1,9 +1,10 @@
-from unittest import TestCase
+
+from app.tests.v1.base_test import BaseTest
 
 from app.api.v1.models.user import User
 
 
-class UserTest(TestCase):
+class UserTest(BaseTest):
 
     def test_user_create(self):
         u = User(username="Alpha", password="password")

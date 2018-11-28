@@ -1,9 +1,12 @@
 from flask import Flask
 from flask_restful import Api
+from flask_jwt_extended import JWTManager
 from instance.config import config
 
 from app.api.v1.views.main import RedFlagRecords
-from app.api.v1.views.auth import SignIn
+from app.api.v1.views.auth import (SignIn, SignUp)
+
+jwt = JWTManager()
 
 
 def create_app(config_name):
@@ -14,7 +17,10 @@ def create_app(config_name):
     """
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_object(config[config_name])
-    config[config_name].init_app(app)
+    app.config.from_pyfile('config.py')
+
+    # initialize
+    jwt.init_app(app)
 
     # Add blueprints
     from app.api import api_bp as api_blueprint
@@ -38,5 +44,8 @@ def routes(api):
     """
     api.add_resource(RedFlagRecords, "/")
     api.add_resource(SignIn, "/auth/login")
+    api.add_resource(SignUp, "/auth/register")
 
     return None
+
+
