@@ -52,4 +52,10 @@ class Incident:
     def get_all():
         return records_table
 
+    def delete_from_db(self):
+        """
+        Find record and delete it.
 
+        :return: None
+        """
+        records_table.remove(self.find_by_id(self.id))

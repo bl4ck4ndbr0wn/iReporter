@@ -73,7 +73,8 @@ class UserTest(BaseTest):
         self.assertDictEqual({"status": 400,
                               "data": [
                                   {
-                                    "message": "A user with that username already exists"
+                                    "message": "A user with that"
+                                               " username already exists"
                                   }
                               ]},
                              json.loads(user_b.data),
@@ -93,4 +94,3 @@ class UserTest(BaseTest):
 
         self.assertEqual(r.status_code, 200)
         self.assertIsNotNone(token)
-

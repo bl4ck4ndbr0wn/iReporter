@@ -5,11 +5,21 @@ user_table = []
 
 
 class User:
-    # initializing user primary_key
+    """
+    User model.
+
+    initializing user primary_key
+    """
     id = 1
 
-    def __init__(self, username=None, password=None, firstname=None, lastname=None,
-                 othername=None, email=None, phonenumber=None):
+    def __init__(self,
+                 username=None,
+                 password=None,
+                 firstname=None,
+                 lastname=None,
+                 othername=None,
+                 email=None,
+                 phonenumber=None):
         self.firstname = firstname
         self.lastname = lastname
         self.othername = othername

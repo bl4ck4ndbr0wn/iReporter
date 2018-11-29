@@ -36,7 +36,8 @@ class SignIn(Resource):
             return {"status": 200,
                     'token': token,
                     "data": [{
-                        'message': f'You were successfully logged in {u.username}'
+                        'message': f'You were successfully'
+                        f' logged in {u.username}'
                     }]}, 200
 
         return {"status": 400,

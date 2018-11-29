@@ -1,6 +1,4 @@
-
 from app.tests.v1.base_test import BaseTest
-
 from app.api.v1.models.user import User
 
 
@@ -15,5 +13,12 @@ class UserTest(BaseTest):
         """
         u = User(username="Alpha", password="password")
 
-        self.assertEqual(u.username, "Alpha",
-                         "The name of the user after creation does not equal the constructor argument.")
+        self.assertEqual(u.username,
+                         "Alpha",
+                         "The name of the user after creation does "
+                         "not equal the constructor argument.")
+
+        self.assertEqual(u.password,
+                         User.encrypt_password("password"),
+                         "The password of the user after creation does"
+                         " not equal the constructor argument.")

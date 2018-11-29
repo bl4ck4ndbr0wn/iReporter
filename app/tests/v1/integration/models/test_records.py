@@ -31,11 +31,13 @@ class RecordTest(BaseTest):
 
         self.assertEqual(record.record_type, 'red-flag')
         self.assertIsNotNone(Incident.find_by_id(1),
-                             "Did not find an Incident with id '1' after save_to_db")
+                             "Did not find an Incident with"
+                             " id '1' after save_to_db")
 
     def test_incident_repr(self):
         """
-        testing this function makes an attempt to return a string that would yield an
+        testing this function makes an attempt
+        to return a string that would yield an
         object with the same value when passed to
 
         :return: a printable representation of the object
@@ -43,5 +45,5 @@ class RecordTest(BaseTest):
         u = Incident(**RecordTest.incident)
 
         self.assertEqual(str(u),
-                         "Police bribe near Ruiru Sports club.{Kidding.} incident in incident Model.")
-
+                         "Police bribe near Ruiru Sports club."
+                         "{Kidding.} incident in incident Model.")
