@@ -75,7 +75,7 @@ class RedFlagRecords(Resource):
                     "id": new_record.id,  # User account primary key
                     "message": "{} record created "
                                "Successfully.".format(new_record.record_type)
-                }]}, 200
+                }]}, 201
 
 
 class RedFlagRecord(Resource):

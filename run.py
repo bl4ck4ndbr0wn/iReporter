@@ -16,7 +16,7 @@ def test(path):
        :param path: Test path
        :return: Subprocess call result
        """
-    cmd = 'py.test {0}'.format(path)
+    cmd = 'py.test -v {0}'.format(path)
     return subprocess.call(cmd, shell=True)
 
 
@@ -30,7 +30,7 @@ def cov(path):
         :return: Subprocess call result
         """
 
-    cmd = 'py.test --cov-report term-missing --cov {0}'.format(path)
+    cmd = 'py.test -v --cov-report term-missing --cov {0}'.format(path)
     return subprocess.call(cmd, shell=True)
 
 
