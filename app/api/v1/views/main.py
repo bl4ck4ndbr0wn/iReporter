@@ -1,31 +1,47 @@
-from flask_restful import Resource
+from flask_restful import Resource, reqparse
+
+from app.api.v1.models.incident import Incident
 
 
-class RedFlagRecords(Resource):
-    """
-    Fetch a all red-flag record.
-    Create a red-flag record.
-    Edit the location, comment of a specific red-flag record.
-    Delete a specific red flag record.
+parser = reqparse.RequestParser()
+parser.add_argument('record_type',
+                    type=str,
+                    required=True,
+                    help="This field cannot be left blank!"
+                    )
 
-    :param: incident:
-            {
-              “id” : Integer,
-              “createdOn” : Date,
-              “createdBy” : Integer, // represents the user who created this record
-              “type” : String,       // [red-flag, intervention]
-              “location” : String,   // Lat Long coordinates
-              “status” : String,     // [draft, under investigation, resolved, rejected]
-              “Images” : [Image, Image],
-              “Videos” : [Image, Image],
-              “comment” : String
-               ...
-            }
-    :returns records and success massage in json format.
-    """
+parser.add_argument('location',
+                    type=str,
+                    help="This field cannot be left blank!"
+                    )
 
-    def get(self):
-        pass
+parser.add_argument('status',
+                    type=str,
+                    help="This field cannot be left blank!"
+                    )
 
+parser.add_argument('comment',
+                    type=str,
+                    help="This field cannot be left blank!"
+                    )
+
+
+class CreateRecord(Resource):
     def post(self):
-        pass
+        data = parser.parse_args()
+
+        new_record = Incident(**data)
+        new_record.save_to_db()
+
+        return {"status": 201,
+                "data": [{
+                    "id": new_record.id,  # User account primary key
+                    "message": "{} record created Successfully.".format(new_record.record_type)
+                }]}, 200
+
+    def delete(self):
+        return {"status": 200,
+                "data": [{
+                    "id": 1,  # User account primary key
+                    "message": "User created Successfully."
+                }]}, 200

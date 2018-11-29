@@ -43,8 +43,8 @@ class User:
         """
         Find a user by their id.
 
-        :param id: username
-        :type id: int
+        :param user_id: username
+        :type user_id: int
         :return: User instance
         """
         for user in user_table:

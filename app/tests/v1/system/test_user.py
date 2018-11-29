@@ -7,6 +7,11 @@ from app.api.v1.models.user import User
 class UserTest(BaseTest):
 
     def login(self):
+        """
+        Makes a request to login endpoint.
+
+        :return: login response data
+        """
         response = self.app.post("/api/v1/auth/login",
                                  data=json.dumps({"username": "alpha",
                                                   "password": "password"
@@ -16,6 +21,11 @@ class UserTest(BaseTest):
         return response
 
     def signup(self):
+        """
+        Makes a request to signup endpoint.
+
+        :return: signup response data
+        """
         user = {"firstname": "alpha2",
                 "lastname": "nganga",
                 "email": "alphanganga@gmail.com",
@@ -38,15 +48,6 @@ class UserTest(BaseTest):
 
         self.assertEqual(response.status_code, 200)
         self.assertIsNotNone(User.find_by_name("alpha"))
-        self.assertDictEqual({"status": 400,
-                              "data": [
-                                  {
-                                      "message": "A user with that username already exists"
-                                  }
-                              ]},
-                             json.loads(user_b.data),
-                             "The response data is not the same."
-                             )
 
     def test_user_register(self):
         """
