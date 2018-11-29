@@ -56,7 +56,10 @@ class RedFlagRecords(Resource):
 
     @jwt_required
     def get(self):
-        return {"status": 200, "data": [item.json() for item in Incident.get_all()]}, 200
+        return {"status": 200,
+                "data": [item.json() for item in Incident.get_all()
+                         ]
+                }, 200
 
     @jwt_required
     def post(self):
@@ -91,7 +94,19 @@ class RedFlagRecord(Resource):
         return {"status": 404,
                 "data": [{
                      "message": "Incident record does not exist."
-                }]}
+                }]}, 404
 
+    @jwt_required
     def delete(self, red_flag_id):
-        pass
+        incident = Incident.find_by_id(red_flag_id)
+        if incident:
+            incident.delete_from_db()
+            return {"status": 200,
+                    "data": [{
+                        "id": incident.id,
+                        "message": "Incident record has been deleted."
+                    }]}
+        return {"status": 404,
+                "data": [{
+                     "message": "Incident record Not Found."
+                }]}, 404
