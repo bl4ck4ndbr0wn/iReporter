@@ -1,0 +1,15 @@
+language: python
+
+python:
+  - "3.6"
+env:
+  - JWT_SECRET_KEY="K3WgQrgs2kSOMeBQkYKxj3L0TjWUmK7M"
+install:
+  - pip install -r requirements.txt
+  - pip install coveralls
+
+script:
+  - py.test --cov-report term-missing --cov app
+
+after_success:
+  - coveralls
