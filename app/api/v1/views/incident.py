@@ -40,8 +40,6 @@ class RedFlagRecords(Resource):
     """
     Fetch a all red-flag record.
     Create a red-flag record.
-    Edit the location, comment of a specific red-flag record.
-    Delete a specific red flag record.
 
     :param: incident:
             {
@@ -72,3 +70,28 @@ class RedFlagRecords(Resource):
                     "id": new_record.id,  # User account primary key
                     "message": "{} record created Successfully.".format(new_record.record_type)
                 }]}, 200
+
+
+class RedFlagRecord(Resource):
+    """
+    Fetch a a specific red-flag record.
+    Delete a specific red flag record.
+
+    :param: red_flag_id: red_flag_id
+    :returns: record and success massage in json format.
+    """
+
+    @jwt_required
+    def get(self, red_flag_id):
+        incident = Incident.find_by_id(red_flag_id)
+        if incident:
+            return {"status": 200,
+                    "data": [incident.json()]
+                    }
+        return {"status": 404,
+                "data": [{
+                     "message": "Incident record does not exist."
+                }]}
+
+    def delete(self, red_flag_id):
+        pass

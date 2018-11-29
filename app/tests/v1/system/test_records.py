@@ -111,8 +111,7 @@ class RecordTest(BaseTest):
                           data=json.dumps(RecordTest.incident),
                           headers={"content-type": "application/json",
                                    "Authorization": f"Bearer {token}"})
-        expected = {
-                    "status": 201,
+        expected = {"status": 201,
                     "data": [{
                         "id": 1,
                         "message":  "Created red-flag record"
@@ -122,3 +121,37 @@ class RecordTest(BaseTest):
         self.assertIsNotNone(Incident.find_by_id(1))
         self.assertDictEqual(expected, json.loads(r.data))
 
+    def test_get_specific_incident(self):
+        """
+        Test to fetch a specific read-flag record
+        :param red-flag-id: int
+        :return: record.
+        """
+        token = self.get_user_token()
+
+        Incident(**RecordTest.incident).save_to_db()
+        r = self.app.get("/api/v1/red-flags/1",
+                         headers={"Authorization": f"Bearer {token}"})
+
+        self.assertEqual(r.status_code, 200)
+        self.assertDictEqual({"status" : 200,
+                              "data": [RecordTest.incident]},
+                             json.loads(r.data))
+
+    def test_specific_record_not_found(self):
+        """
+        Test if record does not exist
+
+        :return: Error
+        """
+
+        token = self.get_user_token()
+        r = self.app.get("/api/v1/red-flags/2",
+                         headers={"Authorization": f"Bearer {token}"})
+
+        self.assertEqual(r.status_code, 404)
+        self.assertDictEqual({"status": 404,
+                             "data": [{
+                                 "message": "Incident record does not exist."
+                             }]},
+                             json.loads(r.data))

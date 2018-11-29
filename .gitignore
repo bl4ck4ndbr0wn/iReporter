@@ -11,6 +11,7 @@ __pycache__/
 build/
 develop-eggs/
 dist/
+.idea
 downloads/
 eggs/
 .eggs/
@@ -57,7 +58,6 @@ local_settings.py
 db.sqlite3
 
 # Flask stuff:
-instance/
 .webassets-cache
 
 # Scrapy stuff:
@@ -84,7 +84,6 @@ celerybeat-schedule
 # Environments
 .idea/
 .idea
-.env
 .venv
 env/
 venv/
