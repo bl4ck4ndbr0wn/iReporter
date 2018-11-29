@@ -80,3 +80,17 @@ class UserTest(BaseTest):
                              "The response data is not the same."
                              )
 
+    def test_get_user_token(self):
+        """
+        Get token after user logs in
+
+        :return: token(jwt-token)
+        """
+        self.signup()
+        r = self.login()
+
+        token = json.loads(r.data).get("token", None)
+
+        self.assertEqual(r.status_code, 200)
+        self.assertIsNotNone(token)
+

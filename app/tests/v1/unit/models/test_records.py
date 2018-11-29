@@ -7,10 +7,14 @@ class RecordTest(BaseTest):
                 "record_type": "red-flag",
                 "location": "1.43434, 9.2343",
                 "status": "draft",
-                "images": ["/photo/1.jpg", "/photo/2.jpg"],
-                "videos": ["/video/1.mkv", "/video/2.mkv"],
+                "images": [
+                    {"path:": "/photo/1.jpg"},
+                    {"path": "/photo/2.jpg"}],
+                "videos": [
+                    {"path:": "/video/1.mkv"},
+                    {"path:": "/video/2.mkv"}],
                 "comment": "Police bribe near Ruiru Sports club.{Kidding.}"
-                }
+               }
 
     def test_create_record(self):
         """
@@ -27,9 +31,11 @@ class RecordTest(BaseTest):
                          "The name of the Incident after creation does not equal the constructor argument.")
         self.assertEqual(record.status, "draft",
                          "The name of the Incident after creation does not equal the constructor argument.")
-        self.assertEqual(record.images, ["/photo/1.jpg", "/photo/2.jpg"],
+        self.assertEqual(record.images, [{"path:": "/photo/1.jpg"},
+                                         {"path": "/photo/2.jpg"}],
                          "The name of the Incident after creation does not equal the constructor argument.")
-        self.assertEqual(record.videos, ["/video/1.mkv", "/video/2.mkv"],
+        self.assertEqual(record.videos, [{"path:": "/video/1.mkv"},
+                                         {"path:": "/video/2.mkv"}],
                          "The name of the Incident after creation does not equal the constructor argument.")
         self.assertEqual(record.comment, "Police bribe near Ruiru Sports club.{Kidding.}",
                          "The name of the Incident after creation does not equal the constructor argument.")

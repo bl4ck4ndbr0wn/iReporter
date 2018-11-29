@@ -7,10 +7,14 @@ class RecordTest(BaseTest):
                 "record_type": "red-flag",
                 "location": "1.43434, 9.2343",
                 "status": "draft",
-                "images": ["/photo/1.jpg", "/photo/2.jpg"],
-                "videos": ["/video/1.mkv", "/video/2.mkv"],
+                "images": [
+                    {"path:": "/photo/1.jpg"},
+                    {"path": "/photo/2.jpg"}],
+                "videos": [
+                    {"path:": "/video/1.mkv"},
+                    {"path:": "/video/2.mkv"}],
                 "comment": "Police bribe near Ruiru Sports club.{Kidding.}"
-                }
+               }
 
     def test_crude(self):
         """

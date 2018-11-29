@@ -3,7 +3,7 @@ from flask_restful import Resource, reqparse
 from app.api.v1.models.user import User
 from flask_jwt_extended import create_access_token
 
-parser = reqparse.RequestParser()
+parser = reqparse.RequestParser(bundle_errors=True)
 parser.add_argument('username', type=str, required=True,
                     help='This field cannot be left blank!')
 parser.add_argument('password', type=str, required=True,
