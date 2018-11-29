@@ -7,7 +7,8 @@ class UserTest(BaseTest):
 
     def test_user_repr(self):
         """
-        testing this function makes an attempt to return a string that would yield an
+        testing this function makes an attempt
+        to return a string that would yield an
         object with the same value when passed to
 
         :return: a printable representation of the object
@@ -32,7 +33,8 @@ class UserTest(BaseTest):
         u.save_to_db()
 
         self.assertIsNotNone(User.find_by_name('alpha'),
-                             "Did not find an user with name 'alpha' after save_to_db")
+                             "Did not find an user with "
+                             "name 'alpha' after save_to_db")
         self.assertIsNotNone(User.find_by_id(1),
-
-                             "Did not find an user with id '1' after save_to_db")
+                             "Did not find an user with id '"
+                             "1' after save_to_db")

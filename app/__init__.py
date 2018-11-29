@@ -49,5 +49,3 @@ def routes(api):
     api.add_resource(RedFlagRecord, "/red-flags/<int:red_flag_id>")
 
     return None
-
-

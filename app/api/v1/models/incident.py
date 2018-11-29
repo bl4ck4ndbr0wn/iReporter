@@ -59,5 +59,3 @@ class Incident:
         :return: None
         """
         records_table.remove(self.find_by_id(self.id))
-
-

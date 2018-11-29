@@ -45,8 +45,9 @@ class BaseTest(TestCase):
     def tearDown(self):
         """
         Destroy app context after testing is done
-        It's called immediately after the test method has been called and the result recorded.
-        It's called if the setUp() succeeds, regardless of the outcome of the test method.
+        It's called immediately after the test method
+        has been called and the result recorded.
+        It's called if the setUp() succeeds,
+        regardless of the outcome of the test method.
         """
         self.app_context.pop()
-

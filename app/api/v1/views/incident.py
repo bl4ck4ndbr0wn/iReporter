@@ -1,6 +1,6 @@
 from flask_restful import Resource, reqparse
 from app.api.v1.models.incident import Incident
-from flask_jwt_extended import  jwt_required
+from flask_jwt_extended import jwt_required
 
 
 parser = reqparse.RequestParser(bundle_errors=True)
@@ -8,7 +8,8 @@ parser.add_argument('record_type',
                     type=str,
                     required=True,
                     choices=("red-flag", "intervention"),
-                    help="This field cannot be left blank or Bad choice: {error_msg}"
+                    help="This field cannot be left "
+                         "blank or Bad choice: {error_msg}"
                     )
 
 parser.add_argument('location',
@@ -46,7 +47,8 @@ class RedFlagRecords(Resource):
               “id” : Integer,
               “type” : String,       // [red-flag, intervention]
               “location” : String,   // Lat Long coordinates
-              “status” : String,     // [draft, under investigation, resolved, rejected]
+              “status” : String,     // [draft,
+              under investigation, resolved, rejected]
               “Images” : [Image, Image],
               “Videos” : [Image, Image],
               “comment” : String
@@ -71,7 +73,8 @@ class RedFlagRecords(Resource):
         return {"status": 201,
                 "data": [{
                     "id": new_record.id,  # User account primary key
-                    "message": "{} record created Successfully.".format(new_record.record_type)
+                    "message": "{} record created "
+                               "Successfully.".format(new_record.record_type)
                 }]}, 200
 
 
