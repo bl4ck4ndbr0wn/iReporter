@@ -1,80 +1,271 @@
 FORMAT: 1A
-HOST: http://polls.apiblueprint.org/
+HOST: https://ireporter2018.herokuapp.com
 
-# Alpha Ng'ang'a
 
-Polls is a simple API allowing consumers to view polls and vote in them.
+# iReporter
 
-## Questions Collection [/questions]
+iReporter enables any/every citizen to bring any form of corruption to
+the notice of appropriate authorities and the general public.
+Users can also report on things that needs government intervention.
 
-### List All Questions [GET]
+## User Registration [/auth/register]
 
-+ Response 200 (application/json)
+### Register a user [POST]
 
-        [
-            {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 2048
-                    }, {
-                        "choice": "Python",
-                        "votes": 1024
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 512
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 256
-                    }
-                ]
-            }
-        ]
-
-### Create a New Question [POST]
-
-You may create your own question using this action. It takes a JSON
-object containing a question and a collection of answers in the
-form of choices.
+You can create a user by sending a json request with an email and password. The
+password must be four(4) characters and more.
 
 + Request (application/json)
 
         {
-            "question": "Favourite programming language?",
-            "choices": [
-                "Swift",
-                "Python",
-                "Objective-C",
-                "Ruby"
+            "firstname": "alpha",
+            "lastname": "ng'ang'a",
+            "email": "alphanganga@gmail.com",
+            "username": "alpha",
+            "password": "password"
+        }
+
++ Response 201 (application/json)
+
+        {
+            "status": 201,
+            "data": [
+                {
+                    "message": "User created Successfully."
+                }
             ]
         }
 
 + Response 201 (application/json)
 
+        {
+            "status": 201,
+            "data": [
+                {
+                    "message": "A user with that username already exists"
+                }
+            ]
+        }
+
+## User Login [/auth/login]
+
+### Login [POST]
+You can login a user by sending their email and password. Please take note
+of the auth token for you will need it for all user requests.
+
++ Request (application/json)
+
+        {
+            "username": "alpha",
+            "password": "password"
+        }
+
++ Response 201 (application/json)
+
+        {
+            "status": 200,
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NDM1NjI3NDYsIm5iZiI6MTU0MzU2Mjc0NiwianRpIjoiMTMzMWI4NDYtNTg5YS00Y2U0LTliZDctNzUxZTczZDhiNzg1IiwiZXhwIjoxNTQzNTY2MzQ2LCJpZGVudGl0eSI6ImFscGhhIiwiZnJlc2giOmZhbHNlLCJ0eXBlIjoiYWNjZXNzIn0.gy2ATujmseUsoaBfNX0v2VZ3H-bg5I2Clyh6APqopDk",
+            "data": [
+                {
+                    "message": "You were successfully logged in alpha"
+                }
+            ]
+        }
+
++ Response 400 (application/json)
+
+        {
+            "status": 400,
+            "data": [
+                {
+                    "message": "A user with that username doesn't exists"
+                }
+            ]
+        }
+        
+## Incident or red-flag record [/red-flags]
+
+### Create a new incident [POST]
+
+You can Create a new Incident or red-flag record by sending a json request with details. 
+You must be loged in to get the jwt-token.
+
++ Request (application/json)
+
+        {
+            "record_type": "red-flag",
+            "location": "Nairobi, Kenya",
+            "status": "draft",
+            "images": [
+                {
+                    "path:":"/photo/1.jpg"
+                },
+                {
+                    "path":"/photo/2.jpg"
+                }
+            ],
+            "videos": [
+                {
+                    "path:":"/video/1.mkv"
+                },
+                {
+                    "path:":"/video/2.mkv"
+                }
+            ],
+            "comment": "Test comment on red flag."
+        }
+
+
++ Response 201 (application/json)
+
     + Headers
 
-            Location: /questions/2
+            Authorization: Login to get token
 
     + Body
 
             {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
+                "status": 201,
+                "data": [
                     {
-                        "choice": "Swift",
-                        "votes": 0
-                    }, {
-                        "choice": "Python",
-                        "votes": 0
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 0
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 0
+                        "id": 4,
+                        "message": "red-flag record created Successfully."
+                    }
+                ]
+            }
+
++ Response 401 (application/json)
+
+    + Body
+
+            {
+                "msg": "Missing Authorization Header"
+            }
+      
+### Get all incident [GET]
+
+You can Get all incident records in the db by sending a get request with details. 
+You must be loged in to get the jwt-token.   
+
++ Response 202 ()
+
+    + Headers
+
+            Authorization: Login to get token
+
+    + Body
+
+            {
+                "status": 200,
+                "data": [
+                    {
+                        "id": 2,
+                        "record_type": "red-flag",
+                        "location": "Nairobi, Kenya",
+                        "status": "draft",
+                        "comment": "Test comment on red flag.",
+                        "images": [
+                            "{'path:': '/photo/1.jpg'}",
+                            "{'path': '/photo/2.jpg'}"
+                        ],
+                        "videos": [
+                            "{'path:': '/video/1.mkv'}",
+                            "{'path:': '/video/2.mkv'}"
+                        ]
+                    }
+                ]
+            }
+
+## Specific Incident or red-flag record [/red-flags/1]
+
+### Get a specific Incident [GET]
+
+You can get a specific Incident or red-flag record using its id
+by sending a json request with details. 
+You must be loged in to get the jwt-token.
+
++ Response 200 ()
+
+    + Headers
+
+            Authorization: Login to get token
+
+    + Body
+
+            {
+                "status": 200,
+                "data": [
+                    {
+                        "id": 1,
+                        "record_type": "red-flag",
+                        "location": "Nairobi, Kenya",
+                        "status": "draft",
+                        "comment": "Test comment on red flag.",
+                        "images": [
+                            "{'path:': '/photo/1.jpg'}",
+                            "{'path': '/photo/2.jpg'}"
+                        ],
+                        "videos": [
+                            "{'path:': '/video/1.mkv'}",
+                            "{'path:': '/video/2.mkv'}"
+                        ]
+                    }
+                ]
+            }
+
++ Response 404 ()
+
+    + Headers
+
+            Authorization: Login to get token
+
+    + Body
+
+            {
+                "status": 404,
+                "data": [
+                    {
+                        "message": "Incident record does not exist."
+                    }
+                ]
+            }
+
+### Delete a specific incident [DELETE]
+
+You can delete all incident records from the db by sending a get request with details. 
+You must be loged in to get the jwt-token.   
+
++ Response 200 ()
+
+    + Headers
+
+            Authorization: Login to get token
+
+    + Body
+
+            {
+                "status": 200,
+                "data": [
+                    {
+                        "id": 2,
+                        "message": "Incident record has been deleted."
+                    }
+                ]
+            }
+
++ Response 404 ()
+
+    + Headers
+
+            Authorization: Login to get token
+
+    + Body
+
+            {
+                "status": 404,
+                "data": [
+                    {
+                        "message": "Incident record Not Found."
                     }
                 ]
             }
