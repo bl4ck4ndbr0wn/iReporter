@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="38fb984d-3fef-4f5d-a19d-7b3fe0a47baf" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/travis.yml" beforeDir="false" afterPath="$PROJECT_DIR$/travis.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.travis.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.travis.yml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -69,21 +69,21 @@
         <item name="ireporter: schema" type="983ebcf7:PgImplModel$Schema" />
         <item name="tables" type="d4e8921:DatabaseStructure$FamilyGroup" />
       </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="ireporter@localhost" type="feb32156:DbDataSourceImpl" />
-        <item name="databases" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="ireporter: database" type="162271b6:PgImplModel$Database" />
-        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="ireporter: schema" type="983ebcf7:PgImplModel$Schema" />
-        <item name="tables" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="incident: table" type="69fad909:PgImplModel$LocalTable" />
-      </path>
     </expand>
     <select />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.travis.yml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="273">
+              <caret line="13" column="14" lean-forward="true" selection-start-line="13" selection-start-column="14" selection-end-line="13" selection-end-column="14" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -131,6 +131,7 @@
         <option value="$APPLICATION_CONFIG_DIR$/consoles/db/e0844232-8f42-4f56-ab2a-bfa66681c5af/console.sql" />
         <option value="e0844232-8f42-4f56-ab2a-bfa66681c5af/database/ireporter/schema/ireporter/table/User.sql" />
         <option value="$APPLICATION_CONFIG_DIR$/consoles/db/e0844232-8f42-4f56-ab2a-bfa66681c5af/console_2.sql" />
+        <option value="$PROJECT_DIR$/.travis.yml" />
       </list>
     </option>
   </component>
@@ -333,7 +334,7 @@
       <workItem from="1543457697481" duration="6080000" />
       <workItem from="1543491875474" duration="9781000" />
       <workItem from="1543505272976" duration="2724000" />
-      <workItem from="1543549419765" duration="3618000" />
+      <workItem from="1543549419765" duration="4160000" />
     </task>
     <servers />
   </component>
@@ -358,16 +359,17 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="49025000" />
+    <option name="totallyTimeSpent" value="49567000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-1" width="1920" height="1053" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49828178" visible="true" weight="0.1307364" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49828178" visible="true" weight="0.1307364" />
       <window_info id="Structure" order="1" sideWeight="0.5017182" side_tool="true" weight="0.27588046" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="SQL Generator" weight="0.32969433" />
-      <window_info anchor="bottom" id="Database Console" visible="true" weight="0.32969433" />
+      <window_info anchor="bottom" id="Database Console" weight="0.32969433" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3297414" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.3297414" />
@@ -376,17 +378,17 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.32969433" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50213444" side_tool="true" weight="0.30970556" />
-      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.49786553" weight="0.36462882" />
-      <window_info anchor="bottom" id="Python Console" order="12" weight="0.32963374" />
+      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.49786553" visible="true" weight="0.36462882" />
+      <window_info anchor="bottom" id="Python Console" order="12" weight="0.3286026" />
       <window_info anchor="bottom" id="Inspection Results" order="13" weight="0.32969433" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="SciView" order="3" />
-      <window_info active="true" anchor="right" id="Database" order="4" visible="true" weight="0.32977587" />
+      <window_info anchor="right" id="Database" order="4" weight="0.32977587" />
     </layout>
     <layout-to-restore>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.27267876" />
@@ -564,13 +566,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/travis.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="13" column="14" selection-start-line="13" selection-start-column="14" selection-end-line="13" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/tests/v1/system/test_records.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1407">
@@ -640,6 +635,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
           <caret line="10" column="2" selection-start-line="10" selection-start-column="2" selection-end-line="10" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.travis.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="13" column="14" lean-forward="true" selection-start-line="13" selection-start-column="14" selection-end-line="13" selection-end-column="14" />
         </state>
       </provider>
     </entry>
