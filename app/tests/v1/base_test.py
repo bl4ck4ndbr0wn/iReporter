@@ -27,7 +27,6 @@ class BaseTest(TestCase):
         # Get a test client
         self.app = _app.test_client()
         self.app_context = _app.app_context()
-
         self.app_context.push()
 
     def test_app_exists(self):
@@ -50,4 +49,5 @@ class BaseTest(TestCase):
         It's called if the setUp() succeeds,
         regardless of the outcome of the test method.
         """
+
         self.app_context.pop()

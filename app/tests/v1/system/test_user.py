@@ -26,10 +26,10 @@ class UserTest(BaseTest):
 
         :return: signup response data
         """
-        user = {"firstname": "alpha2",
+        user = {"firstname": "alpha",
                 "lastname": "nganga",
                 "email": "alphanganga@gmail.com",
-                "username": "alpha2",
+                "username": "alpha",
                 "password": "password"
                 }
         response = self.app.post("/api/v1/auth/register",
@@ -37,6 +37,17 @@ class UserTest(BaseTest):
                                  headers={'content-type': 'application/json'}
                                  )
         return response
+
+    # def test_user_register(self):
+    #     """clear
+    #     Test Signup api.
+    #
+    #     :return Success status
+    #     """
+    #     response = self.signup()
+    #
+    #     self.assertEqual(response.status_code, 201)
+    #     self.assertIsNotNone(User.find_by_name("alpha"))
 
     def test_user_login(self):
         """
@@ -47,17 +58,6 @@ class UserTest(BaseTest):
         response = self.login()
 
         self.assertEqual(response.status_code, 200)
-        self.assertIsNotNone(User.find_by_name("alpha"))
-
-    def test_user_register(self):
-        """
-        Test Signup api.
-
-        :return Success status
-        """
-        response = self.signup()
-
-        self.assertEqual(response.status_code, 201)
         self.assertIsNotNone(User.find_by_name("alpha"))
 
     def test_register_duplicate_user(self):

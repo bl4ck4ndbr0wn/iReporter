@@ -17,8 +17,3 @@ class UserTest(BaseTest):
                          "Alpha",
                          "The name of the user after creation does "
                          "not equal the constructor argument.")
-
-        self.assertEqual(u.password,
-                         User.encrypt_password("password"),
-                         "The password of the user after creation does"
-                         " not equal the constructor argument.")

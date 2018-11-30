@@ -6,10 +6,11 @@ env:
   - JWT_SECRET_KEY="K3WgQrgs2kSOMeBQkYKxj3L0TjWUmK7M"
 install:
   - pip install -r requirements.txt
-  - pip install coveralls
+  - pip install coveralls codecov
 
 script:
   - py.test --cov-report term-missing --cov app
 
 after_success:
   - coveralls
+  - codecov --token=7d2bee58-3ecf-4336-8a6d-f3eda7b5ff7f
