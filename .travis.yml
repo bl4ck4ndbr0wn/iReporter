@@ -5,7 +5,7 @@ python:
 env:
   - JWT_SECRET_KEY="K3WgQrgs2kSOMeBQkYKxj3L0TjWUmK7M"
 install:
-  - pip install -r rrequirements.txt
+  - pip install -r requirements.txt
   - pip install coveralls codecov
 
 script:
