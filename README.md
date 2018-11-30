@@ -1,6 +1,12 @@
 # IReporter [![codecov](https://codecov.io/gh/bl4ck4ndbr0wn/iReporter/branch/develop/graph/badge.svg)](https://codecov.io/gh/bl4ck4ndbr0wn/iReporter)  [![Build Status](https://travis-ci.org/bl4ck4ndbr0wn/iReporter.svg?branch=develop)](https://travis-ci.org/bl4ck4ndbr0wn/iReporter) ![license](https://img.shields.io/github/license/mashape/apistatus.svg) [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/bl4ck4ndbr0wn/iReporter)
 iReporter enables any/every citizen to bring any form of corruption to the notice of appropriate authorities and the general public. Users can also report on things that needs government intervention.
 
+To view postman collection 
+
+[Postman Api Collection](https://documenter.getpostman.com/view/3130673/RzfdpVp3)
+and
+[Heroku Api](https://documenter.getpostman.com/view/3130673/RzfdpVp3)
+
 **How it works**
 - Users can create an account and log in.
 - Users can create a red-flag record (An incident linked to corruption).
@@ -15,6 +21,7 @@ iReporter enables any/every citizen to bring any form of corruption to the notic
 - The application should display a Google Map with Marker showing the red-flag or intervention location.
 - The user gets real-time email notification when Admin changes the status of their record.
 - The user gets real-time SMS notification when Admin changes the status of their record.
+
 
 
 ## Installation and Deployment.
