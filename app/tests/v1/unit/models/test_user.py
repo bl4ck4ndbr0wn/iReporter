@@ -17,3 +17,13 @@ class UserTest(BaseTest):
                          "Alpha",
                          "The name of the user after creation does "
                          "not equal the constructor argument.")
+
+    def test_encrypt_pass_empty(self):
+        """
+        Check if password does not exist
+
+        :return: None
+        """
+        u = User.encrypt_password("")
+
+        self.assertEqual(u, None, "Should return None.")
