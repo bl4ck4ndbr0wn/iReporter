@@ -8,8 +8,7 @@ parser.add_argument('record_type',
                     type=str,
                     required=True,
                     choices=("red-flag", "intervention"),
-                    help="This field cannot be left "
-                         "blank or Bad choice: {error_msg}"
+                    help="This field cannot be left blank or Bad choice: {error_msg}"
                     )
 
 parser.add_argument('location',
@@ -112,4 +111,50 @@ class RedFlagRecord(Resource):
         return {"status": 404,
                 "data": [{
                      "message": "Incident record Not Found."
+                }]}, 404
+
+
+class RedFlagRecordLocation(Resource):
+
+    @jwt_required
+    def patch(self, red_flag_id):
+        data = parser.parse_args()
+        incident = Incident.find_by_id(red_flag_id)
+        if incident:
+            incident.update_location(data["location"])
+            incident.save_to_db()
+            return {
+                      "status": 202,
+                      "data": [{
+                         "id": incident.id,  # red-flag record primary key
+                         "message": "Updated red-flag record’s location"
+                      }]
+                    }, 202
+
+        return {"status": 404,
+                "data": [{
+                    "message": "Incident record Not Found."
+                }]}, 404
+
+
+class RedFlagRecordComment(Resource):
+
+    @jwt_required
+    def patch(self, red_flag_id):
+        data = parser.parse_args()
+        incident = Incident.find_by_id(red_flag_id)
+        if incident:
+            incident.update_comment(data["comment"])
+            incident.save_to_db()
+            return {
+                      "status": 202,
+                      "data": [{
+                         "id": incident.id,  # red-flag record primary key
+                         "message": "Updated red-flag record’s comment."
+                      }]
+                    }, 202
+
+        return {"status": 404,
+                "data": [{
+                    "message": "Incident record Not Found."
                 }]}, 404

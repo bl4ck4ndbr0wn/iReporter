@@ -63,3 +63,4 @@ class RecordTest(BaseTest):
                          " Received {}, expected {}.".format(record.json(),
                                                              expected)
                          )
+

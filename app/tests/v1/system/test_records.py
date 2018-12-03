@@ -16,6 +16,9 @@ class RecordTest(BaseTest):
                     {"path:": "/video/2.mkv"}],
                 "comment": "Police bribe near Ruiru Sports club.{Kidding.}"
                }
+    updateIncident = {
+
+    }
 
     def login(self):
         """
