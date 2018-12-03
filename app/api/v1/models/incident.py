@@ -52,6 +52,25 @@ class Incident:
     def get_all():
         return records_table
 
+    def update_location(self, location):
+        """
+        Update incident location
+        :param location:
+        :return: incident
+        """
+        self.delete_from_db()
+        self.location = location
+
+    def update_comment(self, comment):
+        """
+        Update incident comment
+
+        :param comment:
+        :return: Incident
+        """
+        self.delete_from_db()
+        self.comment = comment
+
     def delete_from_db(self):
         """
         Find record and delete it.

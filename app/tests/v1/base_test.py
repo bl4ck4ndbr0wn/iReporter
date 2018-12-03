@@ -49,5 +49,4 @@ class BaseTest(TestCase):
         It's called if the setUp() succeeds,
         regardless of the outcome of the test method.
         """
-
         self.app_context.pop()

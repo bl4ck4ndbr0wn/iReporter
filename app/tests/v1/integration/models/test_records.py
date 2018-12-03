@@ -8,11 +8,11 @@ class RecordTest(BaseTest):
                 "location": "1.43434, 9.2343",
                 "status": "draft",
                 "images": [
-                    {"path:": "/photo/1.jpg"},
+                    {"path": "/photo/1.jpg"},
                     {"path": "/photo/2.jpg"}],
                 "videos": [
-                    {"path:": "/video/1.mkv"},
-                    {"path:": "/video/2.mkv"}],
+                    {"path": "/video/1.mkv"},
+                    {"path": "/video/2.mkv"}],
                 "comment": "Police bribe near Ruiru Sports club.{Kidding.}"
                }
 
