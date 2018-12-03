@@ -13,7 +13,7 @@ class UserTest(BaseTest):
 
         :return: a printable representation of the object
         """
-        u = User(username="alpha", password="password")
+        u = User(**self.user_details)
 
         self.assertEqual(str(u), "alpha in User Model.")
 
@@ -23,7 +23,7 @@ class UserTest(BaseTest):
 
         :return: Item found.
         """
-        u = User(username="alpha", password="password")
+        u = User(**self.user_details)
 
         self.assertIsNone(User.find_by_name('alpha'),
                           "Found an user with name 'alpha' before save_to_db")

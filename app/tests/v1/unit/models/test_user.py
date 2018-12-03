@@ -11,10 +11,10 @@ class UserTest(BaseTest):
 
         :return: true is similar
         """
-        u = User(username="Alpha", password="password")
+        u = User(**self.user_details)
 
         self.assertEqual(u.username,
-                         "Alpha",
+                         "alpha",
                          "The name of the user after creation does "
                          "not equal the constructor argument.")
 
@@ -34,7 +34,7 @@ class UserTest(BaseTest):
 
         :return: True
         """
-        u = User(username="Alpha", password="password")
+        u = User(**self.user_details)
 
         self.assertTrue(u.authenticated("password"), "Password does not match")
         self.assertFalse(u.authenticated("password1"), "Password match")
