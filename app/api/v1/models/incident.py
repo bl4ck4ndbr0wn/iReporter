@@ -5,7 +5,7 @@ records_table = []
 class Incident:
     id = 1
 
-    def __init__(self, record_type=None, comment=None, location=None,
+    def __init__(self, record_type, comment, location=None,
                  status=None, images=None, videos=None):
         self.id = Incident.id
         self.record_type = record_type  # [red-flag, intervention]

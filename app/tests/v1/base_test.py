@@ -26,6 +26,14 @@ class BaseTest(TestCase):
         # Establish an application context before running the tests.
         # Get a test client
         self.app = _app.test_client()
+
+        self.user_details = {
+            "firstname": "Alpha",
+            "lastname": "Nganga",
+            "username": "alpha",
+            "password": "password"
+        }
+
         self.app_context = _app.app_context()
         self.app_context.push()
 

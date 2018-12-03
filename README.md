@@ -37,12 +37,25 @@ and
 Create a virtualenvironment and activate it
  ```.env
  python3 - m venv env
- source .env
- ```.env
- Install all the dependencies needed by
  ```
- pip install - r Requirements.txt
+ Create a ```.env``` file in the parent directory and add this:
+ ```..env
+ source env/bin/activate
+
+ export FLASK_APP=run.py
+       FLASK_CONFIG="development"
+       FLASK_ENV=development
+       FLASK_DEBUG=1
+       JWT_SECRET_KEY="fkjsahgufhdsifshyc7r843cn74rn8"
+ ```
+ To initialize your flask environment and add environment variables to it run:
  ```.env
+ source .env
+ ```
+ Install all the dependencies needed by
+ ```..env
+ pip install - r Requirements.txt
+ ```
  **Run the application**
  
  Run the flask application

@@ -36,10 +36,10 @@ password must be four(4) characters and more.
             ]
         }
 
-+ Response 201 (application/json)
++ Response 400 (application/json)
 
         {
-            "status": 201,
+            "status": 400,
             "data": [
                 {
                     "message": "A user with that username already exists"
@@ -50,6 +50,7 @@ password must be four(4) characters and more.
 ## User Login [/auth/login]
 
 ### Login [POST]
+
 You can login a user by sending their email and password. Please take note
 of the auth token for you will need it for all user requests.
 
@@ -82,12 +83,13 @@ of the auth token for you will need it for all user requests.
                 }
             ]
         }
-        
+
+
 ## Incident or red-flag record [/red-flags]
 
 ### Create a new incident [POST]
 
-You can Create a new Incident or red-flag record by sending a json request with details. 
+You can Create a new Incident or red-flag record by sending a json request with details.
 You must be loged in to get the jwt-token.
 
 + Request (application/json)
@@ -181,7 +183,7 @@ You must be loged in to get the jwt-token.
 ### Get a specific Incident [GET]
 
 You can get a specific Incident or red-flag record using its *id*
-by sending a json request with details. 
+by sending a json request with details.
 You must be loged in to get the jwt-token.
 
 + Response 200 ()
@@ -232,8 +234,8 @@ You must be loged in to get the jwt-token.
 
 ### Delete a specific incident [DELETE]
 
-You can delete a specific incident records from the db by sending a get request with details. 
-You must be loged in to get the jwt-token.   
+You can delete a specific incident records from the db by sending a get request with details.
+You must be loged in to get the jwt-token.
 **Warning:** This action **permanently** removes the incident record from the database.
 
 + Response 200 ()

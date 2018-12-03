@@ -13,10 +13,10 @@ class User:
     id = 1
 
     def __init__(self,
-                 username=None,
-                 password=None,
-                 firstname=None,
-                 lastname=None,
+                 username,
+                 password,
+                 firstname,
+                 lastname,
                  othername=None,
                  email=None,
                  phonenumber=None):
