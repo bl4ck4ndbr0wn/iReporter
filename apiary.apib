@@ -50,6 +50,7 @@ password must be four(4) characters and more.
 ## User Login [/auth/login]
 
 ### Login [POST]
+
 You can login a user by sending their email and password. Please take note
 of the auth token for you will need it for all user requests.
 
@@ -82,6 +83,7 @@ of the auth token for you will need it for all user requests.
                 }
             ]
         }
+
 
 ## Incident or red-flag record [/red-flags]
 
@@ -141,11 +143,11 @@ You must be loged in to get the jwt-token.
             {
                 "msg": "Missing Authorization Header"
             }
-
+      
 ### Get all incident [GET]
 
-You can Get all incident records in the db by sending a get request with details.
-You must be loged in to get the jwt-token.
+You can Get all incident records in the db by sending a get request with details. 
+You must be loged in to get the jwt-token.   
 
 + Response 202 ()
 
