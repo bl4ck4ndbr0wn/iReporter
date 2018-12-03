@@ -73,7 +73,6 @@ class SignUp(Resource):
                     }]}, 400
 
         user = User(**request_data)
-        print(user.id)
         user.save_to_db()
 
         return {"status": 201,

@@ -27,3 +27,14 @@ class UserTest(BaseTest):
         u = User.encrypt_password("")
 
         self.assertEqual(u, None, "Should return None.")
+
+    def test_hash_password_and_check_password(self):
+        """
+        Test hash password and check password
+
+        :return: True
+        """
+        u = User(username="Alpha", password="password")
+
+        self.assertTrue(u.authenticated("password"), "Password does not match")
+        self.assertFalse(u.authenticated("password1"), "Password match")
