@@ -104,10 +104,13 @@ class RecordTest(BaseTest):
         record.update_comment(RecordTest.update_incident["comment"])
         record.save_to_db()
 
-        self.assertEqual(record.comment, RecordTest.update_incident["comment"], "Update comment failed.")
+        self.assertEqual(record.comment,
+                         RecordTest.update_incident["comment"],
+                         "Update comment failed.")
 
         record.update_location(RecordTest.update_incident["location"])
         record.save_to_db()
 
-        self.assertEqual(record.location, RecordTest.update_incident["location"], "Update location failed.")
-
+        self.assertEqual(record.location,
+                         RecordTest.update_incident["location"],
+                         "Update location failed.")

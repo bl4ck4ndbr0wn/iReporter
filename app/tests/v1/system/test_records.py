@@ -174,7 +174,8 @@ class RecordTest(BaseTest):
                               "data": [
                                     {
                                         "id": 3,
-                                        "message": "Updated red-flag record’s comment."
+                                        "message": "Updated red-flag "
+                                                   "record’s comment."
                                     }
                                 ]
                               },
@@ -220,7 +221,8 @@ class RecordTest(BaseTest):
                               "data": [
                                     {
                                         "id": 3,
-                                        "message": "Updated red-flag record’s location"
+                                        "message": "Updated red-flag "
+                                                   "record’s location"
                                     }
                                 ]
                               },

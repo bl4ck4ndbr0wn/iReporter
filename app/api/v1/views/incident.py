@@ -8,7 +8,8 @@ parser.add_argument('record_type',
                     type=str,
                     required=True,
                     choices=("red-flag", "intervention"),
-                    help="This field cannot be left blank or Bad choice: {error_msg}"
+                    help="This field cannot be left "
+                         "blank or Bad choice: {error_msg}"
                     )
 
 parser.add_argument('location',
