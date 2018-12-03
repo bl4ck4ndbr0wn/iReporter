@@ -8,13 +8,31 @@ class RecordTest(BaseTest):
                 "location": "1.43434, 9.2343",
                 "status": "draft",
                 "images": [
-                    {"path:": "/photo/1.jpg"},
-                    {"path": "/photo/2.jpg"}],
+                    {"path": "/photo/1.jpg"},
+                    {"path": "/photo/2.jpg"}
+                ],
                 "videos": [
-                    {"path:": "/video/1.mkv"},
-                    {"path:": "/video/2.mkv"}],
+                    {"path": "/video/1.mkv"},
+                    {"path": "/video/2.mkv"}
+                ],
                 "comment": "Police bribe near Ruiru Sports club.{Kidding.}"
                }
+
+    update_incident = {
+        "id": 9,
+        "record_type": "red-flag",
+        "location": "1.0000, 9.0000",
+        "status": "draft",
+        "images": [
+            {"path": "/photo/1.jpg"},
+            {"path": "/photo/2.jpg"}
+        ],
+        "videos": [
+            {"path": "/video/1.mkv"},
+            {"path": "/video/2.mkv"}
+        ],
+        "comment": "Police bribe near Nairobi.{Kidding.}"
+    }
 
     def test_create_record(self):
         """
@@ -34,12 +52,12 @@ class RecordTest(BaseTest):
         self.assertEqual(record.status, "draft",
                          "The name of the Incident after creation does"
                          " not equal the constructor argument.")
-        self.assertEqual(record.images, [{"path:": "/photo/1.jpg"},
+        self.assertEqual(record.images, [{"path": "/photo/1.jpg"},
                                          {"path": "/photo/2.jpg"}],
                          "The name of the Incident after creation does"
                          " not equal the constructor argument.")
-        self.assertEqual(record.videos, [{"path:": "/video/1.mkv"},
-                                         {"path:": "/video/2.mkv"}],
+        self.assertEqual(record.videos, [{"path": "/video/1.mkv"},
+                                         {"path": "/video/2.mkv"}],
                          "The name of the Incident after creation does"
                          " not equal the constructor argument.")
         self.assertEqual(record.comment,
@@ -54,13 +72,42 @@ class RecordTest(BaseTest):
         :return: object data in json format
         """
         record = Incident(**RecordTest.incident)
-        RecordTest.incident["id"] = record.id
-
-        expected = RecordTest.incident
+        expected = {
+                    "id": record.id,
+                    "record_type": "red-flag",
+                    "location": "1.43434, 9.2343",
+                    "status": "draft",
+                    "images": [
+                        {"path": "/photo/1.jpg"},
+                        {"path": "/photo/2.jpg"}],
+                    "videos": [
+                        {"path": "/video/1.mkv"},
+                        {"path": "/video/2.mkv"}],
+                    "comment": "Police bribe near Ruiru Sports club.{Kidding.}"
+                   }
 
         self.assertEqual(record.json(), expected,
                          "The JSON export of the Incident is incorrect."
                          " Received {}, expected {}.".format(record.json(),
                                                              expected)
                          )
+
+    def test_incident_update_comment_and_location(self):
+        """
+        Test incident updated successfully
+
+        :return: Object
+        """
+        record = Incident(**RecordTest.incident)
+        record.save_to_db()
+
+        record.update_comment(RecordTest.update_incident["comment"])
+        record.save_to_db()
+
+        self.assertEqual(record.comment, RecordTest.update_incident["comment"], "Update comment failed.")
+
+        record.update_location(RecordTest.update_incident["location"])
+        record.save_to_db()
+
+        self.assertEqual(record.location, RecordTest.update_incident["location"], "Update location failed.")
 

@@ -1,6 +1,7 @@
 from unittest import TestCase
 from app import create_app
 from flask import current_app
+from app.api.v1.models.incident import records_table
 
 
 class BaseTest(TestCase):
