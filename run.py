@@ -15,7 +15,6 @@ def migrate():
     Run db migrate to initialize a connection
     :return:
     """
-    model.init_app(app)
     model.create_table_user()
     model.create_table_incident()
 
@@ -26,7 +25,6 @@ def drop():
     Run db migrate to initialize a connection
     :return: Done
     """
-    model.init_app(app)
     model.drop_tables()
 
 

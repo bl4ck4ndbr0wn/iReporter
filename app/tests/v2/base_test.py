@@ -31,10 +31,10 @@ class BaseTest(TestCase):
         self.app = _app.test_client()
         self.app_context = _app.app_context()
         self.app_context.push()
-        # Creating data tables.
-        model.init_app(_app)
-        model.create_table_user()
-        model.create_table_incident()
+        with self.app_context:
+            model.drop_tables()
+            model.create_table_user()
+            model.create_table_incident()
 
         self.user_details = {
             "firstname": "Alpha",
@@ -84,4 +84,4 @@ class BaseTest(TestCase):
         """
         model.drop_tables()
         model.close_session()
-        self.app_context.pop()
+        self.app.app_context.pop()

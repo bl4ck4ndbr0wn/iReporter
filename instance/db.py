@@ -1,7 +1,6 @@
 import os
 import psycopg2
-
-db_url = os.getenv("DATABASE_URL")
+from flask import current_app
 
 
 class Model:
@@ -10,11 +9,17 @@ class Model:
         use our connection values to establish a connection
         create a psycopg2 cursor that can execute queries
         """
-        self.connect = psycopg2.connect(db_url)
-        self.cursor = self.connect.cursor()
+        self.db_host = current_app.config['DB_HOST']
+        self.db_username = current_app.config['DB_USERNAME']
+        self.db_password = current_app.config['DB_PASSWORD']
+        self.db_name = current_app.config['DB_NAME']
 
-    def init_app(self, app):
-        self.connect = psycopg2.connect(app.config.get('DATABASE_URL'))
+        self.connect = psycopg2.connect(
+            host=self.db_host,
+            user=self.db_username,
+            password=self.db_password,
+            database=self.db_name,
+        )
         self.cursor = self.connect.cursor()
 
     def create_table_user(self):
@@ -100,7 +105,8 @@ class Model:
         :param name: table_name
         :return:
         """
-        self.query(f"""DROP TABLE IF EXISTS {name}""")
+        self.query("DROP TABLE IF EXISTS " + name)
+        self.save()
 
     def close_session(self):
         """
