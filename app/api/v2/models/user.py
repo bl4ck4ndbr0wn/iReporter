@@ -40,10 +40,7 @@ class User:
         :type username: str
         :return: User instance
         """
-        for user in user_table:
-            if user.username == username:
-                return user
-        return None
+        pass
 
     @staticmethod
     def find_by_id(user_id):
@@ -54,10 +51,7 @@ class User:
         :type user_id: int
         :return: User instance
         """
-        for user in user_table:
-            if user.id == user_id:
-                return user
-        return None
+        pass
 
     @classmethod
     def encrypt_password(cls, plaintext_password):
@@ -85,4 +79,4 @@ class User:
         return check_password_hash(self.password, password)
 
     def save_to_db(self):
-        user_table.append(self)
+        pass
