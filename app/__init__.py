@@ -16,6 +16,7 @@ def create_app(config_name):
     """
     Create a Flask application using the app factory pattern.
 
+    :rtype: object
     :return: Flask app
     """
     app = Flask(__name__, instance_relative_config=True)
