@@ -8,7 +8,6 @@ class UserTest(BaseTest):
         """
         Test that the on create a new record, that each value
         passed to similar to the object values
-
         :return: true is similar
         """
         u = User(**self.user_details)
@@ -21,7 +20,6 @@ class UserTest(BaseTest):
     def test_encrypt_pass_empty(self):
         """
         Check if password does not exist
-
         :return: None
         """
         u = User.encrypt_password("")
@@ -31,7 +29,6 @@ class UserTest(BaseTest):
     def test_hash_password_and_check_password(self):
         """
         Test hash password and check password
-
         :return: True
         """
         u = User(**self.user_details)

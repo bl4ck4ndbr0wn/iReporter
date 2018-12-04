@@ -35,7 +35,6 @@ class RecordTest(BaseTest):
     def login(self):
         """
         Makes a request to login endpoint.
-
         :return: login response data
         """
         response = self.app.post("/api/v1/auth/login",
@@ -49,7 +48,6 @@ class RecordTest(BaseTest):
     def signup(self):
         """
         Makes a request to signup endpoint.
-
         :return: signup response data
         """
         user = {"firstname": "alpha2",
@@ -67,7 +65,6 @@ class RecordTest(BaseTest):
     def get_user_token(self):
         """
         Get token after user logs in
-
         :return: token(jwt-token)
         """
         self.signup()
@@ -79,7 +76,6 @@ class RecordTest(BaseTest):
     def test_incident_found(self):
         """
         Testing if records exist
-
         :return: status code 200
         """
         token = self.get_user_token()
@@ -93,13 +89,12 @@ class RecordTest(BaseTest):
     def create_incident(self):
         """
         Create new incident function
-
         :return: response
         """
         token = self.get_user_token()
 
         r = self.app.post("/api/v1/red-flags",
-                          data=json.dumps(incident),
+                          data=json.dumps(RecordTest.incident),
                           headers={"content-type": "application/json",
                                    "Authorization": f"Bearer {token}"})
         return r
@@ -107,7 +102,6 @@ class RecordTest(BaseTest):
     def test_create_new_incident(self):
         """
         Test create new incident POST Endpoint.
-
         :return: status code 201 (Created)
         """
         r = self.create_incident()
@@ -135,13 +129,12 @@ class RecordTest(BaseTest):
 
         self.assertEqual(r.status_code, 200)
         # self.assertDictEqual({"status": 200,
-        #                       "data": [incident]},
+        #                       "data": [RecordTest.incident]},
         #                      json.loads(r.data))
 
     def test_specific_record_not_found(self):
         """
         Test if record does not exist
-
         :return: Error
         """
 
@@ -159,12 +152,11 @@ class RecordTest(BaseTest):
     def test_incident_update_comment(self):
         """
         Test incident updated successfully
-
         :return: Object
         """
         token = self.get_user_token()
         r = self.app.patch("/api/v1/red-flags/3/comment",
-                           data=json.dumps(update_incident),
+                           data=json.dumps(RecordTest.update_incident),
                            headers={"content-type": "application/json",
                                     "Authorization": f"Bearer {token}"})
 
@@ -184,12 +176,11 @@ class RecordTest(BaseTest):
     def test_incident_update_comment_not_found(self):
         """
         Test incident updated successfully
-
         :return: Object
         """
         token = self.get_user_token()
         r = self.app.patch("/api/v1/red-flags/10/comment",
-                           data=json.dumps(update_incident),
+                           data=json.dumps(RecordTest.update_incident),
                            headers={"content-type": "application/json",
                                     "Authorization": f"Bearer {token}"})
 
@@ -207,12 +198,11 @@ class RecordTest(BaseTest):
     def test_incident_update_location(self):
         """
         Test incident updated successfully
-
         :return: Object
         """
         token = self.get_user_token()
         r = self.app.patch("/api/v1/red-flags/3/location",
-                           data=json.dumps(update_incident),
+                           data=json.dumps(RecordTest.update_incident),
                            headers={"content-type": "application/json",
                                     "Authorization": f"Bearer {token}"})
 
@@ -231,12 +221,11 @@ class RecordTest(BaseTest):
     def test_incident_update_location_not_found(self):
         """
         Test incident updated successfully
-
         :return: Object
         """
         token = self.get_user_token()
         r = self.app.patch("/api/v1/red-flags/10/location",
-                           data=json.dumps(update_incident),
+                           data=json.dumps(RecordTest.update_incident),
                            headers={"content-type": "application/json",
                                     "Authorization": f"Bearer {token}"})
 
@@ -254,7 +243,6 @@ class RecordTest(BaseTest):
     def test_delete_specific_record(self):
         """
         Test if successfully deleted
-
         :return: status_code 200
         """
         self.create_incident()
@@ -273,7 +261,6 @@ class RecordTest(BaseTest):
     def test_deleting_specific_record_not_found(self):
         """
         Test if record does not exist for delete show error
-
         :return: Error
         """
 

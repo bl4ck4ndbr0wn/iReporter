@@ -9,7 +9,6 @@ class UserTest(BaseTest):
     def login(self):
         """
         Makes a request to login endpoint.
-
         :return: login response data
         """
         response = self.app.post("/api/v1/auth/login",
@@ -23,7 +22,6 @@ class UserTest(BaseTest):
     def signup(self):
         """
         Makes a request to signup endpoint.
-
         :return: signup response data
         """
         user = {"firstname": "alpha",
@@ -41,7 +39,6 @@ class UserTest(BaseTest):
     def test_user_register(self):
         """clear
         Test Signup api.
-
         :return Success status
         """
         self.signup()
@@ -50,7 +47,6 @@ class UserTest(BaseTest):
     def test_user_register_User_exist(self):
         """
         Test if user exist on create user
-
         :return: 202
         """
         response = self.signup()
@@ -66,7 +62,6 @@ class UserTest(BaseTest):
     def test_register_duplicate_user(self):
         """
         Test on register duplicate user.
-
         :return: error message
         """
         self.signup()
@@ -87,7 +82,6 @@ class UserTest(BaseTest):
     def test_user_login(self):
         """
         Test login.
-
         :return Success status
         """
         response = self.login()
@@ -98,7 +92,6 @@ class UserTest(BaseTest):
     def test_user_login_user_not_exist(self):
         """
         Test login user doesnt exist
-
         :return Failed status
         """
         response = self.app.post("/api/v1/auth/login",
@@ -124,7 +117,6 @@ class UserTest(BaseTest):
     def test_get_user_token(self):
         """
         Get token after user logs in
-
         :return: token(jwt-token)
         """
         self.signup()

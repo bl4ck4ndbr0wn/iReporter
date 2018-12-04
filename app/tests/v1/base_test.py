@@ -6,7 +6,6 @@ from flask import current_app
 class BaseTest(TestCase):
     """
     Base Test
-
     It allows for installation of the database dynamically
     and make sure it is a new blank database each time.
     """
@@ -17,7 +16,6 @@ class BaseTest(TestCase):
         Method called to prepare the test fixture.
         Exception raised by this method will be considered an
         error rather than a test failure
-
         :return: Flask app
         """
         # getting a test client

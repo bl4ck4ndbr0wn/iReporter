@@ -10,7 +10,6 @@ class UserTest(BaseTest):
         testing this function makes an attempt
         to return a string that would yield an
         object with the same value when passed to
-
         :return: a printable representation of the object
         """
         u = User(**self.user_details)
@@ -20,7 +19,6 @@ class UserTest(BaseTest):
     def test_user_create(self):
         """
         Test CRUD functionality of the class
-
         :return: Item found.
         """
         u = User(**self.user_details)
