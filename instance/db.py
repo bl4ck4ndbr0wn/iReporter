@@ -15,13 +15,14 @@ class Model:
 
     def init_app(self, app):
         self.connect = psycopg2.connect(app.config.get('DATABASE_URL'))
+        self.cursor = self.connect.cursor()
 
     def create_table_user(self):
         """
         Create a users table
         :return:
         """
-        create_user_query = """CREATE TABLE IF NOT EXISTS "Users"(
+        create_user_query = """CREATE TABLE IF NOT EXISTS "users"(
                                 id serial not null primary key,
                                 username  varchar not null,
                                 password  varchar not null,
@@ -40,9 +41,9 @@ class Model:
         Create a incident table
         :return:
         """
-        create_incident_query = """CREATE TABLE IF NOT EXISTS "Incident"(
+        create_incident_query = """CREATE TABLE IF NOT EXISTS "incident"(
                                       id serial not null primary key,
-                                      user_id  integer not null references "Users",
+                                      user_id  integer not null references "users",
                                       recordtype varchar not null,
                                       location varchar,
                                       status varchar not null,
@@ -57,8 +58,8 @@ class Model:
         Drop created tables
         :return: True
         """
-        self.drop("Users")
-        self.drop("Incident")
+        self.drop("incident")
+        self.drop("users")
         self.close_session()
 
     def query(self, query):
@@ -99,7 +100,7 @@ class Model:
         :param name: table_name
         :return:
         """
-        self.query(f"DROP TABLE IF EXISTS {name} CASCADE")
+        self.query(f"""DROP TABLE IF EXISTS {name}""")
 
     def close_session(self):
         """

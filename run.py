@@ -31,7 +31,7 @@ def drop():
 
 
 @app.cli.command()
-@click.argument('path', default=os.path.join('app', 'tests'))
+@click.argument('path', default=os.path.join('app', 'tests', 'v2'))
 def test(path):
     """
        Run tests with Pytest.

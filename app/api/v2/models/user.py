@@ -1,13 +1,11 @@
 from werkzeug.security import generate_password_hash, check_password_hash
+from instance.db import Model
 
 
-class User:
+class User(Model):
     """
     User model.
-
-    initializing user primary_key
     """
-    id = 1
 
     def __init__(self,
                  email,
@@ -15,8 +13,10 @@ class User:
                  password,
                  firstname,
                  lastname,
-                 othername=None,
-                 phonenumber=None):
+                 othername="",
+                 phonenumber=0):
+        super().__init__()
+        self.id = None
         self.firstname = firstname
         self.lastname = lastname
         self.othername = othername
@@ -25,14 +25,11 @@ class User:
         self.username = username
         self.password = User.encrypt_password(password)
 
-        User.id += 1
-
     def __repr__(self):
         """ Return repr(self). """
         return "{} in User Model.".format(self.username)
 
-    @staticmethod
-    def find_by_name(username):
+    def find_by_name(self, username):
         """
         Find a user by their username.
 
@@ -40,10 +37,14 @@ class User:
         :type username: str
         :return: User instance
         """
-        pass
+        self.cursor.execute("SELECT * FROM users WHERE username=%s", (username,))
+        user = self.fetch_one()
 
-    @staticmethod
-    def find_by_id(user_id):
+        if user:
+            return user
+        return None
+
+    def find_by_id(self, user_id):
         """
         Find a user by their id.
 
@@ -51,10 +52,16 @@ class User:
         :type user_id: int
         :return: User instance
         """
-        pass
+        query = f"SELECT * FROM users WHERE id={user_id}"
+        self.query(query)
+        user = self.fetch_one()
 
-    @classmethod
-    def encrypt_password(cls, plaintext_password):
+        if user:
+            return user
+        return None
+
+    @staticmethod
+    def encrypt_password(plaintext_password):
         """
         Hash a plaintext string using PBKDF2. This is good enough according
         to the NIST (National Institute of Standards and Technology).
@@ -79,4 +86,7 @@ class User:
         return check_password_hash(self.password, password)
 
     def save_to_db(self):
-        pass
+        query = "INSERT INTO users (username, password, firstname, lastname, phonenumber, email, othernames) VALUES(%s, %s, %s, %s, %s, %s, %s);"  # Note: no quotes
+        data = (self.username, self.password, self.firstname, self.lastname, self.phoneNumber, self.email, self.othername, )
+        self.cursor.execute(query, data)
+        self.save()

@@ -99,7 +99,7 @@ class RecordTest(BaseTest):
         token = self.get_user_token()
 
         r = self.app.post("/api/v1/red-flags",
-                          data=json.dumps(RecordTest.incident),
+                          data=json.dumps(incident),
                           headers={"content-type": "application/json",
                                    "Authorization": f"Bearer {token}"})
         return r
@@ -135,7 +135,7 @@ class RecordTest(BaseTest):
 
         self.assertEqual(r.status_code, 200)
         # self.assertDictEqual({"status": 200,
-        #                       "data": [RecordTest.incident]},
+        #                       "data": [incident]},
         #                      json.loads(r.data))
 
     def test_specific_record_not_found(self):
@@ -164,7 +164,7 @@ class RecordTest(BaseTest):
         """
         token = self.get_user_token()
         r = self.app.patch("/api/v1/red-flags/3/comment",
-                           data=json.dumps(RecordTest.update_incident),
+                           data=json.dumps(update_incident),
                            headers={"content-type": "application/json",
                                     "Authorization": f"Bearer {token}"})
 
@@ -189,7 +189,7 @@ class RecordTest(BaseTest):
         """
         token = self.get_user_token()
         r = self.app.patch("/api/v1/red-flags/10/comment",
-                           data=json.dumps(RecordTest.update_incident),
+                           data=json.dumps(update_incident),
                            headers={"content-type": "application/json",
                                     "Authorization": f"Bearer {token}"})
 
@@ -212,7 +212,7 @@ class RecordTest(BaseTest):
         """
         token = self.get_user_token()
         r = self.app.patch("/api/v1/red-flags/3/location",
-                           data=json.dumps(RecordTest.update_incident),
+                           data=json.dumps(update_incident),
                            headers={"content-type": "application/json",
                                     "Authorization": f"Bearer {token}"})
 
@@ -236,7 +236,7 @@ class RecordTest(BaseTest):
         """
         token = self.get_user_token()
         r = self.app.patch("/api/v1/red-flags/10/location",
-                           data=json.dumps(RecordTest.update_incident),
+                           data=json.dumps(update_incident),
                            headers={"content-type": "application/json",
                                     "Authorization": f"Bearer {token}"})
 
