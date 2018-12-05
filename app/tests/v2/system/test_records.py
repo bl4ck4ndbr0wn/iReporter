@@ -44,3 +44,18 @@ class RecordTest(BaseTest):
                          headers={"Authorization": f"Bearer {self.token}"})
 
         self.assertEqual(r.status_code, 200)
+
+    def test_specific_record_not_found(self):
+        """
+        Test if record does not exist
+        :return: Error
+        """
+        r = self.app.get("/api/v1/red-flags/2",
+                         headers={"Authorization": f"Bearer {self.token}"})
+
+        self.assertEqual(r.status_code, 404)
+        self.assertDictEqual({"status": 404,
+                             "data": [{
+                                 "message": "Incident record does not exist."
+                             }]},
+                             json.loads(r.data))
