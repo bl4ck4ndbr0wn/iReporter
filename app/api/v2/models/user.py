@@ -1,3 +1,6 @@
+import jwt
+from datetime import datetime, timedelta
+from flask import current_app
 from werkzeug.security import generate_password_hash, check_password_hash
 from instance.db import Model
 
@@ -87,6 +90,65 @@ class User(Model):
         :return: bool
         """
         return check_password_hash(self.password, password)
+
+    @staticmethod
+    def generate_token(user_id):
+        """
+        Encoding user id to get JSON Web Tokens (JWT)
+
+        :param user_id: Int
+        :return: token
+        """
+        try:
+            # set up a payload with an expiration time
+            payload = {
+                'exp': datetime.utcnow() + timedelta(minutes=15),  # Expiration Time
+                'iat': datetime.utcnow(),  # Issued At
+                'user_id': user_id  # payload
+            }
+            # create the byte string token using the payload and the SECRET key
+            encoded_jwt = jwt.encode(
+                payload,
+                current_app.config.get('JWT_SECRET_KEY'),
+                algorithm='HS512'
+            )
+            return encoded_jwt
+        except Exception as e:
+            # return an error in string format if an exception occurs
+            return str(e)
+
+    @staticmethod
+    def decode_token(token):
+        """
+        Decodes the access token from the Authorization header.
+
+        :param token: String
+        :return: Payload
+        """
+        try:
+            payload = jwt.decode(token,
+                                 current_app.config.get('JWT_SECRET_KEY'),
+                                 algorithms=['HS512', 'HS256'])
+            return payload["user_id"]
+        except jwt.ExpiredSignatureError:
+            # Raised when a token’s exp claim indicates that it has expired
+            return {
+                "status": 401,
+                "message": "Expired token. Please login to get a new token"
+            }, 401
+        except jwt.InvalidSignatureError:
+            # Raised when a token’s signature doesn’t match
+            # the one provided as part of the token.
+            return {
+                       "status": 422,
+                       "message": "Invalid token. Please login"
+                   }, 422
+        except jwt.InvalidTokenError:
+            # Base exception when decode() fails on a token
+            return {
+                "status": 422,
+                "message": "Invalid token. Please login"
+            }, 422
 
     def save_to_db(self):
         query = "INSERT INTO users (username, password, firstname, " \

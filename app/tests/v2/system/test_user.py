@@ -32,7 +32,7 @@ class UserTest(BaseTest):
                               },
                              json.loads(response.data))
 
-    def test_user_registration_with_duplicate_usernames(self):
+    def test_user_registration_with_duplicate_username(self):
         """
         Test on register duplicate user.
         :return: error message
@@ -54,9 +54,11 @@ class UserTest(BaseTest):
 
     def test_user_login(self):
         """
-        Test login.
+        Test login after register
         :return Success status
         """
+        response = self.signup()
+        self.assertEqual(response.status_code, 201)
         response = self.login()
 
         self.assertEqual(response.status_code, 200)
