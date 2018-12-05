@@ -38,3 +38,4 @@ class RecordTest(BaseTest):
         self.assertEqual(str(u),
                          "Police bribe near Ruiru Sports club."
                          " incident in incident Model.")
+
