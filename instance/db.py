@@ -22,6 +22,15 @@ class Model:
         )
         self.cursor = self.connect.cursor()
 
+    def init_app(self, app):
+        self.connect = psycopg2.connect(
+            host=app.config['DB_HOST'],
+            user=app.config['DB_USERNAME'],
+            password=app.config['DB_PASSWORD'],
+            database=app.config['DB_NAME'],
+        )
+        self.cursor = self.connect.cursor()
+
     def create_table_user(self):
         """
         Create a users table
@@ -65,7 +74,6 @@ class Model:
         """
         self.drop("incident")
         self.drop("users")
-        self.close_session()
 
     def query(self, query):
         """

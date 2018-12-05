@@ -6,7 +6,6 @@ from app import create_app
 from instance.db import Model
 
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
-model = Model()
 
 
 @app.cli.command()
@@ -15,8 +14,9 @@ def migrate():
     Run db migrate to initialize a connection
     :return:
     """
-    model.create_table_user()
-    model.create_table_incident()
+    Model().init_app(app)
+    Model().create_table_user()
+    Model().create_table_incident()
 
 
 @app.cli.command()
@@ -25,7 +25,8 @@ def drop():
     Run db migrate to initialize a connection
     :return: Done
     """
-    model.drop_tables()
+    Model().init_app(app)
+    Model().drop_tables()
 
 
 @app.cli.command()

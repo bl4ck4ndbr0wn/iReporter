@@ -27,7 +27,7 @@ class UserTest(BaseTest):
 
         self.assertIsNone(u.find_by_name('alpha'),
                           "Found an user with name 'alpha' before save_to_db")
-        self.assertIsNone(u.find_by_id(2),
+        self.assertIsNone(u.find_by_id(1),
                           "Found an user with id '1' before save_to_db")
 
         u.save_to_db()
@@ -35,6 +35,6 @@ class UserTest(BaseTest):
         self.assertIsNotNone(u.find_by_name('alpha'),
                              "Did not find an user with "
                              "name 'alpha' after save_to_db")
-        self.assertIsNotNone(u.find_by_id(2),
+        self.assertIsNotNone(u.find_by_id(1),
                              "Did not find an user with id '"
                              "1' after save_to_db")

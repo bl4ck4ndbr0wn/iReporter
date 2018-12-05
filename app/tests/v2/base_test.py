@@ -3,8 +3,6 @@ from app import create_app
 from flask import current_app
 from instance.db import Model
 
-model = Model()
-
 
 class BaseTest(TestCase):
     """
@@ -31,10 +29,9 @@ class BaseTest(TestCase):
         self.app = _app.test_client()
         self.app_context = _app.app_context()
         self.app_context.push()
-        with self.app_context:
-            model.drop_tables()
-            model.create_table_user()
-            model.create_table_incident()
+        Model().init_app(_app)
+        Model().create_table_user()
+        Model().create_table_incident()
 
         self.user_details = {
             "firstname": "Alpha",
@@ -53,7 +50,7 @@ class BaseTest(TestCase):
             "comment": "Police bribe near Ruiru Sports club."
         }
         self.update_incident = {
-            "id": 9,
+            "id": 1,
             "record_type": "red-flag",
             "location": "1.0000, 9.0000",
             "status": "draft",
@@ -82,6 +79,5 @@ class BaseTest(TestCase):
         It's called if the setUp() succeeds,
         regardless of the outcome of the test method.
         """
-        model.drop_tables()
-        model.close_session()
-        self.app.app_context.pop()
+        Model().drop_tables()
+        self.app_context.pop()
