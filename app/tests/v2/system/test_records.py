@@ -32,3 +32,15 @@ class RecordTest(BaseTest):
                          headers={"Authorization": f"Bearer {self.token}"})
 
         self.assertEqual(r.status_code, 200)
+
+    def test_get_specific_incident(self):
+        """
+        Test to fetch a specific read-flag record
+        :param red-flag-id: int
+        :return: record.
+        """
+        self.create_incident()
+        r = self.app.get("/api/v1/red-flags/3",
+                         headers={"Authorization": f"Bearer {self.token}"})
+
+        self.assertEqual(r.status_code, 200)

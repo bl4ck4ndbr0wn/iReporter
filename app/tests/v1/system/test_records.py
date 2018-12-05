@@ -128,9 +128,6 @@ class RecordTest(BaseTest):
                          headers={"Authorization": f"Bearer {token}"})
 
         self.assertEqual(r.status_code, 200)
-        # self.assertDictEqual({"status": 200,
-        #                       "data": [RecordTest.incident]},
-        #                      json.loads(r.data))
 
     def test_specific_record_not_found(self):
         """
