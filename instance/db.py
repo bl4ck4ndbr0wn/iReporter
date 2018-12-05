@@ -44,7 +44,8 @@ class Model:
                                 lastname varchar not null,
                                 othernames varchar,
                                 email varchar not null,
-                                phonenumber numeric
+                                phonenumber numeric,
+                                is_admin BOOLEAN NOT NULL
                                 )"""
 
         self.query(create_user_query)

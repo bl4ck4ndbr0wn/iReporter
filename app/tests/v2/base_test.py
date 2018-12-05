@@ -38,7 +38,8 @@ class BaseTest(TestCase):
             "lastname": "Nganga",
             "username": "alpha",
             "password": "password",
-            "email": "alphanganga@gmail.com"
+            "email": "alphanganga@gmail.com",
+            "is_admin": False
         }
         self.incident = {
             "user_id": 1,

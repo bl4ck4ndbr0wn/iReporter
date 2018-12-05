@@ -29,6 +29,8 @@ def drop():
     Model().drop_tables()
 
 
+
+
 @app.cli.command()
 @click.argument('path', default=os.path.join('app', 'tests', 'v2'))
 def test(path):

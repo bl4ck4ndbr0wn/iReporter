@@ -8,6 +8,7 @@ class User(Model):
     """
 
     def __init__(self,
+                 is_admin,
                  email,
                  username,
                  password,
@@ -24,6 +25,7 @@ class User(Model):
         self.phoneNumber = phonenumber
         self.username = username
         self.password = User.encrypt_password(password)
+        self.is_admin = is_admin
 
     def __repr__(self):
         """ Return repr(self). """
@@ -37,7 +39,8 @@ class User(Model):
         :type username: str
         :return: User instance
         """
-        self.cursor.execute("SELECT * FROM users WHERE username=%s", (username,))
+        self.cursor.execute("SELECT * FROM users "
+                            "WHERE username=%s", (username,))
         user = self.fetch_one()
 
         if user:
@@ -86,7 +89,13 @@ class User(Model):
         return check_password_hash(self.password, password)
 
     def save_to_db(self):
-        query = "INSERT INTO users (username, password, firstname, lastname, phonenumber, email, othernames) VALUES(%s, %s, %s, %s, %s, %s, %s);"  # Note: no quotes
-        data = (self.username, self.password, self.firstname, self.lastname, self.phoneNumber, self.email, self.othername, )
+        query = "INSERT INTO users (username, password, firstname, " \
+                "lastname, phonenumber, email, othernames, is_admin) " \
+                "VALUES(%s, %s, %s, %s, %s, %s, %s, %s);"  # Note: no quotes
+        data = (self.username, self.password,
+                self.firstname, self.lastname,
+                self.phoneNumber, self.email,
+                self.othername, self.is_admin,)
+
         self.cursor.execute(query, data)
         self.save()
