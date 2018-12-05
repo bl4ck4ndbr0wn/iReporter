@@ -35,7 +35,6 @@ class RecordTest(BaseTest):
     def login(self):
         """
         Makes a request to login endpoint.
-
         :return: login response data
         """
         response = self.app.post("/api/v1/auth/login",
@@ -49,7 +48,6 @@ class RecordTest(BaseTest):
     def signup(self):
         """
         Makes a request to signup endpoint.
-
         :return: signup response data
         """
         user = {"firstname": "alpha2",
@@ -67,7 +65,6 @@ class RecordTest(BaseTest):
     def get_user_token(self):
         """
         Get token after user logs in
-
         :return: token(jwt-token)
         """
         self.signup()
@@ -79,7 +76,6 @@ class RecordTest(BaseTest):
     def test_incident_found(self):
         """
         Testing if records exist
-
         :return: status code 200
         """
         token = self.get_user_token()
@@ -93,7 +89,6 @@ class RecordTest(BaseTest):
     def create_incident(self):
         """
         Create new incident function
-
         :return: response
         """
         token = self.get_user_token()
@@ -107,7 +102,6 @@ class RecordTest(BaseTest):
     def test_create_new_incident(self):
         """
         Test create new incident POST Endpoint.
-
         :return: status code 201 (Created)
         """
         r = self.create_incident()
@@ -141,7 +135,6 @@ class RecordTest(BaseTest):
     def test_specific_record_not_found(self):
         """
         Test if record does not exist
-
         :return: Error
         """
 
@@ -159,7 +152,6 @@ class RecordTest(BaseTest):
     def test_incident_update_comment(self):
         """
         Test incident updated successfully
-
         :return: Object
         """
         token = self.get_user_token()
@@ -184,7 +176,6 @@ class RecordTest(BaseTest):
     def test_incident_update_comment_not_found(self):
         """
         Test incident updated successfully
-
         :return: Object
         """
         token = self.get_user_token()
@@ -207,7 +198,6 @@ class RecordTest(BaseTest):
     def test_incident_update_location(self):
         """
         Test incident updated successfully
-
         :return: Object
         """
         token = self.get_user_token()
@@ -231,7 +221,6 @@ class RecordTest(BaseTest):
     def test_incident_update_location_not_found(self):
         """
         Test incident updated successfully
-
         :return: Object
         """
         token = self.get_user_token()
@@ -254,7 +243,6 @@ class RecordTest(BaseTest):
     def test_delete_specific_record(self):
         """
         Test if successfully deleted
-
         :return: status_code 200
         """
         self.create_incident()
@@ -273,7 +261,6 @@ class RecordTest(BaseTest):
     def test_deleting_specific_record_not_found(self):
         """
         Test if record does not exist for delete show error
-
         :return: Error
         """
 

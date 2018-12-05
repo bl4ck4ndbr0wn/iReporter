@@ -19,7 +19,6 @@ class RecordTest(BaseTest):
     def test_crude(self):
         """
         Test CRUD functionality of the class
-
         :return: Item found.
         """
         record = Incident(**RecordTest.incident)
@@ -39,7 +38,6 @@ class RecordTest(BaseTest):
         testing this function makes an attempt
         to return a string that would yield an
         object with the same value when passed to
-
         :return: a printable representation of the object
         """
         u = Incident(**RecordTest.incident)

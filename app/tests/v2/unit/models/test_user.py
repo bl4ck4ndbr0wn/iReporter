@@ -1,5 +1,5 @@
-from app.tests.v1.base_test import BaseTest
-from app.api.v1.models.user import User
+from app.tests.v2.base_test import BaseTest
+from app.api.v2.models.user import User
 
 
 class UserTest(BaseTest):
@@ -8,6 +8,7 @@ class UserTest(BaseTest):
         """
         Test that the on create a new record, that each value
         passed to similar to the object values
+
         :return: true is similar
         """
         u = User(**self.user_details)
@@ -20,6 +21,7 @@ class UserTest(BaseTest):
     def test_encrypt_pass_empty(self):
         """
         Check if password does not exist
+
         :return: None
         """
         u = User.encrypt_password("")
@@ -29,6 +31,7 @@ class UserTest(BaseTest):
     def test_hash_password_and_check_password(self):
         """
         Test hash password and check password
+
         :return: True
         """
         u = User(**self.user_details)

@@ -38,7 +38,6 @@ class RecordTest(BaseTest):
         """
         Test that the on create a new record, that each value
         passed to similar to the object values
-
         :return: true is similar
         """
         record = Incident(**RecordTest.incident)
@@ -68,7 +67,6 @@ class RecordTest(BaseTest):
     def test_incident_json(self):
         """
         Test the json representation of the object created.
-
         :return: object data in json format
         """
         record = Incident(**RecordTest.incident)
@@ -95,7 +93,6 @@ class RecordTest(BaseTest):
     def test_incident_update_comment_and_location(self):
         """
         Test incident updated successfully
-
         :return: Object
         """
         record = Incident(**RecordTest.incident)

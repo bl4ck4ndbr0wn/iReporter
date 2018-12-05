@@ -1,11 +1,13 @@
 from unittest import TestCase
 from app import create_app
 from flask import current_app
+from instance.db import Model
 
 
 class BaseTest(TestCase):
     """
     Base Test
+
     It allows for installation of the database dynamically
     and make sure it is a new blank database each time.
     """
@@ -16,6 +18,7 @@ class BaseTest(TestCase):
         Method called to prepare the test fixture.
         Exception raised by this method will be considered an
         error rather than a test failure
+
         :return: Flask app
         """
         # getting a test client
@@ -24,16 +27,37 @@ class BaseTest(TestCase):
         # Establish an application context before running the tests.
         # Get a test client
         self.app = _app.test_client()
+        self.app_context = _app.app_context()
+        self.app_context.push()
+        Model().init_app(_app)
+        Model().create_table_user()
+        Model().create_table_incident()
 
         self.user_details = {
             "firstname": "Alpha",
             "lastname": "Nganga",
             "username": "alpha",
-            "password": "password"
+            "password": "password",
+            "email": "alphanganga@gmail.com"
         }
-
-        self.app_context = _app.app_context()
-        self.app_context.push()
+        self.incident = {
+            "user_id": 1,
+            "record_type": "red-flag",
+            "location": "1.43434, 9.2343",
+            "status": "draft",
+            "images": "/photo/1.jpg",
+            "videos": "/video/1.mkv",
+            "comment": "Police bribe near Ruiru Sports club."
+        }
+        self.update_incident = {
+            "id": 1,
+            "record_type": "red-flag",
+            "location": "1.0000, 9.0000",
+            "status": "draft",
+            "images": "/photo/1.jpg",
+            "videos": "/video/1.mkv",
+            "comment": "Police bribe near Nairobi."
+        }
 
     def test_app_exists(self):
         """
@@ -55,4 +79,5 @@ class BaseTest(TestCase):
         It's called if the setUp() succeeds,
         regardless of the outcome of the test method.
         """
+        Model().drop_tables()
         self.app_context.pop()
