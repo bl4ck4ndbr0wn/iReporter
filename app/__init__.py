@@ -3,12 +3,6 @@ from flask_restful import Api
 from flask_jwt_extended import JWTManager
 from instance.config import config
 
-from app.api.v1.views.incident import (RedFlagRecords,
-                                       RedFlagRecord,
-                                       RedFlagRecordLocation,
-                                       RedFlagRecordComment)
-from app.api.v1.views.auth import (SignIn, SignUp)
-
 jwt = JWTManager()
 
 
@@ -45,19 +39,5 @@ def routes(api):
     :param api: registered blueprint
     :return: None
     """
-    api.add_resource(SignIn,
-                     "/auth/login")
-    api.add_resource(SignUp,
-                     "/auth/register")
-
-    api.add_resource(RedFlagRecords,
-                     "/red-flags")
-    api.add_resource(RedFlagRecord,
-                     "/red-flags/<int:red_flag_id>")
-
-    api.add_resource(RedFlagRecordLocation,
-                     "/red-flags/<int:red_flag_id>/location")
-    api.add_resource(RedFlagRecordComment,
-                     "/red-flags/<int:red_flag_id>/comment")
 
     return None

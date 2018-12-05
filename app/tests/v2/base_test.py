@@ -1,3 +1,4 @@
+import json
 from unittest import TestCase
 from app import create_app
 from flask import current_app
@@ -59,6 +60,17 @@ class BaseTest(TestCase):
             "videos": "/video/1.mkv",
             "comment": "Police bribe near Nairobi."
         }
+
+    def signup(self):
+        """
+        Makes a request to signup endpoint.
+        :return: signup response data
+        """
+        response = self.app.post("/api/v1/auth/register",
+                                 data=json.dumps(self.user_details),
+                                 headers={'content-type': 'application/json'}
+                                 )
+        return response
 
     def test_app_exists(self):
         """
