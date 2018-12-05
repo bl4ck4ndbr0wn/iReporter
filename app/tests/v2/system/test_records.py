@@ -44,3 +44,87 @@ class RecordTest(BaseTest):
                          headers={"Authorization": f"Bearer {self.token}"})
 
         self.assertEqual(r.status_code, 200)
+
+    def test_incident_update_comment(self):
+        """
+        Test incident updated successfully
+        :return: Object
+        """
+        r = self.app.patch("/api/v1/red-flags/3/comment",
+                           data=json.dumps(self.update_incident),
+                           headers={"content-type": "application/json",
+                                    "Authorization": f"Bearer {self.token}"})
+
+        self.assertEqual(r.status_code, 202)
+        self.assertDictEqual({"status": 202,
+                              "data": [
+                                    {
+                                        "id": 3,
+                                        "message": "Updated red-flag "
+                                                   "record’s comment."
+                                    }
+                                ]
+                              },
+                             json.loads(r.data))
+
+    def test_incident_update_comment_not_found(self):
+        """
+        Test incident updated successfully
+        :return: Object
+        """
+        r = self.app.patch("/api/v1/red-flags/10/comment",
+                           data=json.dumps(self.update_incident),
+                           headers={"content-type": "application/json",
+                                    "Authorization": f"Bearer {self.token}"})
+
+        self.assertEqual(r.status_code, 404)
+        self.assertDictEqual({"status": 404,
+                              "data": [
+                                    {
+                                        "message": "Incident record Not Found."
+                                    }
+                                ]
+                              },
+                             json.loads(r.data))
+
+    def test_incident_update_location(self):
+        """
+        Test incident updated successfully
+        :return: Object
+        """
+        r = self.app.patch("/api/v1/red-flags/3/location",
+                           data=json.dumps(self.update_incident),
+                           headers={"content-type": "application/json",
+                                    "Authorization": f"Bearer {self.token}"})
+
+        self.assertEqual(r.status_code, 202)
+        self.assertDictEqual({"status": 202,
+                              "data": [
+                                    {
+                                        "id": 3,
+                                        "message": "Updated red-flag "
+                                                   "record’s location"
+                                    }
+                                ]
+                              },
+                             json.loads(r.data))
+
+    def test_incident_update_location_not_found(self):
+        """
+        Test incident updated successfully
+        :return: Object
+        """
+        r = self.app.patch("/api/v1/red-flags/10/location",
+                           data=json.dumps(self.update_incident),
+                           headers={"content-type": "application/json",
+                                    "Authorization": f"Bearer {self.token}"})
+
+        self.assertEqual(r.status_code, 404)
+        self.assertDictEqual({"status": 404,
+                              "data": [
+                                    {
+                                        "message": "Incident record Not Found."
+                                    }
+                                ]
+                              },
+                             json.loads(r.data))
