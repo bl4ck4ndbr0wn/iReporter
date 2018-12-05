@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_restful import Api
+from flask_cors import CORS
 from instance.config import config
 
 
@@ -14,6 +15,7 @@ def create_app(config_name):
     app.config.from_object(config[config_name])
 
     # initialize
+    CORS(app)
 
     # Add blueprints
     from app.api import api_bp as api_blueprint

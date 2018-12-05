@@ -43,7 +43,6 @@ class BaseTest(TestCase):
             "is_admin": False
         }
         self.incident = {
-            "user_id": 1,
             "record_type": "red-flag",
             "location": "1.43434, 9.2343",
             "status": "draft",
@@ -85,6 +84,29 @@ class BaseTest(TestCase):
                                  headers={'content-type': 'application/json'}
                                  )
         return response
+
+    def get_token_on_user_login(self):
+        """
+        Get token after user logs in
+        :return: token(jwt-token)
+        """
+        self.signup()
+        r = self.login()
+
+        token = json.loads(r.data).get("token", None)
+        return token
+
+    def create_incident(self):
+        """
+        Create new incident function
+        :return: response
+        """
+        token = self.get_token_on_user_login()
+        r = self.app.post("/api/v1/red-flags",
+                          data=json.dumps(self.incident),
+                          headers={"content-type": "application/json",
+                                   "Authorization": f"Bearer {token}"})
+        return r
 
     def test_app_exists(self):
         """
