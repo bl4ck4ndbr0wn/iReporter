@@ -66,7 +66,7 @@ class BaseTest(TestCase):
         Makes a request to signup endpoint.
         :return: signup response data
         """
-        response = self.app.post("/api/v1/auth/register",
+        response = self.app.post("/api/v2/auth/register",
                                  data=json.dumps(self.user_details),
                                  headers={'content-type': 'application/json'}
                                  )
