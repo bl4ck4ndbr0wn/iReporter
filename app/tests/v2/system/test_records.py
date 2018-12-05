@@ -160,3 +160,45 @@ class RecordTest(BaseTest):
                                    "message": "Incident record Not Found."
                               }]},
                              json.loads(r.data))
+
+    def test_admin_can_change_incident_status(self):
+        """
+        Test incident updated successfully
+        :return: Object
+        """
+        r = self.app.patch("/api/v1/admin/red-flags/3",
+                           data=json.dumps(self.update_incident_status),
+                           headers={"content-type": "application/json",
+                                    "Authorization": f"Bearer {self.token}"})
+
+        self.assertEqual(r.status_code, 202)
+        self.assertDictEqual({"status": 202,
+                              "data": [
+                                    {
+                                        "id": 3,
+                                        "message": "Updated red-flag "
+                                                   "record’s comment."
+                                    }
+                                ]
+                              },
+                             json.loads(r.data))
+
+    def test_admin_can_change_status_incident_not_found(self):
+        """
+        Test incident updated successfully
+        :return: Object
+        """
+        r = self.app.patch("/api/v1/admin/red-flags/3",
+                           data=json.dumps(self.update_incident_status),
+                           headers={"content-type": "application/json",
+                                    "Authorization": f"Bearer {self.token}"})
+
+        self.assertEqual(r.status_code, 404)
+        self.assertDictEqual({"status": 404,
+                              "data": [
+                                    {
+                                        "message": "Incident record Not Found."
+                                    }
+                                ]
+                              },
+                             json.loads(r.data))
