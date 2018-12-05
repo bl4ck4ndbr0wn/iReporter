@@ -31,7 +31,7 @@ class User(Model):
         """ Return repr(self). """
         return "{} in User Model.".format(self.username)
 
-    def find_by_name(self, username):
+    def find_by_name(self):
         """
         Find a user by their username.
 
@@ -40,14 +40,14 @@ class User(Model):
         :return: User instance
         """
         self.cursor.execute("SELECT * FROM users "
-                            "WHERE username=%s", (username,))
+                            "WHERE username=%s", (self.username,))
         user = self.fetch_one()
 
         if user:
             return user
         return None
 
-    def find_by_id(self, user_id):
+    def find_by_id(self):
         """
         Find a user by their id.
 
@@ -55,7 +55,7 @@ class User(Model):
         :type user_id: int
         :return: User instance
         """
-        query = f"SELECT * FROM users WHERE id={user_id}"
+        query = f"SELECT * FROM users WHERE id={self.id}"
         self.query(query)
         user = self.fetch_one()
 

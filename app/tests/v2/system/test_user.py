@@ -32,7 +32,7 @@ class UserTest(BaseTest):
                               },
                              json.loads(response.data))
 
-    def test_register_duplicate_user(self):
+    def test_user_registration_with_duplicate_usernames(self):
         """
         Test on register duplicate user.
         :return: error message
@@ -60,9 +60,8 @@ class UserTest(BaseTest):
         response = self.login()
 
         self.assertEqual(response.status_code, 200)
-        self.assertIsNotNone(User.find_by_name("alpha"))
 
-    def test_user_login_user_not_exist(self):
+    def test_unregistered_user_can_not_login(self):
         """
         Test login user doesnt exist
         :return Failed status
@@ -75,7 +74,6 @@ class UserTest(BaseTest):
                                  )
 
         self.assertEqual(response.status_code, 400)
-        self.assertIsNone(User.find_by_name("alpha21"))
         self.assertDictEqual({"status": 400,
                               "data": [
                                   {
@@ -87,7 +85,7 @@ class UserTest(BaseTest):
                              "The response data is not the same."
                              )
 
-    def test_get_user_token(self):
+    def test_user_gets_token_on_login(self):
         """
         Get token after user logs in
         :return: token(jwt-token)

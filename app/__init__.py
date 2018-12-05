@@ -1,9 +1,6 @@
 from flask import Flask
 from flask_restful import Api
-from flask_jwt_extended import JWTManager
 from instance.config import config
-
-jwt = JWTManager()
 
 
 def create_app(config_name):
@@ -17,7 +14,6 @@ def create_app(config_name):
     app.config.from_object(config[config_name])
 
     # initialize
-    jwt.init_app(app)
 
     # Add blueprints
     from app.api import api_bp as api_blueprint
