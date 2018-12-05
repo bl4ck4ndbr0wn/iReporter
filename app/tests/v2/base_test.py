@@ -61,6 +61,20 @@ class BaseTest(TestCase):
             "comment": "Police bribe near Nairobi."
         }
 
+    def login(self):
+        """
+        Makes a request to login endpoint.
+        :return: login response data
+        """
+        response = self.app.post("/api/v2/auth/login",
+                                 data=json.dumps({
+                                     "username": self.user_details["username"],
+                                     "password": self.user_details["password"]
+                                                  }),
+                                 headers={'content-type': 'application/json'}
+                                 )
+        return response
+
     def signup(self):
         """
         Makes a request to signup endpoint.

@@ -52,4 +52,51 @@ class UserTest(BaseTest):
                              "The response data is not the same."
                              )
 
+    def test_user_login(self):
+        """
+        Test login.
+        :return Success status
+        """
+        response = self.login()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIsNotNone(User.find_by_name("alpha"))
+
+    def test_user_login_user_not_exist(self):
+        """
+        Test login user doesnt exist
+        :return Failed status
+        """
+        response = self.app.post("/api/v1/auth/login",
+                                 data=json.dumps({"username": "alpha21",
+                                                  "password": "password"
+                                                  }),
+                                 headers={'content-type': 'application/json'}
+                                 )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertIsNone(User.find_by_name("alpha21"))
+        self.assertDictEqual({"status": 400,
+                              "data": [
+                                  {
+                                      "message": "A user with that"
+                                                 " username doesn't exists"
+                                  }
+                              ]},
+                             json.loads(response.data),
+                             "The response data is not the same."
+                             )
+
+    def test_get_user_token(self):
+        """
+        Get token after user logs in
+        :return: token(jwt-token)
+        """
+        self.signup()
+        r = self.login()
+
+        token = json.loads(r.data).get("token", None)
+
+        self.assertEqual(r.status_code, 200)
+        self.assertIsNotNone(token)
 
