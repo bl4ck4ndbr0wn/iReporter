@@ -22,6 +22,7 @@ class UserTest(BaseTest):
         Test if user exist on create user
         :return: 202
         """
+        self.signup()
         response = self.signup()
         self.assertEqual(response.status_code, 400)
         self.assertDictEqual({"status": 400,

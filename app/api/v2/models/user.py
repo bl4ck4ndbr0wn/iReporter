@@ -8,14 +8,14 @@ class User(Model):
     """
 
     def __init__(self,
-                 is_admin,
-                 email,
-                 username,
-                 password,
-                 firstname,
-                 lastname,
-                 othername="",
-                 phonenumber=0):
+                 email=None,
+                 username=None,
+                 password=None,
+                 firstname=None,
+                 lastname=None,
+                 othername=None,
+                 phonenumber=None,
+                 is_admin=False):
         super().__init__()
         self.id = None
         self.firstname = firstname
@@ -55,8 +55,8 @@ class User(Model):
         :type user_id: int
         :return: User instance
         """
-        query = f"SELECT * FROM users WHERE id={user_id}"
-        self.query(query)
+        self.cursor.execute("SELECT * FROM users "
+                            "WHERE id=%s", (user_id,))
         user = self.fetch_one()
 
         if user:
@@ -99,3 +99,16 @@ class User(Model):
 
         self.cursor.execute(query, data)
         self.save()
+
+    def map_user(self, data):
+        """ map user to user object"""
+        self.id = data["id"]
+        self.firstname = data["firstname"]
+        self.lastname = data["lastname"]
+        self.othername = data["othername"]
+        self.email = data["email"]
+        self.phoneNumber = data["phonenumber"]
+        self.username = data["username"]
+        self.password = data["password"]
+        self.is_admin = data["is_admin"]
+
