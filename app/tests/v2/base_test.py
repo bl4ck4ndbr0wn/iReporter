@@ -92,8 +92,8 @@ class BaseTest(TestCase):
         self.signup()
         r = self.login()
 
-        token = json.loads(r.data).get("token", None)
-        return token
+        token = json.loads(r.data.decode())
+        return token["token"]
 
     def create_incident(self):
         """
@@ -101,7 +101,7 @@ class BaseTest(TestCase):
         :return: response
         """
         token = self.get_token_on_user_login()
-        r = self.app.post("/api/v2/red-flags",
+        r = self.app.post("/api/v2/interventions",
                           data=json.dumps(self.incident),
                           headers={"content-type": "application/json",
                                    "Authorization": f"Bearer {token}"})
@@ -127,5 +127,6 @@ class BaseTest(TestCase):
         It's called if the setUp() succeeds,
         regardless of the outcome of the test method.
         """
+        Model().close_session()
         Model().drop_tables()
         self.app_context.pop()

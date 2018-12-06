@@ -3,9 +3,6 @@ from app.tests.v2.base_test import BaseTest
 
 
 class RecordTest(BaseTest):
-    def __init__(self):
-        super().__init__()
-        self.token = self.get_token_on_user_login()
 
     def test_create_new_incident(self):
         """
@@ -15,7 +12,6 @@ class RecordTest(BaseTest):
         r = self.create_incident()
         expected = {"status": 201,
                     "data": [{
-                        "id": 1,
                         "message": "red-flag record created Successfully."
                     }]}
 
@@ -28,7 +24,37 @@ class RecordTest(BaseTest):
         :return: status code 200
         """
         self.create_incident()
-        r = self.app.get("/api/v2/red-flags",
-                         headers={"Authorization": f"Bearer {self.token}"})
+        token = self.get_token_on_user_login()
+        r = self.app.get("/api/v2/interventions",
+                         headers={"Authorization": f"Bearer {token}"})
 
         self.assertEqual(r.status_code, 200)
+
+    def test_get_specific_incident(self):
+        """
+        Test to fetch a specific read-flag record
+        :param red-flag-id: int
+        :return: record.
+        """
+        self.create_incident()
+        token = self.get_token_on_user_login()
+        r = self.app.get("/api/v2/interventions/1",
+                         headers={"Authorization": f"Bearer {token}"})
+
+        self.assertEqual(r.status_code, 200)
+
+    def test_specific_record_not_found(self):
+        """
+        Test if record does not exist
+        :return: Error
+        """
+        token = self.get_token_on_user_login()
+        r = self.app.get("/api/v2/interventions/2",
+                         headers={"Authorization": f"Bearer {token}"})
+
+        self.assertEqual(r.status_code, 404)
+        self.assertDictEqual({"status": 404,
+                             "data": [{
+                                 "message": "Incident record does not exist."
+                             }]},
+                             json.loads(r.data))

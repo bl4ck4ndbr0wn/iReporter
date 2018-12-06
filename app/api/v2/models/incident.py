@@ -1,4 +1,5 @@
 from instance.db import Model
+import pdb
 
 
 class Incident(Model):
@@ -38,7 +39,6 @@ class Incident(Model):
         self.query(query)
         incidents = self.fetch_all()
         self.save()
-        self.close_session()
 
         if incidents:
             return [self.map_incidents(incident) for incident in incidents]
@@ -56,7 +56,6 @@ class Incident(Model):
         self.query(query)
         incidents = self.fetch_one()
         self.save()
-        self.close_session()
 
         if incidents:
             return self.map_incidents(incidents)
@@ -73,7 +72,6 @@ class Incident(Model):
         self.query("SELECT * FROM incident")
         incidents = self.fetch_all()
         self.save()
-        self.close_session()
 
         if incidents:
             return incidents

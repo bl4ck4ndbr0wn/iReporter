@@ -82,20 +82,24 @@ class RedFlagRecords(Resource):
                                "Successfully.".format(new_record.record_type)
                 }]}, 201
 
-        # if 'Authorization' in request.headers:
-        #     auth_header = request.headers.get('Authorization')
-        #     access_token = auth_header.split(" ")[1]
-        #     if access_token:
-        #         # Attempt to decode the token and get the User ID
-        #         user_id = User.decode_token(access_token)
-        #         if not isinstance(user_id, str):
-        #             # Go ahead and handle the request, the user is authenticated
-        #
-        #
-        #         else:
-        #             # user is not legit, so the payload is an error message
-        #             response = {
-        #                 'message': user_id
-        #             }
-        #             return jsonify(response), 401
-        # return {'message': 'Authorization header is missing in this request.'}, 403
+
+class RedFlagRecord(Resource):
+    """
+    Fetch a a specific red-flag record.
+    Delete a specific red flag record.
+
+    :param: red_flag_id: red_flag_id
+    :returns: record and success massage in json format.
+    """
+
+    @jwt_required
+    def get(self, intervention_id):
+        incident = Incident().find_by_id(intervention_id)
+        if incident:
+            return {"status": 200,
+                    "data": [incident.serialize()]
+                    }
+        return {"status": 404,
+                "data": [{
+                     "message": "Incident record does not exist."
+                }]}, 404

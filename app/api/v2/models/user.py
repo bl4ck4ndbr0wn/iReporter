@@ -46,7 +46,6 @@ class User(Model):
                             "WHERE username=%s", (username,))
         user = self.fetch_one()
         self.save()
-        self.close_session()
 
         if user:
             return self.map_user(user)
@@ -64,7 +63,6 @@ class User(Model):
                             "WHERE id=%s", (user_id,))
         user = self.fetch_one()
         self.save()
-        self.close_session()
 
         if user:
             return self.map_user(user)
@@ -112,7 +110,7 @@ class User(Model):
             encoded_jwt = jwt.encode(
                 payload,
                 current_app.config.get('JWT_SECRET_KEY'),
-                algorithm='HS512'
+                algorithm='HS256'
             )
             return encoded_jwt
         except Exception as e:
@@ -130,18 +128,14 @@ class User(Model):
         try:
             payload = jwt.decode(token,
                                  current_app.config.get('JWT_SECRET_KEY'),
-                                 algorithms=['HS512', 'HS256'])
+                                 algorithm=['HS256'])
             return payload["user_id"]
         except jwt.ExpiredSignatureError:
-            # Raised when a token’s exp claim indicates that it has expired
+            # the token is expired, return an error string
             return "Expired token. Please login to get a new token"
-        except jwt.InvalidSignatureError:
-            # Raised when a token’s signature doesn’t match
-            # the one provided as part of the token.
-            return "Invalid token. Please login"
         except jwt.InvalidTokenError:
-            # Base exception when decode() fails on a token
-            return "Invalid token. Please login"
+            # the token is invalid, return an error string
+            return "Invalid token. Please register or login"
 
     def save_to_db(self):
         query = "INSERT INTO users (username, password, firstname, " \
@@ -154,7 +148,6 @@ class User(Model):
 
         self.cursor.execute(query, data)
         self.save()
-        self.close_session()
 
     def map_user(self, data):
         """ map user to user object"""
