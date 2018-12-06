@@ -15,7 +15,7 @@ class RecordTest(BaseTest):
         r = self.create_incident()
         expected = {"status": 201,
                     "data": [{
-                        "id": 3,
+                        "id": 1,
                         "message": "red-flag record created Successfully."
                     }]}
 
@@ -28,7 +28,7 @@ class RecordTest(BaseTest):
         :return: status code 200
         """
         self.create_incident()
-        r = self.app.get("/api/v1/red-flags",
+        r = self.app.get("/api/v2/red-flags",
                          headers={"Authorization": f"Bearer {self.token}"})
 
         self.assertEqual(r.status_code, 200)

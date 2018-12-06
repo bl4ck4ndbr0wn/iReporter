@@ -35,12 +35,11 @@ class BaseTest(TestCase):
         Model().create_table_incident()
 
         self.user_details = {
-            "firstname": "Alpha",
-            "lastname": "Nganga",
             "username": "alpha",
             "password": "password",
-            "email": "alphanganga@gmail.com",
-            "is_admin": False
+            "firstname": "Alpha",
+            "lastname": "Nganga",
+            "email": "alphanganga@gmail.com"
         }
         self.incident = {
             "record_type": "red-flag",
@@ -102,7 +101,7 @@ class BaseTest(TestCase):
         :return: response
         """
         token = self.get_token_on_user_login()
-        r = self.app.post("/api/v1/red-flags",
+        r = self.app.post("/api/v2/red-flags",
                           data=json.dumps(self.incident),
                           headers={"content-type": "application/json",
                                    "Authorization": f"Bearer {token}"})

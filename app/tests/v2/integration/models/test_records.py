@@ -4,7 +4,6 @@ from app.api.v2.models.user import User
 
 
 class RecordTest(BaseTest):
-
     def test_crud(self):
         """
         Test CRUD functionality of the class
@@ -13,7 +12,8 @@ class RecordTest(BaseTest):
         """
         u = User(**self.user_details)
         u.save_to_db()
-        record = Incident(**self.incident)
+        u.find_by_name('alpha')
+        record = Incident(user_id=u.id, **self.incident)
 
         self.assertIsNone(record.find_by_id(1),
                           "Found an Incident with id '1' before save_to_db")
@@ -33,7 +33,10 @@ class RecordTest(BaseTest):
 
         :return: a printable representation of the object
         """
-        u = Incident(**self.incident)
+        u = User(**self.user_details)
+        u.save_to_db()
+        u.find_by_name('alpha')
+        u = Incident(user_id=u.id, **self.incident)
 
         self.assertEqual(str(u),
                          "Police bribe near Ruiru Sports club."
