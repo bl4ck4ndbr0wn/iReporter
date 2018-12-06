@@ -21,6 +21,7 @@ class Incident(Model):
 
     def json(self):
         return {"id": self.id,
+                "user_id": self.user_id,
                 "record_type": self.record_type,
                 "location": self.location,
                 "status": self.status,
@@ -28,6 +29,20 @@ class Incident(Model):
                 "images": self.images,
                 "videos": self.videos
                 }
+
+    def find_all_by_user_id(self, user_id):
+        """
+        Fetch all incident records by user_id.
+        :param user_id:
+        :return: Incidents
+        """
+        query = f"SELECT * FROM incident WHERE user_id={user_id}"
+        self.query(query)
+        incidents = self.fetch_all()
+
+        if incidents:
+            return [self.map_incidents(incident) for incident in incidents]
+        return None
 
     def find_by_id(self, record_id):
         """
@@ -39,10 +54,12 @@ class Incident(Model):
         """
         query = f"SELECT * FROM incident WHERE id={record_id}"
         self.query(query)
-        incident = self.fetch_one()
+        incidents = self.fetch_one()
+        self.save()
+        self.close_session()
 
-        if incident:
-            return incident
+        if incidents:
+            return self.map_incidents(incidents)
         return None
 
     def save_to_db(self):
@@ -51,9 +68,14 @@ class Incident(Model):
                 VALUES(%s, %s, %s, %s, %s);""", (self.user_id, self.record_type, self.location, self.status, self.comment))
         self.save()
 
-    @staticmethod
-    def get_all():
-        pass
+    def get_all(self):
+        self.query("SELECT * FROM incident")
+        incidents = self.fetch_all()
+        self.save()
+        self.close_session()
+        if incidents:
+            return incidents
+        return None
 
     def update_location(self, location):
         """
@@ -79,3 +101,20 @@ class Incident(Model):
         :return: None
         """
         pass
+
+    def map_incidents(self, data):
+        """
+        Update
+        :return:
+        """
+        incident = Incident(
+                            user_id=data[1],
+                            record_type=data[2],
+                            location=data[3],
+                            status=data[4],
+                            comment=data[5]
+                            )
+        incident.id = data[0]
+        self = incident
+
+        return self

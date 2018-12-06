@@ -15,11 +15,13 @@ parser.add_argument('record_type',
 
 parser.add_argument('location',
                     type=str,
+                    required=True,
                     help="This field can be left blank!"
                     )
 
 parser.add_argument('status',
                     type=str,
+                    required=True,
                     help="This field can be left blank!"
                     )
 parser.add_argument('images',
@@ -56,7 +58,32 @@ class RedFlagRecords(Resource):
             }
     :returns records and success massage in json format.
     """
-    # @jwt_required
+
+    def get(self):
+        if 'Authorization' in request.headers:
+            auth_header = request.headers.get('Authorization')
+            access_token = auth_header.split(" ")[1]
+            if access_token:
+                # Attempt to decode the token and get the User ID
+                user_id = User.decode_token(access_token)
+                if not isinstance(user_id, str):
+                    # Go ahead and handle the request, the user is authenticated
+                    item = Incident().find_all_by_user_id(user_id)
+                    if item:
+                        return {"status": 200,
+                                "data": item
+                                }, 200
+                    return {"status": 200,
+                            "data": []
+                            }, 200
+                else:
+                    # user is not legit, so the payload is an error message
+                    response = {
+                        'message': user_id
+                    }
+                    return jsonify(response), 401
+        return {'message': 'Authorization header is missing in this request.'}, 403
+
     def post(self):
         data = parser.parse_args()
         if 'Authorization' in request.headers:
@@ -72,7 +99,6 @@ class RedFlagRecords(Resource):
 
                     return {"status": 201,
                             "data": [{
-                                "id": new_record.user_id,  # User account primary key
                                 "message": "{} record created "
                                            "Successfully.".format(new_record.record_type)
                             }]}, 201
