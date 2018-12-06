@@ -101,7 +101,7 @@ class BaseTest(TestCase):
         :return: response
         """
         token = self.get_token_on_user_login()
-        r = self.app.post("/api/v1/red-flags",
+        r = self.app.post("/api/v2/red-flags",
                           data=json.dumps(self.incident),
                           headers={"content-type": "application/json",
                                    "Authorization": f"Bearer {token}"})

@@ -1,9 +1,9 @@
 from flask import Flask
 from flask_cors import CORS
 from flask_restful import Api
-from flask_cors import CORS
 from instance.config import config
 from app.api.v2.views.auth import SignUp, SignIn
+from app.api.v2.views.incident import RedFlagRecords
 
 
 def create_app(config_name):
@@ -42,4 +42,6 @@ def routes(api):
     api.add_resource(SignUp, "/auth/register")
     api.add_resource(SignIn, "/auth/login")
 
+    api.add_resource(RedFlagRecords, "/red-flags")
     return None
+

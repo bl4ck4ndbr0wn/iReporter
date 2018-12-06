@@ -1,6 +1,8 @@
+from flask import request, jsonify
 from flask_restful import Resource, reqparse
 from app.api.v2.models.incident import Incident
-
+from app.api.v2.models.user import User
+from utils.decorators import jwt_required
 
 parser = reqparse.RequestParser(bundle_errors=True)
 parser.add_argument('record_type',
@@ -54,17 +56,31 @@ class RedFlagRecords(Resource):
             }
     :returns records and success massage in json format.
     """
-
+    # @jwt_required
     def post(self):
         data = parser.parse_args()
+        if 'Authorization' in request.headers:
+            auth_header = request.headers.get('Authorization')
+            access_token = auth_header.split(" ")[1]
+            if access_token:
+                # Attempt to decode the token and get the User ID
+                user_id = User.decode_token(access_token)
+                if not isinstance(user_id, str):
+                    # Go ahead and handle the request, the user is authenticated
+                    new_record = Incident(user_id=user_id, **data)
+                    new_record.save_to_db()
 
-        new_record = Incident(**data)
-        new_record.save_to_db()
+                    return {"status": 201,
+                            "data": [{
+                                "id": new_record.user_id,  # User account primary key
+                                "message": "{} record created "
+                                           "Successfully.".format(new_record.record_type)
+                            }]}, 201
 
-        return {"status": 201,
-                "data": [{
-                    "id": new_record.id,  # User account primary key
-                    "message": "{} record created "
-                               "Successfully.".format(new_record.record_type)
-                }]}, 201
-
+                else:
+                    # user is not legit, so the payload is an error message
+                    response = {
+                        'message': user_id
+                    }
+                    return jsonify(response), 401
+        return {'message': 'Authorization header is missing in this request.'}, 403

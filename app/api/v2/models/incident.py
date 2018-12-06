@@ -3,7 +3,7 @@ from instance.db import Model
 
 class Incident(Model):
 
-    def __init__(self, record_type, comment, user_id=None,  location=None,
+    def __init__(self, record_type=None, comment=None, user_id=None,  location=None,
                  status=None, images=None, videos=None):
         super().__init__()
         self.id = None
