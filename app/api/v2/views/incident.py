@@ -61,11 +61,10 @@ class RedFlagRecords(Resource):
 
     @jwt_required
     def get(self):
-        # item = Incident().find_all_by_user_id(g.user.get("user_id"))
-        item = []
-        if item:
+        items = Incident().find_all_by_user_id(g.user.get("user_id"))
+        if items:
             return {"status": 200,
-                    "data": item
+                    "data": [incident.serialize() for incident in items]
                     }, 200
         return {"status": 200,
                 "data": []

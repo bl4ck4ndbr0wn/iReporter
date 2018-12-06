@@ -19,16 +19,14 @@ class Incident(Model):
     def __repr__(self):
         return f'{self.comment} incident in incident Model.'
 
-    def json(self):
-        return {"id": self.id,
-                "user_id": self.user_id,
-                "record_type": self.record_type,
-                "location": self.location,
-                "status": self.status,
-                "comment": self.comment,
-                "images": self.images,
-                "videos": self.videos
-                }
+    def serialize(self):
+        return dict(id=self.id,
+                    user_id=self.user_id,
+                    record_type=self.record_type,
+                    location=self.location,
+                    status=self.status,
+                    comment=self.comment
+                    )
 
     def find_all_by_user_id(self, user_id):
         """
@@ -39,6 +37,8 @@ class Incident(Model):
         query = f"SELECT * FROM incident WHERE user_id={user_id}"
         self.query(query)
         incidents = self.fetch_all()
+        self.save()
+        self.close_session()
 
         if incidents:
             return [self.map_incidents(incident) for incident in incidents]
@@ -107,14 +107,11 @@ class Incident(Model):
         Update
         :return:
         """
-        incident = Incident(
-                            user_id=data[1],
-                            record_type=data[2],
-                            location=data[3],
-                            status=data[4],
-                            comment=data[5]
-                            )
-        incident.id = data[0]
-        self = incident
+        self.id = data[0]
+        self.user_id = data[1],
+        self.record_type = data[2],
+        self.location = data[3],
+        self.status = data[4],
+        self.comment = data[5]
 
         return self
