@@ -22,8 +22,12 @@ def create_app(config_name):
     from app.api import api_bp as api_blueprint
     api = Api(api_blueprint)
 
+    from app.docs.views import docs as docs_blueprints
+
     # Register blueprint
-    app.register_blueprint(api_blueprint, url_prefix="/api/v2")
+    app.register_blueprint(docs_blueprints)
+    app.register_blueprint(api_blueprint, url_prefix="/api/v1")
+
 
     # Url Routes
     routes(api)
