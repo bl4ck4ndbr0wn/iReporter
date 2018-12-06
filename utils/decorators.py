@@ -1,6 +1,6 @@
 from functools import wraps
-
-from flask import request, abort
+import json
+from flask import request, Response, g
 
 from app.api.v2.models.user import User
 
@@ -10,10 +10,10 @@ def jwt_required(f):
     restrict access if not authorized
 
     :param f:
-    :return: True
+    :return: user_id
     """
     @wraps(f)
-    def wrapper_function(*args, **kwargs):
+    def decorated_auth(*args, **kwargs):
         auth_header = None
         if 'Authorization' in request.headers:
             auth_header = request.headers.get('Authorization')
@@ -25,8 +25,22 @@ def jwt_required(f):
                     # Go ahead and handle the request, the user is authenticated
                     user = User().find_by_id(user_id)
                     if user:
+                        g.user = {'user_id': user_id}
                         return f(*args, **kwargs)
-                    return {'message': 'User not found.'}, 401
+                    return Response(
+                                      mimetype="application/json",
+                                      response=json.dumps({'error': 'user does not exist, invalid token'}),
+                                      status=401
+                                    )
+                return Response(
+                                  mimetype="application/json",
+                                  response=json.dumps(user_id),
+                                  status=400
+                                )
         else:
-            return {'message': 'Authorization header is missing in this request.'}, 403
-    return wrapper_function
+            return Response(
+                mimetype="application/json",
+                response=json.dumps({'error': 'Authentication token is not available, please login to get one'}),
+                status=400
+            )
+    return decorated_auth

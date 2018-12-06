@@ -45,6 +45,8 @@ class User(Model):
         self.cursor.execute("SELECT * FROM users "
                             "WHERE username=%s", (username,))
         user = self.fetch_one()
+        self.save()
+        self.close_session()
 
         if user:
             return self.map_user(user)
@@ -61,6 +63,8 @@ class User(Model):
         self.cursor.execute("SELECT * FROM users "
                             "WHERE id=%s", (user_id,))
         user = self.fetch_one()
+        self.save()
+        self.close_session()
 
         if user:
             return self.map_user(user)
@@ -150,6 +154,7 @@ class User(Model):
 
         self.cursor.execute(query, data)
         self.save()
+        self.close_session()
 
     def map_user(self, data):
         """ map user to user object"""
