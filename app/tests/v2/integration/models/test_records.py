@@ -33,7 +33,10 @@ class RecordTest(BaseTest):
 
         :return: a printable representation of the object
         """
-        u = Incident(**self.incident)
+        u = User(**self.user_details)
+        u.save_to_db()
+        u.find_by_name('alpha')
+        u = Incident(user_id=u.id, **self.incident)
 
         self.assertEqual(str(u),
                          "Police bribe near Ruiru Sports club."
