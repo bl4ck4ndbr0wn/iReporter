@@ -1,6 +1,5 @@
 import json
 from app.tests.v2.base_test import BaseTest
-from app.api.v2.models.user import User
 
 
 class UserTest(BaseTest):
@@ -69,7 +68,7 @@ class UserTest(BaseTest):
         Test login user doesnt exist
         :return Failed status
         """
-        response = self.app.post("/api/v1/auth/login",
+        response = self.app.post("/api/v2/auth/login",
                                  data=json.dumps({"username": "alpha21",
                                                   "password": "password"
                                                   }),
@@ -93,7 +92,7 @@ class UserTest(BaseTest):
         Get token after user logs in
         :return: token(jwt-token)
         """
-        self.signup()
+        response = self.signup()
         r = self.login()
 
         token = json.loads(r.data).get("token", None)

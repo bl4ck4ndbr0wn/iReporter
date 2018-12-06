@@ -34,7 +34,7 @@ class User(Model):
         """ Return repr(self). """
         return "{} in User Model.".format(self.username)
 
-    def find_by_name(self):
+    def find_by_name(self, username):
         """
         Find a user by their username.
 
@@ -43,11 +43,11 @@ class User(Model):
         :return: User instance
         """
         self.cursor.execute("SELECT * FROM users "
-                            "WHERE username=%s", (self.username,))
+                            "WHERE username=%s", (username,))
         user = self.fetch_one()
 
         if user:
-            return user
+            return self.map_user(user)
         return None
 
     def find_by_id(self, user_id):
@@ -63,7 +63,7 @@ class User(Model):
         user = self.fetch_one()
 
         if user:
-            return user
+            return self.map_user(user)
         return None
 
     @staticmethod
@@ -91,12 +91,10 @@ class User(Model):
         """
         return check_password_hash(self.password, password)
 
-    @staticmethod
-    def generate_token(user_id):
+    def generate_token(self):
         """
         Encoding user id to get JSON Web Tokens (JWT)
 
-        :param user_id: Int
         :return: token
         """
         try:
@@ -104,7 +102,7 @@ class User(Model):
             payload = {
                 'exp': datetime.utcnow() + timedelta(minutes=15),  # Expiration Time
                 'iat': datetime.utcnow(),  # Issued At
-                'user_id': user_id  # payload
+                'user_id': self.id  # payload
             }
             # create the byte string token using the payload and the SECRET key
             encoded_jwt = jwt.encode(
@@ -164,13 +162,15 @@ class User(Model):
 
     def map_user(self, data):
         """ map user to user object"""
-        self.id = data["id"]
-        self.firstname = data["firstname"]
-        self.lastname = data["lastname"]
-        self.othername = data["othername"]
-        self.email = data["email"]
-        self.phoneNumber = data["phonenumber"]
-        self.username = data["username"]
-        self.password = data["password"]
-        self.is_admin = data["is_admin"]
+        self.id = data[0]
+        self.username = data[1]
+        self.password = data[2]
+        self.firstname = data[3]
+        self.lastname = data[4]
+        self.othername = data[5]
+        self.email = data[6]
+        self.phoneNumber = data[7]
+        self.is_admin = data[8]
+
+        return self
 
