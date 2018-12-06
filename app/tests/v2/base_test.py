@@ -128,4 +128,5 @@ class BaseTest(TestCase):
         regardless of the outcome of the test method.
         """
         Model().drop_tables()
+        Model().close_session()
         self.app_context.pop()

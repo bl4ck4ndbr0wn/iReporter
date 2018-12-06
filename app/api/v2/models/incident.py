@@ -67,12 +67,14 @@ class Incident(Model):
                 INSERT INTO incident (user_id, recordtype,location, status, comment) 
                 VALUES(%s, %s, %s, %s, %s);""", (self.user_id, self.record_type, self.location, self.status, self.comment))
         self.save()
+        self.close_session()
 
     def get_all(self):
         self.query("SELECT * FROM incident")
         incidents = self.fetch_all()
         self.save()
         self.close_session()
+
         if incidents:
             return incidents
         return None
