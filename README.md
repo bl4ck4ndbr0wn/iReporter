@@ -1,4 +1,3 @@
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/b1ec3d9cd8264734bfaa9a81de17e57b)](https://app.codacy.com/app/bl4ck4ndbr0wn/iReporter?utm_source=github.com&utm_medium=referral&utm_content=bl4ck4ndbr0wn/iReporter&utm_campaign=Badge_Grade_Dashboard)
 # IReporter [![codecov](https://codecov.io/gh/bl4ck4ndbr0wn/iReporter/branch/develop/graph/badge.svg)](https://codecov.io/gh/bl4ck4ndbr0wn/iReporter)  [![Build Status](https://travis-ci.org/bl4ck4ndbr0wn/iReporter.svg?branch=develop)](https://travis-ci.org/bl4ck4ndbr0wn/iReporter) ![license](https://img.shields.io/github/license/mashape/apistatus.svg) [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/bl4ck4ndbr0wn/iReporter)
 iReporter enables any/every citizen to bring any form of corruption to the notice of appropriate authorities and the general public. Users can also report on things that needs government intervention.
 

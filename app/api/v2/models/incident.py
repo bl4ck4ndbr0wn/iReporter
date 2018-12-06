@@ -1,13 +1,13 @@
-# Record array
-records_table = []
+from instance.db import Model
 
 
-class Incident:
-    id = 1
+class Incident(Model):
 
-    def __init__(self, record_type, comment, location=None,
+    def __init__(self, record_type, comment, user_id=None,  location=None,
                  status=None, images=None, videos=None):
-        self.id = Incident.id
+        super().__init__()
+        self.id = None
+        self.user_id = user_id
         self.record_type = record_type  # [red-flag, intervention]
         self.location = location  # Lat Long coordinates
         # [draft, under investigation, resolved, rejected]
@@ -15,8 +15,6 @@ class Incident:
         self.images = images
         self.videos = videos
         self.comment = comment
-
-        Incident.id += 1
 
     def __repr__(self):
         return f'{self.comment} incident in incident Model.'
@@ -31,8 +29,7 @@ class Incident:
                 "videos": self.videos
                 }
 
-    @staticmethod
-    def find_by_id(record_id):
+    def find_by_id(self, record_id):
         """
         Find a record by their id
 
@@ -40,17 +37,23 @@ class Incident:
         :type record_id: int
         :return: record item
         """
-        for record in records_table:
-            if record.id == record_id:
-                return record
+        query = f"SELECT * FROM incident WHERE id={record_id}"
+        self.query(query)
+        incident = self.fetch_one()
+
+        if incident:
+            return incident
         return None
 
     def save_to_db(self):
-        records_table.append(self)
+        self.cursor.execute("""
+                INSERT INTO incident (user_id, recordtype,location, status, comment) 
+                VALUES(%s, %s, %s, %s, %s);""", (self.user_id, self.record_type, self.location, self.status, self.comment))
+        self.save()
 
     @staticmethod
     def get_all():
-        return records_table
+        pass
 
     def update_location(self, location):
         """
@@ -58,8 +61,7 @@ class Incident:
         :param location:
         :return: incident
         """
-        self.delete_from_db()
-        self.location = location
+        pass
 
     def update_comment(self, comment):
         """
@@ -68,8 +70,7 @@ class Incident:
         :param comment:
         :return: Incident
         """
-        self.delete_from_db()
-        self.comment = comment
+        pass
 
     def delete_from_db(self):
         """
@@ -77,4 +78,4 @@ class Incident:
 
         :return: None
         """
-        records_table.remove(self.find_by_id(self.id))
+        pass

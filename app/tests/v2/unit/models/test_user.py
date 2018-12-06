@@ -1,5 +1,5 @@
-from app.tests.v1.base_test import BaseTest
-from app.api.v1.models.user import User
+from app.tests.v2.base_test import BaseTest
+from app.api.v2.models.user import User
 
 
 class UserTest(BaseTest):

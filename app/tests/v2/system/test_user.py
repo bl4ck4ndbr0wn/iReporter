@@ -1,58 +1,27 @@
 import json
-from app.tests.v1.base_test import BaseTest
-
-from app.api.v1.models.user import User
+from app.tests.v2.base_test import BaseTest
 
 
 class UserTest(BaseTest):
-
-    def login(self):
-        """
-        Makes a request to login endpoint.
-
-        :return: login response data
-        """
-        response = self.app.post("/api/v1/auth/login",
-                                 data=json.dumps({"username": "alpha",
-                                                  "password": "password"
-                                                  }),
-                                 headers={'content-type': 'application/json'}
-                                 )
-        return response
-
-    def signup(self):
-        """
-        Makes a request to signup endpoint.
-
-        :return: signup response data
-        """
-        user = {"firstname": "alpha",
-                "lastname": "nganga",
-                "email": "alphanganga@gmail.com",
-                "username": "alpha",
-                "password": "password"
-                }
-        response = self.app.post("/api/v1/auth/register",
-                                 data=json.dumps(user),
-                                 headers={'content-type': 'application/json'}
-                                 )
-        return response
-
     def test_user_register(self):
         """clear
         Test Signup api.
-
         :return Success status
         """
-        self.signup()
-        self.assertIsNotNone(User.find_by_name("alpha"))
+        response = self.signup()
+        self.assertEqual(response.status_code, 201)
+        self.assertDictEqual({"status": 201,
+                              "data": [{
+                                    "message": "User created Successfully."
+                              }]},
+                             json.loads(response.data))
 
     def test_user_register_User_exist(self):
         """
         Test if user exist on create user
-
         :return: 202
         """
+        self.signup()
         response = self.signup()
         self.assertEqual(response.status_code, 400)
         self.assertDictEqual({"status": 400,
@@ -63,10 +32,9 @@ class UserTest(BaseTest):
                               },
                              json.loads(response.data))
 
-    def test_register_duplicate_user(self):
+    def test_user_registration_with_duplicate_username(self):
         """
         Test on register duplicate user.
-
         :return: error message
         """
         self.signup()
@@ -86,22 +54,21 @@ class UserTest(BaseTest):
 
     def test_user_login(self):
         """
-        Test login.
-
+        Test login after register
         :return Success status
         """
+        response = self.signup()
+        self.assertEqual(response.status_code, 201)
         response = self.login()
 
         self.assertEqual(response.status_code, 200)
-        self.assertIsNotNone(User.find_by_name("alpha"))
 
-    def test_user_login_user_not_exist(self):
+    def test_unregistered_user_can_not_login(self):
         """
         Test login user doesnt exist
-
         :return Failed status
         """
-        response = self.app.post("/api/v1/auth/login",
+        response = self.app.post("/api/v2/auth/login",
                                  data=json.dumps({"username": "alpha21",
                                                   "password": "password"
                                                   }),
@@ -109,7 +76,6 @@ class UserTest(BaseTest):
                                  )
 
         self.assertEqual(response.status_code, 400)
-        self.assertIsNone(User.find_by_name("alpha21"))
         self.assertDictEqual({"status": 400,
                               "data": [
                                   {
@@ -121,16 +87,16 @@ class UserTest(BaseTest):
                              "The response data is not the same."
                              )
 
-    def test_get_user_token(self):
+    def test_user_gets_token_on_login(self):
         """
         Get token after user logs in
-
         :return: token(jwt-token)
         """
-        self.signup()
+        response = self.signup()
         r = self.login()
 
         token = json.loads(r.data).get("token", None)
 
         self.assertEqual(r.status_code, 200)
         self.assertIsNotNone(token)
+

@@ -1,7 +1,6 @@
-import datetime
+from flask import jsonify
 from flask_restful import Resource, reqparse
-from app.api.v1.models.user import User
-from flask_jwt_extended import create_access_token
+from app.api.v2.models.user import User
 
 parser = reqparse.RequestParser(bundle_errors=True)
 parser.add_argument('username', type=str, required=True,
@@ -13,7 +12,6 @@ parser.add_argument('password', type=str, required=True,
 class SignIn(Resource):
     """
     Authorize a user to access the data.
-
     :param user:{ “username” : String,
                   “password” : String,
                 }
@@ -23,18 +21,16 @@ class SignIn(Resource):
     def post(self):
         """
         Receives data in json format and authenticates the user is exists
-
         :return: Jwt token and success status
         """
         request_data = parser.parse_args()
-        u = User.find_by_name(request_data["username"])
+
+        u = User().find_by_name(request_data["username"])
 
         if u and u.authenticated(password=request_data["password"]):
-            expire_time = datetime.timedelta(minutes=60)
-            token = create_access_token(u.username,
-                                        expires_delta=expire_time)
+            token = u.generate_token()
             return {"status": 200,
-                    'token': token,
+                    'token': token.decode(),
                     "data": [{
                         'message': f'You were successfully'
                         f' logged in {u.username}'
@@ -47,6 +43,7 @@ class SignIn(Resource):
 
 
 class SignUp(Resource):
+
     parser.add_argument('firstname', type=str, default="",
                         help='This field can be left blank!')
 
@@ -59,13 +56,12 @@ class SignUp(Resource):
     parser.add_argument('email', type=str, default="",
                         help='This field can be left blank!')
 
-    parser.add_argument('phonenumber', type=str, default="",
+    parser.add_argument('phonenumber', type=str, default=0,
                         help='This field can be left blank!')
 
     def post(self):
         request_data = parser.parse_args()
-        u = User.find_by_name(request_data["username"])
-
+        u = User().find_by_name(request_data["username"])
         if u:
             return {"status": 400,
                     "data": [{
@@ -79,3 +75,4 @@ class SignUp(Resource):
                 "data": [{
                     "message": "User created Successfully."
                 }]}, 201
+

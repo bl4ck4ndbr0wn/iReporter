@@ -1,6 +1,6 @@
-from app.tests.v1.base_test import BaseTest
+from app.tests.v2.base_test import BaseTest
 
-from app.api.v1.models.user import User
+from app.api.v2.models.user import User
 
 
 class UserTest(BaseTest):
@@ -25,16 +25,16 @@ class UserTest(BaseTest):
         """
         u = User(**self.user_details)
 
-        self.assertIsNone(User.find_by_name('alpha'),
+        self.assertIsNone(u.find_by_name('alpha'),
                           "Found an user with name 'alpha' before save_to_db")
-        self.assertIsNone(User.find_by_id(2),
+        self.assertIsNone(u.find_by_id(1),
                           "Found an user with id '1' before save_to_db")
 
         u.save_to_db()
 
-        self.assertIsNotNone(User.find_by_name('alpha'),
+        self.assertIsNotNone(u.find_by_name('alpha'),
                              "Did not find an user with "
                              "name 'alpha' after save_to_db")
-        self.assertIsNotNone(User.find_by_id(2),
+        self.assertIsNotNone(u.find_by_id(1),
                              "Did not find an user with id '"
                              "1' after save_to_db")
