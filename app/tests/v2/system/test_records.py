@@ -15,7 +15,7 @@ class RecordTest(BaseTest):
         r = self.create_incident()
         expected = {"status": 201,
                     "data": [{
-                        "id": 3,
+                        "id": 1,
                         "message": "red-flag record created Successfully."
                     }]}
 

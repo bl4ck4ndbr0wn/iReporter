@@ -130,23 +130,14 @@ class User(Model):
             return payload["user_id"]
         except jwt.ExpiredSignatureError:
             # Raised when a token’s exp claim indicates that it has expired
-            return {
-                "status": 401,
-                "message": "Expired token. Please login to get a new token"
-            }, 401
+            return "Expired token. Please login to get a new token"
         except jwt.InvalidSignatureError:
             # Raised when a token’s signature doesn’t match
             # the one provided as part of the token.
-            return {
-                       "status": 422,
-                       "message": "Invalid token. Please login"
-                   }, 422
+            return "Invalid token. Please login"
         except jwt.InvalidTokenError:
             # Base exception when decode() fails on a token
-            return {
-                "status": 422,
-                "message": "Invalid token. Please login"
-            }, 422
+            return "Invalid token. Please login"
 
     def save_to_db(self):
         query = "INSERT INTO users (username, password, firstname, " \

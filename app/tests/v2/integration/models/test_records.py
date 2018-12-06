@@ -12,7 +12,8 @@ class RecordTest(BaseTest):
         """
         u = User(**self.user_details)
         u.save_to_db()
-        record = Incident(**self.incident)
+        u.find_by_name('alpha')
+        record = Incident(user_id=u.id, **self.incident)
 
         self.assertIsNone(record.find_by_id(1),
                           "Found an Incident with id '1' before save_to_db")
