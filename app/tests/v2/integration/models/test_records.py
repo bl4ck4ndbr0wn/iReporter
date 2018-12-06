@@ -4,7 +4,7 @@ from app.api.v2.models.user import User
 
 
 class RecordTest(BaseTest):
-
+  
     def test_crud(self):
         """
         Test CRUD functionality of the class
