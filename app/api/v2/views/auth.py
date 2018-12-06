@@ -1,3 +1,4 @@
+from flask import jsonify
 from flask_restful import Resource, reqparse
 from app.api.v2.models.user import User
 
@@ -8,17 +9,51 @@ parser.add_argument('password', type=str, required=True,
                     help='This field cannot be left blank!')
 
 
+class SignIn(Resource):
+    """
+    Authorize a user to access the data.
+    :param user:{ “username” : String,
+                  “password” : String,
+                }
+    :returns user
+    """
+
+    def post(self):
+        """
+        Receives data in json format and authenticates the user is exists
+        :return: Jwt token and success status
+        """
+        request_data = parser.parse_args()
+
+        u = User().find_by_name(request_data["username"])
+
+        if u and u.authenticated(password=request_data["password"]):
+            token = u.generate_token()
+            return {"status": 200,
+                    'token': token.decode(),
+                    "data": [{
+                        'message': f'You were successfully'
+                        f' logged in {u.username}'
+                    }]}, 200
+
+        return {"status": 400,
+                "data": [{
+                    "message": "A user with that username doesn't exists"
+                }]}, 400
+
+
 class SignUp(Resource):
-    parser.add_argument('firstname', type=str, required=True,
+
+    parser.add_argument('firstname', type=str, default="",
                         help='This field can be left blank!')
 
-    parser.add_argument('lastname', type=str, required=True,
+    parser.add_argument('lastname', type=str, default="",
                         help='This field can be left blank!')
 
     parser.add_argument('othername', type=str, default="",
                         help='This field can be left blank!')
 
-    parser.add_argument('email', type=str, required=True,
+    parser.add_argument('email', type=str, default="",
                         help='This field can be left blank!')
 
     parser.add_argument('phonenumber', type=str, default=0,
@@ -40,3 +75,4 @@ class SignUp(Resource):
                 "data": [{
                     "message": "User created Successfully."
                 }]}, 201
+
