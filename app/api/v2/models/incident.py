@@ -1,4 +1,5 @@
 from instance.db import Model
+import pdb
 
 
 class Incident(Model):
@@ -109,6 +110,8 @@ class Incident(Model):
         Update
         :return:
         """
+        print(data)
+
         self.id = data[0]
         self.user_id = data[1],
         self.record_type = data[2],

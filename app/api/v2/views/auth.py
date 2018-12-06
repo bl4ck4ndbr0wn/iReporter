@@ -30,7 +30,7 @@ class SignIn(Resource):
         if u and u.authenticated(password=request_data["password"]):
             token = u.generate_token()
             return {"status": 200,
-                    'token': token.decode(),
+                    'token': token.decode('utf-8'),
                     "data": [{
                         'message': f'You were successfully'
                         f' logged in {u.username}'
