@@ -4,11 +4,6 @@ from app.api.v2.models.user import User
 
 
 class RecordTest(BaseTest):
-<<<<<<< HEAD
-
-=======
-  
->>>>>>> 8470bcec85492489c588dfc78012206845f0892b
     def test_crud(self):
         """
         Test CRUD functionality of the class

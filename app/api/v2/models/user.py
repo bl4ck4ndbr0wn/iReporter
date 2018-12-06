@@ -50,7 +50,7 @@ class User(Model):
             return user
         return None
 
-    def find_by_id(self):
+    def find_by_id(self, user_id):
         """
         Find a user by their id.
 
@@ -58,13 +58,8 @@ class User(Model):
         :type user_id: int
         :return: User instance
         """
-<<<<<<< HEAD
-        query = f"SELECT * FROM users WHERE id={self.id}"
-        self.query(query)
-=======
         self.cursor.execute("SELECT * FROM users "
                             "WHERE id=%s", (user_id,))
->>>>>>> 8470bcec85492489c588dfc78012206845f0892b
         user = self.fetch_one()
 
         if user:
