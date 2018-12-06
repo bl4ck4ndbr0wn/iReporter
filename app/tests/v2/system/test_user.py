@@ -23,8 +23,8 @@ class UserTest(BaseTest):
         """
         self.signup()
         response = self.signup()
-        self.assertEqual(response.status_code, 400)
-        self.assertDictEqual({"status": 400,
+        self.assertEqual(response.status_code, 202)
+        self.assertDictEqual({"status": 202,
                               "data": [{
                                     "message": "A user with "
                                                "that username already exists"
@@ -40,8 +40,8 @@ class UserTest(BaseTest):
         self.signup()
         user_b = self.signup()
 
-        self.assertEqual(user_b.status_code, 400)
-        self.assertDictEqual({"status": 400,
+        self.assertEqual(user_b.status_code, 202)
+        self.assertDictEqual({"status": 202,
                               "data": [
                                   {
                                     "message": "A user with that"
@@ -75,8 +75,8 @@ class UserTest(BaseTest):
                                  headers={'content-type': 'application/json'}
                                  )
 
-        self.assertEqual(response.status_code, 400)
-        self.assertDictEqual({"status": 400,
+        self.assertEqual(response.status_code, 401)
+        self.assertDictEqual({"status": 401,
                               "data": [
                                   {
                                       "message": "A user with that"
@@ -93,10 +93,8 @@ class UserTest(BaseTest):
         :return: token(jwt-token)
         """
         response = self.signup()
-        r = self.login()
+        self.assertEqual(response.status_code, 201)
 
-        token = json.loads(r.data).get("token", None)
-
-        self.assertEqual(r.status_code, 200)
+        token = self.get_token_on_user_login()
         self.assertIsNotNone(token)
 

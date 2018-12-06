@@ -39,7 +39,6 @@ class Incident(Model):
         self.query(query)
         incidents = self.fetch_all()
         self.save()
-        self.close_session()
 
         if incidents:
             return [self.map_incidents(incident) for incident in incidents]
@@ -57,7 +56,6 @@ class Incident(Model):
         self.query(query)
         incidents = self.fetch_one()
         self.save()
-        self.close_session()
 
         if incidents:
             return self.map_incidents(incidents)
@@ -74,7 +72,6 @@ class Incident(Model):
         self.query("SELECT * FROM incident")
         incidents = self.fetch_all()
         self.save()
-        self.close_session()
 
         if incidents:
             return incidents
@@ -110,8 +107,6 @@ class Incident(Model):
         Update
         :return:
         """
-        print(data)
-
         self.id = data[0]
         self.user_id = data[1],
         self.record_type = data[2],

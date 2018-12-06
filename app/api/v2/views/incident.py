@@ -93,11 +93,11 @@ class RedFlagRecord(Resource):
     """
 
     @jwt_required
-    def get(self, red_flag_id):
-        incident = Incident().find_by_id(red_flag_id)
+    def get(self, intervention_id):
+        incident = Incident().find_by_id(intervention_id)
         if incident:
             return {"status": 200,
-                    "data": [incident.json()]
+                    "data": [incident.serialize()]
                     }
         return {"status": 404,
                 "data": [{

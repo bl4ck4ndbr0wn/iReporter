@@ -30,16 +30,16 @@ class SignIn(Resource):
         if u and u.authenticated(password=request_data["password"]):
             token = u.generate_token()
             return {"status": 200,
-                    'token': token.decode('utf-8'),
+                    'token': token.decode(),
                     "data": [{
                         'message': f'You were successfully'
                         f' logged in {u.username}'
                     }]}, 200
 
-        return {"status": 400,
+        return {"status": 401,
                 "data": [{
                     "message": "A user with that username doesn't exists"
-                }]}, 400
+                }]}, 401
 
 
 class SignUp(Resource):
@@ -63,10 +63,10 @@ class SignUp(Resource):
         request_data = parser.parse_args()
         u = User().find_by_name(request_data["username"])
         if u:
-            return {"status": 400,
+            return {"status": 202,
                     "data": [{
                         "message": "A user with that username already exists"
-                    }]}, 400
+                    }]}, 202
 
         user = User(**request_data)
         user.save_to_db()
