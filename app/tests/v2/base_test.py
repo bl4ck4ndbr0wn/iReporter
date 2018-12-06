@@ -35,12 +35,11 @@ class BaseTest(TestCase):
         Model().create_table_incident()
 
         self.user_details = {
-            "firstname": "Alpha",
-            "lastname": "Nganga",
             "username": "alpha",
             "password": "password",
-            "email": "alphanganga@gmail.com",
-            "is_admin": False
+            "firstname": "Alpha",
+            "lastname": "Nganga",
+            "email": "alphanganga@gmail.com"
         }
         self.incident = {
             "user_id": 1,
