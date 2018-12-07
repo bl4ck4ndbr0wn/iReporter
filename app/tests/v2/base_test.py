@@ -2,6 +2,8 @@ import json
 from unittest import TestCase
 from app import create_app
 from flask import current_app
+
+from app.api.v2.models.user import User
 from instance.db import Model
 
 
@@ -41,6 +43,14 @@ class BaseTest(TestCase):
             "lastname": "Nganga",
             "email": "alphanganga@gmail.com"
         }
+        self.admin_user = {
+            "username": "admin",
+            "password": "devpassword",
+            "firstname": "Alpha",
+            "lastname": "Nganga",
+            "email": "alphanganga@gmail.com",
+            "is_admin": True
+        }
         self.incident = {
             "record_type": "red-flag",
             "location": "1.43434, 9.2343",
@@ -67,6 +77,27 @@ class BaseTest(TestCase):
             "videos": "/video/1.mkv",
             "comment": "Police bribe near Ruiru Sports club."
         }
+
+    def admin_login(self):
+        """
+        Makes a request to login endpoint.
+        :return: login response data
+        """
+        u = User(**self.admin_user)
+        u.save_to_db()
+        self.assertIsNotNone(u.find_by_name('admin'),
+                             "Did not find an user with "
+                             "name 'admin' after save_to_db")
+
+        response = self.app.post("/api/v2/auth/login",
+                                 data=json.dumps({
+                                     "username": self.admin_user["username"],
+                                     "password": self.admin_user["password"]
+                                 }),
+                                 headers={'content-type': 'application/json'}
+                                 )
+        token = json.loads(response.data.decode())
+        return token["token"]
 
     def login(self):
         """

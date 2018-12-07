@@ -190,37 +190,87 @@ class RecordTest(BaseTest):
                               }]},
                              json.loads(r.data))
 
-    def test_admin_can_change_incident_status(self):
+    def test_admin_can_change_red_flag_status(self):
         """
         Test incident updated successfully
         :return: Object
         """
-        r = self.app.patch("/api/v1/admin/red-flags/3",
+        r = self.create_incident()
+        self.assertEqual(r.status_code, 201)
+        token = self.admin_login()
+        r = self.app.patch("/api/v2/red-flags/1/status",
                            data=json.dumps(self.update_incident_status),
                            headers={"content-type": "application/json",
-                                    "Authorization": f"Bearer {self.token}"})
+                                    "Authorization": f"Bearer {token}"})
 
         self.assertEqual(r.status_code, 202)
         self.assertDictEqual({"status": 202,
                               "data": [
                                     {
-                                        "id": 3,
+                                        "id": 1,
                                         "message": "Updated red-flag "
-                                                   "record’s comment."
+                                                   "record status."
                                     }
                                 ]
                               },
                              json.loads(r.data))
 
-    def test_admin_can_change_status_incident_not_found(self):
+    def test_admin_can_change_status_red_flag_not_found(self):
         """
         Test incident updated successfully
         :return: Object
         """
-        r = self.app.patch("/api/v1/admin/red-flags/3",
+        token = self.admin_login()
+        r = self.app.patch("/api/v2/red-flags/2/status",
                            data=json.dumps(self.update_incident_status),
                            headers={"content-type": "application/json",
-                                    "Authorization": f"Bearer {self.token}"})
+                                    "Authorization": f"Bearer {token}"})
+
+        self.assertEqual(r.status_code, 404)
+        self.assertDictEqual({"status": 404,
+                              "data": [
+                                    {
+                                        "message": "Incident record Not Found."
+                                    }
+                                ]
+                              },
+                             json.loads(r.data))
+
+    def test_admin_can_change_interventions_status(self):
+        """
+        Test incident updated successfully
+        :return: Object
+        """
+        r = self.create_incident()
+        self.assertEqual(r.status_code, 201)
+        token = self.admin_login()
+        r = self.app.patch("/api/v2/interventions/1/status",
+                           data=json.dumps(self.update_incident_status),
+                           headers={"content-type": "application/json",
+                                    "Authorization": f"Bearer {token}"})
+
+        self.assertEqual(r.status_code, 202)
+        self.assertDictEqual({"status": 202,
+                              "data": [
+                                    {
+                                        "id": 1,
+                                        "message": "Updated red-flag "
+                                                   "record status."
+                                    }
+                                ]
+                              },
+                             json.loads(r.data))
+
+    def test_admin_can_change_status_interventions_not_found(self):
+        """
+        Test incident updated successfully
+        :return: Object
+        """
+        token = self.admin_login()
+        r = self.app.patch("/api/v2/interventions/2/status",
+                           data=json.dumps(self.update_incident_status),
+                           headers={"content-type": "application/json",
+                                    "Authorization": f"Bearer {token}"})
 
         self.assertEqual(r.status_code, 404)
         self.assertDictEqual({"status": 404,
