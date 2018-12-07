@@ -3,9 +3,6 @@ from app.tests.v2.base_test import BaseTest
 
 
 class RecordTest(BaseTest):
-    def __init__(self):
-        super().__init__()
-        self.token = self.get_token_on_user_login()
 
     def test_create_new_incident(self):
         """
@@ -15,7 +12,6 @@ class RecordTest(BaseTest):
         r = self.create_incident()
         expected = {"status": 201,
                     "data": [{
-                        "id": 3,
                         "message": "red-flag record created Successfully."
                     }]}
 
@@ -28,8 +24,9 @@ class RecordTest(BaseTest):
         :return: status code 200
         """
         self.create_incident()
-        r = self.app.get("/api/v1/red-flags",
-                         headers={"Authorization": f"Bearer {self.token}"})
+        token = self.get_token_on_user_login()
+        r = self.app.get("/api/v2/interventions",
+                         headers={"Authorization": f"Bearer {token}"})
 
         self.assertEqual(r.status_code, 200)
 
@@ -40,26 +37,46 @@ class RecordTest(BaseTest):
         :return: record.
         """
         self.create_incident()
-        r = self.app.get("/api/v1/red-flags/3",
-                         headers={"Authorization": f"Bearer {self.token}"})
+        token = self.get_token_on_user_login()
+        r = self.app.get("/api/v2/interventions/1",
+                         headers={"Authorization": f"Bearer {token}"})
 
         self.assertEqual(r.status_code, 200)
+
+    def test_specific_record_not_found(self):
+        """
+        Test if record does not exist
+        :return: Error
+        """
+        token = self.get_token_on_user_login()
+        r = self.app.get("/api/v2/interventions/2",
+                         headers={"Authorization": f"Bearer {token}"})
+
+        self.assertEqual(r.status_code, 404)
+        self.assertDictEqual({"status": 404,
+                             "data": [{
+                                 "message": "Incident record does not exist."
+                             }]},
+                             json.loads(r.data))
 
     def test_incident_update_comment(self):
         """
         Test incident updated successfully
         :return: Object
         """
-        r = self.app.patch("/api/v1/red-flags/3/comment",
+        r = self.create_incident()
+        self.assertEqual(r.status_code, 201)
+        token = self.get_token_on_user_login()
+        r = self.app.patch("/api/v2/interventions/1/comment",
                            data=json.dumps(self.update_incident),
                            headers={"content-type": "application/json",
-                                    "Authorization": f"Bearer {self.token}"})
+                                    "Authorization": f"Bearer {token}"})
 
         self.assertEqual(r.status_code, 202)
         self.assertDictEqual({"status": 202,
                               "data": [
                                     {
-                                        "id": 3,
+                                        "id": 1,
                                         "message": "Updated red-flag "
                                                    "record’s comment."
                                     }
@@ -72,10 +89,13 @@ class RecordTest(BaseTest):
         Test incident updated successfully
         :return: Object
         """
-        r = self.app.patch("/api/v1/red-flags/10/comment",
+        r = self.create_incident()
+        self.assertEqual(r.status_code, 201)
+        token = self.get_token_on_user_login()
+        r = self.app.patch("/api/v2/interventions/2/comment",
                            data=json.dumps(self.update_incident),
                            headers={"content-type": "application/json",
-                                    "Authorization": f"Bearer {self.token}"})
+                                    "Authorization": f"Bearer {token}"})
 
         self.assertEqual(r.status_code, 404)
         self.assertDictEqual({"status": 404,
@@ -92,16 +112,19 @@ class RecordTest(BaseTest):
         Test incident updated successfully
         :return: Object
         """
-        r = self.app.patch("/api/v1/red-flags/3/location",
+        r = self.create_incident()
+        self.assertEqual(r.status_code, 201)
+        token = self.get_token_on_user_login()
+        r = self.app.patch("/api/v2/interventions/1/location",
                            data=json.dumps(self.update_incident),
                            headers={"content-type": "application/json",
-                                    "Authorization": f"Bearer {self.token}"})
+                                    "Authorization": f"Bearer {token}"})
 
         self.assertEqual(r.status_code, 202)
         self.assertDictEqual({"status": 202,
                               "data": [
                                     {
-                                        "id": 3,
+                                        "id": 1,
                                         "message": "Updated red-flag "
                                                    "record’s location"
                                     }
@@ -114,10 +137,13 @@ class RecordTest(BaseTest):
         Test incident updated successfully
         :return: Object
         """
-        r = self.app.patch("/api/v1/red-flags/10/location",
+        r = self.create_incident()
+        self.assertEqual(r.status_code, 201)
+        token = self.get_token_on_user_login()
+        r = self.app.patch("/api/v2/interventions/2/location",
                            data=json.dumps(self.update_incident),
                            headers={"content-type": "application/json",
-                                    "Authorization": f"Bearer {self.token}"})
+                                    "Authorization": f"Bearer {token}"})
 
         self.assertEqual(r.status_code, 404)
         self.assertDictEqual({"status": 404,
@@ -134,9 +160,11 @@ class RecordTest(BaseTest):
         Test if successfully deleted
         :return: status_code 200
         """
-        self.create_incident()
-        r = self.app.delete("/api/v1/red-flags/1",
-                            headers={"Authorization": f"Bearer {self.token}"})
+        r = self.create_incident()
+        self.assertEqual(r.status_code, 201)
+        token = self.get_token_on_user_login()
+        r = self.app.delete("/api/v2/interventions/1",
+                            headers={"Authorization": f"Bearer {token}"})
 
         self.assertEqual(r.status_code, 200)
         self.assertDictEqual({"status": 200,
@@ -151,8 +179,9 @@ class RecordTest(BaseTest):
         Test if record does not exist for delete show error
         :return: Error
         """
-        r = self.app.delete("/api/v1/red-flags/2",
-                            headers={"Authorization": f"Bearer {self.token}"})
+        token = self.get_token_on_user_login()
+        r = self.app.delete("/api/v2/interventions/2",
+                            headers={"Authorization": f"Bearer {token}"})
 
         self.assertEqual(r.status_code, 404)
         self.assertDictEqual({"status": 404,

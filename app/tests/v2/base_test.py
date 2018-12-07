@@ -35,12 +35,11 @@ class BaseTest(TestCase):
         Model().create_table_incident()
 
         self.user_details = {
-            "firstname": "Alpha",
-            "lastname": "Nganga",
             "username": "alpha",
             "password": "password",
-            "email": "alphanganga@gmail.com",
-            "is_admin": False
+            "firstname": "Alpha",
+            "lastname": "Nganga",
+            "email": "alphanganga@gmail.com"
         }
         self.incident = {
             "record_type": "red-flag",
@@ -102,8 +101,8 @@ class BaseTest(TestCase):
         self.signup()
         r = self.login()
 
-        token = json.loads(r.data).get("token", None)
-        return token
+        token = json.loads(r.data.decode())
+        return token["token"]
 
     def create_incident(self):
         """
@@ -111,7 +110,7 @@ class BaseTest(TestCase):
         :return: response
         """
         token = self.get_token_on_user_login()
-        r = self.app.post("/api/v1/red-flags",
+        r = self.app.post("/api/v2/interventions",
                           data=json.dumps(self.incident),
                           headers={"content-type": "application/json",
                                    "Authorization": f"Bearer {token}"})
@@ -137,5 +136,6 @@ class BaseTest(TestCase):
         It's called if the setUp() succeeds,
         regardless of the outcome of the test method.
         """
+        Model().close_session()
         Model().drop_tables()
         self.app_context.pop()
