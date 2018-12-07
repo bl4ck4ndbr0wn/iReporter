@@ -108,7 +108,9 @@ class Incident(Model):
 
         :return: None
         """
-        pass
+        self.cursor.execute("""DELETE FROM incident WHERE id = %s;""",
+                            (self.id,))
+        self.save()
 
     def map_incidents(self, data):
         """

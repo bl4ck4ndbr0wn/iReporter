@@ -154,3 +154,38 @@ class RecordTest(BaseTest):
                                 ]
                               },
                              json.loads(r.data))
+
+    def test_delete_specific_record(self):
+        """
+        Test if successfully deleted
+        :return: status_code 200
+        """
+        r = self.create_incident()
+        self.assertEqual(r.status_code, 201)
+        token = self.get_token_on_user_login()
+        r = self.app.delete("/api/v2/interventions/1",
+                            headers={"Authorization": f"Bearer {token}"})
+
+        self.assertEqual(r.status_code, 200)
+        self.assertDictEqual({"status": 200,
+                             "data": [{
+                                 "id": 1,
+                                 "message": "Incident record has been deleted."
+                             }]},
+                             json.loads(r.data))
+
+    def test_deleting_specific_record_not_found(self):
+        """
+        Test if record does not exist for delete show error
+        :return: Error
+        """
+        token = self.get_token_on_user_login()
+        r = self.app.delete("/api/v2/interventions/2",
+                            headers={"Authorization": f"Bearer {token}"})
+
+        self.assertEqual(r.status_code, 404)
+        self.assertDictEqual({"status": 404,
+                              "data": [{
+                                   "message": "Incident record Not Found."
+                              }]},
+                             json.loads(r.data))
