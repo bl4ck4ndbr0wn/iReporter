@@ -104,6 +104,21 @@ class RedFlagRecord(Resource):
                      "message": "Incident record does not exist."
                 }]}, 404
 
+    @jwt_required
+    def delete(self, intervention_id):
+        incident = Incident().find_by_id(intervention_id)
+        if incident:
+            incident.delete_from_db()
+            return {"status": 200,
+                    "data": [{
+                        "id": incident.id,
+                        "message": "Incident record has been deleted."
+                    }]}
+        return {"status": 404,
+                "data": [{
+                    "message": "Incident record Not Found."
+                }]}, 404
+
 
 class RedFlagRecordLocation(Resource):
 

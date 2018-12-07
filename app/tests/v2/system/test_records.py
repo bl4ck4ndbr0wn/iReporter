@@ -160,9 +160,11 @@ class RecordTest(BaseTest):
         Test if successfully deleted
         :return: status_code 200
         """
-        self.create_incident()
-        r = self.app.delete("/api/v1/red-flags/1",
-                            headers={"Authorization": f"Bearer {self.token}"})
+        r = self.create_incident()
+        self.assertEqual(r.status_code, 201)
+        token = self.get_token_on_user_login()
+        r = self.app.delete("/api/v2/interventions/1",
+                            headers={"Authorization": f"Bearer {token}"})
 
         self.assertEqual(r.status_code, 200)
         self.assertDictEqual({"status": 200,
@@ -177,8 +179,9 @@ class RecordTest(BaseTest):
         Test if record does not exist for delete show error
         :return: Error
         """
-        r = self.app.delete("/api/v1/red-flags/2",
-                            headers={"Authorization": f"Bearer {self.token}"})
+        token = self.get_token_on_user_login()
+        r = self.app.delete("/api/v2/interventions/2",
+                            headers={"Authorization": f"Bearer {token}"})
 
         self.assertEqual(r.status_code, 404)
         self.assertDictEqual({"status": 404,
