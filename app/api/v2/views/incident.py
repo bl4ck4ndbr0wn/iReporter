@@ -103,3 +103,48 @@ class RedFlagRecord(Resource):
                 "data": [{
                      "message": "Incident record does not exist."
                 }]}, 404
+
+
+class RedFlagRecordLocation(Resource):
+
+    @jwt_required
+    def patch(self, intervention_id):
+        data = parser.parse_args()
+        incident = Incident().find_by_id(intervention_id)
+        if incident:
+            incident.update_location(data["location"])
+            return {
+                      "status": 202,
+                      "data": [{
+                         "id": incident.id,  # red-flag record primary key
+                         "message": "Updated red-flag record’s location"
+                      }]
+                    }, 202
+
+        return {"status": 404,
+                "data": [{
+                    "message": "Incident record Not Found."
+                }]}, 404
+
+
+class RedFlagRecordComment(Resource):
+
+    @jwt_required
+    def patch(self, intervention_id):
+        data = parser.parse_args()
+        incident = Incident().find_by_id(intervention_id)
+        if incident:
+            incident.update_comment(data["comment"])
+            return {
+                      "status": 202,
+                      "data": [{
+                         "id": incident.id,  # red-flag record primary key
+                         "message": "Updated red-flag record’s comment."
+                      }]
+                    }, 202
+
+        return {"status": 404,
+                "data": [{
+                    "message": "Incident record Not Found."
+
+                }]}, 404

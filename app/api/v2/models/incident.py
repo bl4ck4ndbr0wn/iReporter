@@ -83,7 +83,11 @@ class Incident(Model):
         :param location:
         :return: incident
         """
-        pass
+        self.cursor.execute("""
+                        UPDATE incident SET location = %s 
+                        WHERE id = %s;""",
+                            (location, self.id))
+        self.save()
 
     def update_comment(self, comment):
         """
@@ -92,7 +96,11 @@ class Incident(Model):
         :param comment:
         :return: Incident
         """
-        pass
+        self.cursor.execute("""
+                                UPDATE incident SET comment = %s 
+                                WHERE id = %s;""",
+                            (comment, self.id))
+        self.save()
 
     def delete_from_db(self):
         """

@@ -128,7 +128,7 @@ class User(Model):
         try:
             payload = jwt.decode(token,
                                  current_app.config.get('JWT_SECRET_KEY'),
-                                 algorithm=['HS256'])
+                                 algorithms=['HS256'])
             return payload["user_id"]
         except jwt.ExpiredSignatureError:
             # the token is expired, return an error string
