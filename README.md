@@ -38,30 +38,36 @@ Create a virtualenvironment and activate it
  ```.env
  python3 - m venv env
  ```
- Create a ```.env``` file in the parent directory and add this:
- ```..env
- source env/bin/activate
+ rename ```.env.example``` to```.env``` file in the parent directory and update it with the values you want.
 
- export FLASK_APP=run.py
-       FLASK_CONFIG="development"
-       FLASK_ENV=development
-       FLASK_DEBUG=1
-       JWT_SECRET_KEY="fkjsahgufhdsifshyc7r843cn74rn8"
- ```
  To initialize your flask environment and add environment variables to it run:
  ```.env
  source .env
  ```
  Install all the dependencies needed by
  ```..env
- pip install - r Requirements.txt
+ pip install - r requirements.txt
  ```
  **Run the application**
+ First Create a postgresql database table named ```ireporter```
+ To create tables into that database run
+ ```.env
+flask migrate
+```
+To drop or delete tables from that table run:
+```.env
+flask drop
+```
+To create initial admin user run:
+```.env
+flask seed
+```
  
  Run the flask application
  ```.env
   flask run
  ```
+ 
  
 **Test the application**
  ```.env
@@ -72,16 +78,18 @@ flask cov
  
 ## Endpoints to test
 
-| Method | Endpoint                                    | Description                                    |
-| ------ | ------------------------------------------- | ---------------------------------------------- |
-| POST   | /api/v1/auth/signup                         | sign up a user                                 |
-| POST   | /api/v1/auth/login                          | login a user                                   |
-| POST   | /api/v1/red-flags                           | Create a red-flag record.                      |
-| GET    | /api/v1/red-flags                           | Fetch all red-flag records.                    |
-| GET    | /api/v1/red-flags/<red-flag-id>             | Fetch a specific red-flag record.              |
-| PATCH  | /api/v1/red-flags/<red-flag-id>/location    | Edit the location of a specific record.        |
-| PATCH  | /api/v1/red-flags/<red-flag-id>/comment     | Edit the comment of a specific record.         |
-| DELETE | /api/v1/red-flags/<red-flag-id>             | Delete a specific red flag record.             |
+| Method | Endpoint                                       | Description                                       |
+| ------ | ---------------------------------------------- | ------------------------------------------------- |
+| POST   | /api/v2/auth/signup                            | sign up a user                                    |
+| POST   | /api/v2/auth/login                             | login a user                                      |
+| POST   | /api/v2/interventions                          | Create a red-flag record.                         |
+| GET    | /api/v2/interventions                          | Fetch all red-flag records.                       |
+| GET    | /api/v2/intervention/<intervention-id>         | Fetch a specific red-flag record.                 |
+| PATCH  | /api/v2/intervention/<intervention-id>/location| Edit the location of a specific record.           |
+| PATCH  | /api/v2/intervention/<intervention-id>/comment | Edit the comment of a specific record.            |
+| PATCH  | /api/v2/red-flags/<red-flag-id>/status         | Edit the status of an red-flag record. (Admin)    |
+| PATCH  | /api/v2/interventions/<intervention-id>/status | Edit the status of an intervention record. (Admin)|
+| DELETE | /api/v2/intervention/<intervention-id>         | Delete a specific red flag record.                |
 
 ### Author
 
