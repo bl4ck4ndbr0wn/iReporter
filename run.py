@@ -4,6 +4,7 @@ import subprocess
 
 from app import create_app
 from instance.db import Model
+from app.api.v2.models.user import User
 
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 
@@ -27,6 +28,28 @@ def drop():
     """
     Model().init_app(app)
     Model().drop_tables()
+
+
+@app.cli.command()
+def seed():
+    """
+    Seed the database with an initial user.
+
+    :return: User instance
+    """
+    if User().find_by_name(app.config['SEED_ADMIN_USERNAME']) is not None:
+        return None
+
+    params = {
+        "username": app.config['SEED_ADMIN_USERNAME'],
+        "password": app.config['SEED_ADMIN_PASSWORD'],
+        "firstname": "Admin",
+        "lastname": "User",
+        "email": app.config['SEED_ADMIN_EMAIL'],
+        "is_admin": True
+    }
+
+    return User(**params).save_to_db()
 
 
 @app.cli.command()
@@ -75,3 +98,5 @@ def flake8(skip_init, path):
 
     cmd = 'flake8 {0}{1}'.format(path, flake8_flag_exclude)
     return subprocess.call(cmd, shell=True)
+
+

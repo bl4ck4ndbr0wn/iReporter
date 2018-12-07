@@ -44,3 +44,19 @@ def jwt_required(f):
                 status=400
             )
     return decorated_auth
+
+
+def admin_access(f):
+    """
+    restrict access if not Admin authorized
+
+    :param f:
+    :return: user_id
+    """
+    @wraps(f)
+    def wrapper_function(*args, **kwargs):
+        user = User().find_by_id(g.user.get("user_id"))
+        if not user.is_admin:
+            return {'message': 'Unauthorized access, you must be an admin to update incident records.'}, 401
+        return f(*args, **kwargs)
+    return wrapper_function

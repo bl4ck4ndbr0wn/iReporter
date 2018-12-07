@@ -2,7 +2,7 @@ from flask import request, jsonify, g
 from flask_restful import Resource, reqparse
 from app.api.v2.models.incident import Incident
 from app.api.v2.models.user import User
-from utils.decorators import jwt_required
+from utils.decorators import jwt_required, admin_access
 
 parser = reqparse.RequestParser(bundle_errors=True)
 parser.add_argument('record_type',
@@ -157,6 +157,54 @@ class RedFlagRecordComment(Resource):
                          "message": "Updated red-flag record’s comment."
                       }]
                     }, 202
+
+        return {"status": 404,
+                "data": [{
+                    "message": "Incident record Not Found."
+
+                }]}, 404
+
+
+class RedFlagRecordStatus(Resource):
+
+    @jwt_required
+    @admin_access
+    def patch(self, intervention_id):
+        data = parser.parse_args()
+        incident = Incident().find_by_id(intervention_id)
+        if incident:
+            incident.update_status(data["status"])
+            return {
+                      "status": 202,
+                      "data": [{
+                         "id": incident.id,  # red-flag record primary key
+                         "message": "Updated red-flag record status."
+                      }]
+                    }, 202
+
+        return {"status": 404,
+                "data": [{
+                    "message": "Incident record Not Found."
+
+                }]}, 404
+
+
+class InterventionsRecordStatus(Resource):
+
+    @jwt_required
+    @admin_access
+    def patch(self, intervention_id):
+        data = parser.parse_args()
+        incident = Incident().find_by_id(intervention_id)
+        if incident:
+            incident.update_status(data["status"])
+            return {
+                       "status": 202,
+                       "data": [{
+                           "id": incident.id,  # red-flag record primary key
+                           "message": "Updated red-flag record status."
+                       }]
+                   }, 202
 
         return {"status": 404,
                 "data": [{

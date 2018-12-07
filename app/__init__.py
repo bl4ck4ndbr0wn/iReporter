@@ -6,7 +6,9 @@ from app.api.v2.views.auth import SignUp, SignIn
 from app.api.v2.views.incident import (RedFlagRecords,
                                        RedFlagRecord,
                                        RedFlagRecordComment,
-                                       RedFlagRecordLocation
+                                       RedFlagRecordLocation,
+                                       RedFlagRecordStatus,
+                                       InterventionsRecordStatus
                                        )
 
 
@@ -52,5 +54,11 @@ def routes(api):
                      "/interventions/<int:intervention_id>/location")
     api.add_resource(RedFlagRecordComment,
                      "/interventions/<int:intervention_id>/comment")
+
+    # Admin Routes
+    api.add_resource(RedFlagRecordStatus,
+                     "/red-flags/<int:intervention_id>/status")
+    api.add_resource(InterventionsRecordStatus,
+                     "/interventions/<int:intervention_id>/status")
     return None
 

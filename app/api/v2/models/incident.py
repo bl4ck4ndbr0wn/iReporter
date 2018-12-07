@@ -102,6 +102,19 @@ class Incident(Model):
                             (comment, self.id))
         self.save()
 
+    def update_status(self, status):
+        """
+        Update incident status
+
+        :param status:
+        :return: Incident
+        """
+        self.cursor.execute("""
+                                UPDATE incident SET status = %s 
+                                WHERE id = %s;""",
+                            (status, self.id))
+        self.save()
+
     def delete_from_db(self):
         """
         Find record and delete it.
