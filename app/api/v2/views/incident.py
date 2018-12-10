@@ -77,10 +77,10 @@ class RedFlagRecords(Resource):
         new_record.save_to_db()
 
         return {"status": 201,
-                "data": [{
-                    "message": "{} record created "
-                               "Successfully.".format(new_record.record_type)
-                }]}, 201
+                "data": [new_record.serialize()],
+                "message": "{} record created "
+                           "Successfully.".format(new_record.record_type)
+                }, 201
 
 
 class RedFlagRecord(Resource):
