@@ -55,7 +55,7 @@ class User(Model):
         """
         Find a user by their id.
 
-        :param user_id: username
+        :param user_id: user_id
         :type user_id: int
         :return: User instance
         """
