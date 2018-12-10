@@ -10,13 +10,8 @@ class RecordTest(BaseTest):
         :return: status code 201 (Created)
         """
         r = self.create_incident()
-        expected = {"status": 201,
-                    "data": [{
-                        "message": "red-flag record created Successfully."
-                    }]}
 
         self.assertEqual(r.status_code, 201)
-        self.assertDictEqual(expected, json.loads(r.data))
 
     def test_get_all_incident(self):
         """
@@ -199,7 +194,7 @@ class RecordTest(BaseTest):
         self.assertEqual(r.status_code, 201)
         token = self.admin_login()
         r = self.app.patch("/api/v2/red-flags/1/status",
-                           data=json.dumps(self.update_incident_status),
+                           data=json.dumps(self.update_red_flag_status),
                            headers={"content-type": "application/json",
                                     "Authorization": f"Bearer {token}"})
 
@@ -222,7 +217,7 @@ class RecordTest(BaseTest):
         """
         token = self.admin_login()
         r = self.app.patch("/api/v2/red-flags/2/status",
-                           data=json.dumps(self.update_incident_status),
+                           data=json.dumps(self.update_red_flag_status),
                            headers={"content-type": "application/json",
                                     "Authorization": f"Bearer {token}"})
 
@@ -245,7 +240,7 @@ class RecordTest(BaseTest):
         self.assertEqual(r.status_code, 201)
         token = self.admin_login()
         r = self.app.patch("/api/v2/interventions/1/status",
-                           data=json.dumps(self.update_incident_status),
+                           data=json.dumps(self.update_intervention_status),
                            headers={"content-type": "application/json",
                                     "Authorization": f"Bearer {token}"})
 
@@ -268,7 +263,7 @@ class RecordTest(BaseTest):
         """
         token = self.admin_login()
         r = self.app.patch("/api/v2/interventions/2/status",
-                           data=json.dumps(self.update_incident_status),
+                           data=json.dumps(self.update_intervention_status),
                            headers={"content-type": "application/json",
                                     "Authorization": f"Bearer {token}"})
 

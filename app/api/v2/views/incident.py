@@ -171,6 +171,10 @@ class RedFlagRecordStatus(Resource):
     @admin_access
     def patch(self, intervention_id):
         data = parser.parse_args()
+        if data["record_type"] != "red-flag":
+            return {"status": 401,
+                    "error": "This incident record is not a red-flag."
+                    }, 401
         incident = Incident().find_by_id(intervention_id)
         if incident:
             incident.update_status(data["status"])
@@ -195,6 +199,10 @@ class InterventionsRecordStatus(Resource):
     @admin_access
     def patch(self, intervention_id):
         data = parser.parse_args()
+        if data["record_type"] != "intervention":
+            return {"status": 401,
+                    "error": "This incident record is not an intervention."
+                    }, 401
         incident = Incident().find_by_id(intervention_id)
         if incident:
             incident.update_status(data["status"])

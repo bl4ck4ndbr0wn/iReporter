@@ -130,6 +130,9 @@ class User(Model):
                                  current_app.config.get('JWT_SECRET_KEY'),
                                  algorithms=['HS256'])
             return payload["user_id"]
+        except jwt.DecodeError:
+            # Raised when a token cannot be decoded because it failed validation
+            return "Token failed validation hence decode failed."
         except jwt.ExpiredSignatureError:
             # the token is expired, return an error string
             return "Expired token. Please login to get a new token"
