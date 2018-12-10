@@ -1,11 +1,9 @@
-# IReporter [![Coverage Status](https://coveralls.io/repos/github/bl4ck4ndbr0wn/iReporter/badge.svg?branch=develop-v2)](https://coveralls.io/github/bl4ck4ndbr0wn/iReporter?branch=develop-v2) [![Build Status](https://travis-ci.org/bl4ck4ndbr0wn/iReporter.svg?branch=develop-v2)](https://travis-ci.org/bl4ck4ndbr0wn/iReporter) ![license](https://img.shields.io/github/license/mashape/apistatus.svg) [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/bl4ck4ndbr0wn/iReporter)
+# IReporter [![Build Status](https://travis-ci.org/bl4ck4ndbr0wn/iReporter.svg?branch=develop-v2)](https://travis-ci.org/bl4ck4ndbr0wn/iReporter) [![Coverage Status](https://coveralls.io/repos/github/bl4ck4ndbr0wn/iReporter/badge.svg?branch=develop-v2)](https://coveralls.io/github/bl4ck4ndbr0wn/iReporter?branch=develop-v2)  ![license](https://img.shields.io/github/license/mashape/apistatus.svg) [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/bl4ck4ndbr0wn/iReporter) [![Maintainability](https://api.codeclimate.com/v1/badges/23c79b32532f75cddbc0/maintainability)](https://codeclimate.com/github/bl4ck4ndbr0wn/iReporter/maintainability)
 iReporter enables any/every citizen to bring any form of corruption to the notice of appropriate authorities and the general public. Users can also report on things that needs government intervention.
 
 To view postman collection 
 
-[Postman Api Collection](https://documenter.getpostman.com/view/3130673/RzfdpVp3)
-and
-[Heroku Api](https://documenter.getpostman.com/view/3130673/RzfdpVp3)
+[Postman Api Documentation.](https://documenter.getpostman.com/view/3130673/RzfdpVp3)
 
 **How it works**
 - Users can create an account and log in.
@@ -76,7 +74,8 @@ or
 flask cov
 ```
  
-## Endpoints to test
+## Endpoints to test 
+*(url: http://localhost, http://127.0.0.1)*
 
 | Method | Endpoint                                       | Description                                       |
 | ------ | ---------------------------------------------- | ------------------------------------------------- |
