@@ -45,7 +45,7 @@ def routes(api):
     :param api: registered blueprint
     :return: None
     """
-    api.add_resource(SignUp, "/auth/register")
+    api.add_resource(SignUp, "/auth/signup")
     api.add_resource(SignIn, "/auth/login")
 
     api.add_resource(RedFlagRecords, "/interventions")
