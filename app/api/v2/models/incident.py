@@ -1,11 +1,10 @@
 from instance.db import Model
-import pdb
 
 
 class Incident(Model):
 
-    def __init__(self, record_type=None, comment=None, user_id=None,  location=None,
-                 status=None, images=None, videos=None):
+    def __init__(self, record_type=None, comment=None, user_id=None,
+                 location=None, status=None, images=None, videos=None):
         super().__init__()
         self.id = None
         self.user_id = user_id
@@ -62,9 +61,13 @@ class Incident(Model):
         return None
 
     def save_to_db(self):
-        self.cursor.execute("""
-                INSERT INTO incident (user_id, recordtype,location, status, comment) 
-                VALUES(%s, %s, %s, %s, %s);""", (self.user_id, self.record_type, self.location, self.status, self.comment))
+        self.cursor.execute("""INSERT INTO incident (user_id, recordtype,
+                                location, status, comment) VALUES(%s, %s,
+                                 %s, %s, %s);""", (self.user_id,
+                                                   self.record_type,
+                                                   self.location,
+                                                   self.status,
+                                                   self.comment))
         self.save()
         self.close_session()
 
@@ -83,10 +86,7 @@ class Incident(Model):
         :param location:
         :return: incident
         """
-        self.cursor.execute("""
-                        UPDATE incident SET location = %s 
-                        WHERE id = %s;""",
-                            (location, self.id))
+        self.cursor.execute("""UPDATE incident SET location = %s WHERE id = %s;""", (location, self.id))
         self.save()
 
     def update_comment(self, comment):
@@ -96,8 +96,7 @@ class Incident(Model):
         :param comment:
         :return: Incident
         """
-        self.cursor.execute("""
-                                UPDATE incident SET comment = %s 
+        self.cursor.execute("""UPDATE incident SET comment = %s 
                                 WHERE id = %s;""",
                             (comment, self.id))
         self.save()
@@ -109,8 +108,7 @@ class Incident(Model):
         :param status:
         :return: Incident
         """
-        self.cursor.execute("""
-                                UPDATE incident SET status = %s 
+        self.cursor.execute("""UPDATE incident SET status = %s 
                                 WHERE id = %s;""",
                             (status, self.id))
         self.save()

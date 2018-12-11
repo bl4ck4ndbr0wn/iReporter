@@ -68,9 +68,18 @@ class BaseTest(TestCase):
             "videos": "/video/1.mkv",
             "comment": "Police bribe near Nairobi."
         }
-        self.update_incident_status = {
+        self.update_red_flag_status = {
             "id": 1,
             "record_type": "red-flag",
+            "location": "1.43434, 9.2343",
+            "status": "under investigation",
+            "images": "/photo/1.jpg",
+            "videos": "/video/1.mkv",
+            "comment": "Police bribe near Ruiru Sports club."
+        }
+        self.update_intervention_status = {
+            "id": 1,
+            "record_type": "intervention",
             "location": "1.43434, 9.2343",
             "status": "under investigation",
             "images": "/photo/1.jpg",
