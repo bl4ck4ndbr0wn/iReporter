@@ -25,6 +25,21 @@ class RecordTest(BaseTest):
 
         self.assertEqual(r.status_code, 200)
 
+    def test_get_all_incident_empty_list(self):
+        """
+        Testing if records exist
+        :return: status code 200
+        """
+        token = self.get_token_on_user_login()
+        r = self.app.get("/api/v2/interventions",
+                         headers={"Authorization": f"Bearer {token}"})
+
+        self.assertEqual(r.status_code, 200)
+        self.assertDictEqual({"status": 200,
+                              "data": []
+                              },
+                             json.loads(r.data))
+
     def test_get_specific_incident(self):
         """
         Test to fetch a specific read-flag record
@@ -231,6 +246,25 @@ class RecordTest(BaseTest):
                               },
                              json.loads(r.data))
 
+    def test_admin_can_change_red_flag_status_type_error(self):
+        """
+        Test incident updated successfully
+        :return: Object
+        """
+        r = self.create_incident()
+        self.assertEqual(r.status_code, 201)
+        token = self.admin_login()
+        r = self.app.patch("/api/v2/red-flags/1/status",
+                           data=json.dumps(self.update_intervention_status),
+                           headers={"content-type": "application/json",
+                                    "Authorization": f"Bearer {token}"})
+
+        self.assertEqual(r.status_code, 401)
+        self.assertDictEqual({"status": 401,
+                              "error": "This incident record is not a red-flag."
+                              },
+                             json.loads(r.data))
+
     def test_admin_can_change_interventions_status(self):
         """
         Test incident updated successfully
@@ -253,6 +287,25 @@ class RecordTest(BaseTest):
                                                    "record status."
                                     }
                                 ]
+                              },
+                             json.loads(r.data))
+
+    def test_admin_can_change_interventions_status_type_error(self):
+        """
+        Test incident updated successfully
+        :return: Object
+        """
+        r = self.create_incident()
+        self.assertEqual(r.status_code, 201)
+        token = self.admin_login()
+        r = self.app.patch("/api/v2/interventions/1/status",
+                           data=json.dumps(self.update_red_flag_status),
+                           headers={"content-type": "application/json",
+                                    "Authorization": f"Bearer {token}"})
+
+        self.assertEqual(r.status_code, 401)
+        self.assertDictEqual({"status": 401,
+                              "error": "This incident record is not an intervention."
                               },
                              json.loads(r.data))
 

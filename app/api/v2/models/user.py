@@ -165,4 +165,3 @@ class User(Model):
         self.is_admin = data[8]
 
         return self
-
