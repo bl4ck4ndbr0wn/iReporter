@@ -1,11 +1,9 @@
-class Component {
+export class Component {
   constructor() {
     this.setState = this.setState.bind(this);
   }
 
   setState(newState) {
-    return Object.assign(this.setState, newState);
+    return Object.assign(this.state, newState);
   }
 }
-
-module.exports = Component;

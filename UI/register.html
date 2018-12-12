@@ -27,26 +27,67 @@
         </div>
         <h1 class="text--center">Sign up</h1>
         <div class="auth-item">
-          <form id="auth-form" class="form form-auth">
+          <form id="auth_form" class="form form-auth">
             <div class="form-field">
-              <label class="user" for="auth-username">
-                <span class="hidden">Full Name</span>
+              <label class="user" for="auth-firstname">
+                <span class="hidden">First Name</span>
               </label>
               <input
-                id="auth-username"
+                id="auth_firstname"
                 type="text"
+                name="firstname"
                 class="form-input"
-                placeholder="Full Name"
+                placeholder="First Name"
                 required
               />
             </div>
             <div class="form-field">
-              <label class="user-email" for="auth-username">
+              <label class="user" for="auth-lastname">
+                <span class="hidden">Last Name</span>
+              </label>
+              <input
+                id="auth_lastname"
+                type="text"
+                name="lastname"
+                class="form-input"
+                placeholder="Last Name"
+                required
+              />
+            </div>
+            <div class="form-field">
+              <label class="user" for="auth-othername">
+                <span class="hidden">Other Names</span>
+              </label>
+              <input
+                id="auth_othername"
+                type="text"
+                name="othernames"
+                class="form-input"
+                placeholder="Other Names"
+                required
+              />
+            </div>
+            <div class="form-field">
+              <label class="user" for="auth-username">
+                <span class="hidden">Username</span>
+              </label>
+              <input
+                id="auth_username"
+                type="text"
+                name="username"
+                class="form-input"
+                placeholder="username"
+                required
+              />
+            </div>
+            <div class="form-field">
+              <label class="user-email" for="auth-email">
                 <span class="hidden">Email</span>
               </label>
               <input
-                id="auth-username"
+                id="auth_email"
                 type="email"
+                name="email"
                 class="form-input"
                 placeholder="Email"
                 required
@@ -57,8 +98,9 @@
                 <span class="hidden">Password</span>
               </label>
               <input
-                id="auth-password"
+                id="auth_password"
                 type="password"
+                name="password"
                 class="form-input"
                 placeholder="Password"
                 required
@@ -66,12 +108,13 @@
             </div>
 
             <div class="form-field">
-              <label class="lock" for="auth-password">
+              <label class="lock" for="auth-confirm-password">
                 <span class="hidden">Confirm Password</span>
               </label>
               <input
-                id="auth-password"
+                id="auth_confirm_password"
                 type="password"
+                name="password_confirm"
                 class="form-input"
                 placeholder="Confirm Password"
                 required
@@ -79,7 +122,7 @@
             </div>
 
             <div class="form-field">
-              <input type="submit" value="Sign Up" />
+              <input name="submit" id="submit" type="submit" value="Sign Up" />
             </div>
           </form>
           <p>Already have an account? <a href="login.html">Sign in</a></p>
