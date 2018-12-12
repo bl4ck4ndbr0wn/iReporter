@@ -3,8 +3,8 @@ import { auth_register_elements } from "../common/Elements";
 import Api from "../api/index";
 
 class Register extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       firstname: "",
       lastname: "",
@@ -32,9 +32,9 @@ class Register extends Component {
   }
 
   changeEventHandler(event) {
-    let change = { [event.target.name]: event.target.value };
-    console.log(change);
-    this.setState(change);
+    console.log({ [event.target.name]: event.target.value });
+
+    this.setState({ [event.target.name]: event.target.value });
   }
 
   onSubmit() {
