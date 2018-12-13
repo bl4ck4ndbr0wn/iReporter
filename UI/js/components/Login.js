@@ -1,25 +1,19 @@
 import { Component } from "../common/App";
-import { auth_register_elements } from "../common/Elements";
+import { auth_login_elements } from "../common/Elements";
 import Api from "../api/index";
 
-class Register extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstname: "",
-      lastname: "",
-      othernames: "",
-      email: "",
-      phoneNumber: "",
       username: "",
       password: "",
-      password_confirm: "",
       errors: {}
     };
 
-    this.url = "/auth/signup";
+    this.url = "/auth/signin";
     this.api = new Api();
-    this.elements = auth_register_elements();
+    this.elements = auth_login_elements();
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -39,15 +33,16 @@ class Register extends Component {
 
   onSubmit() {
     const errors = { ...this.state.errors };
-    const { register_submit } = this.elements;
-    register_submit.addEventListener("click", e => {
+    const { login_submit } = this.elements;
+    login_submit.addEventListener("click", e => {
       e.preventDefault();
 
       let data = this.state;
-      delete data["errors"];
-      this.api.post(this.url, data);
+
+      console.log(data);
+      // this.api.post(this.url, this.state);
     });
   }
 }
 
-export default Register;
+export default Login;

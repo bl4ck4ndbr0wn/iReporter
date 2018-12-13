@@ -7,7 +7,8 @@ const {
   auth_email,
   auth_password,
   auth_confirm_password,
-  submit
+  login_submit,
+  register_submit
 } = authForm.elements;
 
 const auth_register_elements = () => {
@@ -19,8 +20,16 @@ const auth_register_elements = () => {
     auth_email,
     auth_password,
     auth_confirm_password,
-    submit
+    register_submit
   };
 };
 
-export { auth_register_elements };
+const auth_login_elements = () => {
+  return {
+    auth_username,
+    auth_password,
+    login_submit
+  };
+};
+
+export { auth_register_elements, auth_login_elements };
