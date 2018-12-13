@@ -63,8 +63,6 @@ if (localStorage.jwtToken) {
   const decoded = this.parseJwt(localStorage.jwtToken);
   // Create Routes
   createList(privateRoutesRoutes);
-
-  console.log(decoded);
   if (decoded.exp < currentTime) {
     // Logout user
     // Remove token from localStorage
@@ -79,4 +77,18 @@ if (localStorage.jwtToken) {
 
 if (window.location.pathname !== "/UI/index.html" && !localStorage.jwtToken) {
   window.location = `${window.location.origin}/UI/login.html`;
+}
+
+class Logout {
+  logOut() {
+    // Remove token from localStorage
+    localStorage.removeItem("jwtToken");
+    // Redirect to login
+    window.location = `${window.location.origin}/UI/login.html`;
+  }
+}
+
+if (window.location.pathname === "/UI/logout.html") {
+  const logout = new Logout();
+  logout.logOut();
 }

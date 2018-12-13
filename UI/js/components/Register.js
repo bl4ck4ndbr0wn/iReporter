@@ -79,3 +79,11 @@ const register = new Register();
 // Register events
 register.onChange();
 register.onSubmit();
+
+// Alerts
+document.getElementById("popupCloseButton").addEventListener("click", e => {
+  e.preventDefault();
+
+  const alert = document.getElementById("popupmessage");
+  alert.style.display = "none";
+});

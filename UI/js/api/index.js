@@ -3,7 +3,7 @@ class Api {
     this.apiURL = "https://ireporter2018v2.herokuapp.com/api/v2";
   }
 
-  logError(err) {
+  logError(error) {
     console.log("Looks like there was a problem: \n", error);
   }
 
@@ -11,22 +11,30 @@ class Api {
     return resp.json();
   }
 
+  getAuthToken() {
+    // Check for token
+    if (localStorage.jwtToken) {
+      return localStorage.jwtToken;
+    }
+    return null;
+  }
+
   get(endpoint) {
     const URL = `${this.apiURL}${endpoint}`;
-    return fetch(URL, {
-      method: "GET",
-      mode: "cors",
-      cache: "default"
-    })
-      .then(this.validateResponse)
+    let token = this.getAuthToken();
+
+    let headers = { "Content-Type": "application/json" };
+    if (token) {
+      headers["Authorization"] = `Bearer ${token}`;
+    }
+    console.log(token);
+    return fetch(URL, { headers })
       .then(this.readResponseAsJSON)
       .catch(this.logError);
   }
 
   post(endpoint, data) {
     const URL = `${this.apiURL}${endpoint}`;
-    console.log(URL);
-
     return fetch(URL, {
       method: "POST",
       headers: {

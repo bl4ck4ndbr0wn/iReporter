@@ -41,50 +41,8 @@
     <div class="detail">
       <div class="description">
         <h3>All Records</h3>
-        <div
-          class="tablex tablex--colored tablex--columns tablex--bordered"
-          data-columns="4"
-          data-gutter="4"
-        >
-          <!-- Column 1 -->
-          <div class="tablex__item tablex__item--head">Name</div>
-          <div class="tablex__item">Alex</div>
-          <div class="tablex__item">Police Brutality</div>
-          <div class="tablex__item">Investigation</div>
-          <div class="tablex__item">
-            <i class="fa fa-edit"> </i> <i class="fa fa-trash"> </i>
-          </div>
-          <div class="tablex__item tablex__item--foot">Name</div>
 
-          <!-- Column 2 -->
-          <div class="tablex__item tablex__item--head">Title</div>
-          <div class="tablex__item">Alex</div>
-          <div class="tablex__item">Police Brutality</div>
-          <div class="tablex__item">Investigation</div>
-          <div class="tablex__item">
-            <i class="fa fa-edit"> </i> <i class="fa fa-trash"> </i>
-          </div>
-          <div class="tablex__item tablex__item--foot">Title</div>
-
-          <!-- Column 3 -->
-          <div class="tablex__item tablex__item--head">Status</div>
-          <div class="tablex__item">Alex</div>
-          <div class="tablex__item">Police Brutality</div>
-          <div class="tablex__item">Investigation</div>
-          <div class="tablex__item">
-            <i class="fa fa-edit"> </i> <i class="fa fa-trash"> </i>
-          </div>
-          <div class="tablex__item tablex__item--foot">Status</div>
-
-          <div class="tablex__item tablex__item--head">-</div>
-          <div class="tablex__item">Alex</div>
-          <div class="tablex__item">Police Brutality</div>
-          <div class="tablex__item">Investigation</div>
-          <div class="tablex__item">
-            <i class="fa fa-edit"> </i> <i class="fa fa-trash"> </i>
-          </div>
-          <div class="tablex__item tablex__item--foot">-</div>
-        </div>
+        <ul id="cardComponent" class="cards"></ul>
       </div>
     </div>
 
@@ -137,6 +95,11 @@
     </footer>
 
     <!-- JS Scripts -->
+    <script src="js/common/Elements.js"></script>
+    <script src="js/common/App.js"></script>
+    <script src="js/api/index.js"></script>
+    <script src="js/components/Record.js"></script>
+    <script src="js/components/AllRecords.js"></script>
     <script src="js/main.js"></script>
   </body>
 </html>
