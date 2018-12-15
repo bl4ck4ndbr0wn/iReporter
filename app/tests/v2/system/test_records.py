@@ -251,11 +251,11 @@ class RecordTest(BaseTest):
         Test incident updated successfully
         :return: Object
         """
-        r = self.create_incident()
+        r = self.create_new_incident()
         self.assertEqual(r.status_code, 201)
         token = self.admin_login()
         r = self.app.patch("/api/v2/red-flags/1/status",
-                           data=json.dumps(self.update_intervention_status),
+                           data=json.dumps(self.update_red_flag_status),
                            headers={"content-type": "application/json",
                                     "Authorization": f"Bearer {token}"})
 
@@ -270,7 +270,7 @@ class RecordTest(BaseTest):
         Test incident updated successfully
         :return: Object
         """
-        r = self.create_incident()
+        r = self.create_new_incident()
         self.assertEqual(r.status_code, 201)
         token = self.admin_login()
         r = self.app.patch("/api/v2/interventions/1/status",

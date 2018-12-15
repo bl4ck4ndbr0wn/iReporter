@@ -15,17 +15,17 @@ class User(Model):
                  username=None,
                  password=None,
                  firstname=None,
+                 othernames=None,
                  lastname=None,
-                 othername=None,
                  phonenumber=None,
                  is_admin=False):
         super().__init__()
         self.id = None
         self.firstname = firstname
         self.lastname = lastname
-        self.othername = othername
+        self.othernames = othernames
         self.email = email
-        self.phoneNumber = phonenumber
+        self.phonenumber = phonenumber
         self.username = username
         self.password = User.encrypt_password(password)
         self.is_admin = is_admin
@@ -83,7 +83,7 @@ class User(Model):
 
         return None
 
-    def authenticated(self, password=''):
+    def authenticated(self, password):
         """
         Ensure a user is authenticated, and optionally check their password.
 
@@ -140,14 +140,25 @@ class User(Model):
             # the token is invalid, return an error string
             return "Invalid token. Please register or login"
 
+    def blacklist_token(self, token):
+        """
+        Blacklist already expired token or invalid.
+        :param token:
+        :return: None.
+        """
+        query = "INSERT INTO token (token) VALUES(%s);"
+        data = (token,)
+        self.cursor.execute(query, data)
+        self.save()
+
     def save_to_db(self):
         query = "INSERT INTO users (username, password, firstname, " \
                 "lastname, phonenumber, email, othernames, is_admin) " \
                 "VALUES(%s, %s, %s, %s, %s, %s, %s, %s);"  # Note: no quotes
         data = (self.username, self.password,
                 self.firstname, self.lastname,
-                self.phoneNumber, self.email,
-                self.othername, self.is_admin,)
+                self.phonenumber, self.email,
+                self.othernames, self.is_admin,)
 
         self.cursor.execute(query, data)
         self.save()
@@ -159,9 +170,9 @@ class User(Model):
         self.password = data[2]
         self.firstname = data[3]
         self.lastname = data[4]
-        self.othername = data[5]
+        self.phonenumber = data[5]
         self.email = data[6]
-        self.phoneNumber = data[7]
+        self.othernames = data[7]
         self.is_admin = data[8]
 
         return self

@@ -42,6 +42,7 @@ class RecordTest(BaseTest):
         record = Incident(**self.incident)
         expected = dict(id=None,
                         user_id=None,
+                        title="corruption",
                         record_type="red-flag",
                         location="1.43434, 9.2343",
                         status="draft",

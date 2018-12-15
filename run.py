@@ -18,6 +18,7 @@ def migrate():
     Model().init_app(app)
     Model().create_table_user()
     Model().create_table_incident()
+    Model().create_table_token_blacklist()
 
 
 @app.cli.command()
