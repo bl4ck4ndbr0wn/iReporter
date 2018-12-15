@@ -11,7 +11,8 @@ from app.api.v2.views.incident import (RedFlagRecords,
                                        RedFlagRecordLocation,
                                        RedFlagRecordStatus,
                                        InterventionsRecordStatus,
-                                       RedFlagRecordImage
+                                       RedFlagRecordImage,
+                                       InterventionsRecordImage
                                        )
 
 
@@ -67,8 +68,8 @@ def routes(api):
     # Add images
     api.add_resource(RedFlagRecordImage,
                      "/red-flags/<int:red_flag_id>/addImage")
-    # api.add_resource(InterventionsRecordImage,
-    #                  "/interventions/<int:intervention_id>/addImage")
+    api.add_resource(InterventionsRecordImage,
+                     "/interventions/<int:intervention_id>/addImage")
     # Admin Routes
     api.add_resource(RedFlagRecordStatus,
                      "/red-flags/<int:intervention_id>/status")

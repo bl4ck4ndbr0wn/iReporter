@@ -309,7 +309,6 @@ class RedFlagRecordImage(Resource):
                 return {"status": 401,
                         "error": "This incident record is not a red-flag."
                         }, 401
-
             file = data['file']
             if file and incident.allowed_file(file.filename):
                 filename = secure_filename(file.filename)
@@ -317,12 +316,51 @@ class RedFlagRecordImage(Resource):
                 file.save(filepath)
                 incident.update_image(filepath)
                 return {
-                          "status": 202,
-                          "data": [{
-                             "id": incident.id,  # red-flag record primary key
-                             "message": "Image added to red-flag record"
-                          }]
-                        }, 202
+                           "status": 202,
+                           "data": [{
+                               "id": incident.id,  # red-flag record primary key
+                               "message": "Image added to red-flag record"
+                           }]
+                       }, 202
+
+        return {"status": 404,
+                "data": [{
+                    "message": "Incident record Not Found."
+
+                }]}, 404
+
+
+class InterventionsRecordImage(Resource):
+
+    @jwt_required
+    def patch(self, intervention_id):
+        data = update_image_parser.parse_args()
+
+        errors = validate_update_incident_image(data)
+        if errors:
+            return {"status": 404,
+                    "message": errors
+                    }, 404
+
+        incident = Incident().find_by_id(intervention_id)
+        if incident:
+            if incident.record_type[0] != "intervention":
+                return {"status": 401,
+                        "error": "This incident record is not an intervention."
+                        }, 401
+            file = data['file']
+            if file and incident.allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                filepath = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
+                file.save(filepath)
+                incident.update_image(filepath)
+                return {
+                           "status": 202,
+                           "data": [{
+                               "id": incident.id,  # red-flag record primary key
+                               "message": "Image added to intervention record"
+                           }]
+                       }, 202
 
         return {"status": 404,
                 "data": [{
