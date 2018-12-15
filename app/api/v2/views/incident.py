@@ -131,16 +131,19 @@ class RedFlagRecord(Resource):
         incident = Incident().find_by_id(intervention_id)
         if incident:
             if incident.user_id[0] == user.id or user.is_admin:
-                incident.delete_from_db()
-                return {"status": 200,
-                        "data": [{
-                            "id": incident.id,
-                            "message": "Incident record has been deleted."
-                        }]}
+                if incident.status[0] == "draft":
+                    incident.delete_from_db()
+                    return {"status": 200,
+                            "data": [{
+                                "id": incident.id,
+                                "message": "Incident record has been deleted."
+                            }]}
+                return {'status': 401,
+                        'message': f"Unauthorized action.The {incident.record_type[0]} "
+                        f"record's status has changed."}, 401
             return {'status': 401,
                     'message': 'Unauthorized action.A user a can only delete'
                                ' the incident record he/she created.'}, 401
-
         return {"status": 404,
                 "data": [{
                     "message": "Incident record Not Found."
@@ -164,17 +167,20 @@ class RedFlagRecordLocation(Resource):
                     "message": errors
                     }, 404
 
+        user = User().find_by_id(g.user.get("user_id"))
         incident = Incident().find_by_id(intervention_id)
         if incident:
-            incident.update_location(data["location"])
-            return {
-                      "status": 202,
-                      "data": [{
-                         "id": incident.id,  # red-flag record primary key
-                         "message": "Updated red-flag record’s location"
-                      }]
-                    }, 202
-
+            if incident.user_id[0] == user.id or user.is_admin:
+                if incident.status[0] == "draft":
+                    incident.update_location(data["location"])
+                    return {"status": 202,
+                            "data": [{
+                                "id": incident.id,  # red-flag record primary key
+                                "message": "Updated red-flag record’s location"
+                            }]}, 202
+                return {'status': 401,
+                        'message': f"Unauthorized action.The {incident.record_type[0]} "
+                        f"record's status has changed."}, 401
         return {"status": 404,
                 "data": [{
                     "message": "Incident record Not Found."
@@ -198,16 +204,20 @@ class RedFlagRecordComment(Resource):
                     "message": errors
                     }, 404
 
+        user = User().find_by_id(g.user.get("user_id"))
         incident = Incident().find_by_id(intervention_id)
         if incident:
-            incident.update_comment(data["comment"])
-            return {
-                      "status": 202,
-                      "data": [{
-                         "id": incident.id,  # red-flag record primary key
-                         "message": "Updated red-flag record’s comment."
-                      }]
-                    }, 202
+            if incident.user_id[0] == user.id or user.is_admin:
+                if incident.status[0] == "draft":
+                    incident.update_comment(data["comment"])
+                    return {"status": 202,
+                            "data": [{
+                                "id": incident.id,  # red-flag record primary key
+                                "message": "Updated red-flag record’s comment."
+                            }]}, 202
+                return {'status': 401,
+                        'message': f"Unauthorized action.The {incident.record_type[0]} "
+                        f"record's status has changed."}, 401
 
         return {"status": 404,
                 "data": [{
@@ -307,27 +317,31 @@ class RedFlagRecordImage(Resource):
             return {"status": 404,
                     "message": errors
                     }, 404
-
+        user = User().find_by_id(g.user.get("user_id"))
         incident = Incident().find_by_id(red_flag_id)
         if incident:
             if incident.record_type[0] != "red-flag":
                 return {"status": 401,
                         "error": "This incident record is not a red-flag."
                         }, 401
-            file = data['file']
-            if file and incident.allowed_file(file.filename):
-                filename = secure_filename(file.filename)
-                filepath = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
-                file.save(filepath)
-                incident.update_image(filepath)
-                return {
-                           "status": 202,
-                           "data": [{
-                               "id": incident.id,  # red-flag record primary key
-                               "message": "Image added to red-flag record"
-                           }]
-                       }, 202
-
+            if incident.user_id[0] == user.id or user.is_admin:
+                if incident.status[0] == "draft":
+                    file = data['file']
+                    if file and incident.allowed_file(file.filename):
+                        filename = secure_filename(file.filename)
+                        filepath = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
+                        file.save(filepath)
+                        incident.update_image(filepath)
+                        return {
+                                   "status": 202,
+                                   "data": [{
+                                       "id": incident.id,  # red-flag record primary key
+                                       "message": "Image added to red-flag record"
+                                   }]
+                               }, 202
+                return {'status': 401,
+                        'message': f"Unauthorized action.The {incident.record_type[0]} "
+                        f"record's status has changed."}, 401
         return {"status": 404,
                 "data": [{
                     "message": "Incident record Not Found."
@@ -346,26 +360,31 @@ class InterventionsRecordImage(Resource):
             return {"status": 404,
                     "message": errors
                     }, 404
-
+        user = User().find_by_id(g.user.get("user_id"))
         incident = Incident().find_by_id(intervention_id)
         if incident:
             if incident.record_type[0] != "intervention":
                 return {"status": 401,
                         "error": "This incident record is not an intervention."
                         }, 401
-            file = data['file']
-            if file and incident.allowed_file(file.filename):
-                filename = secure_filename(file.filename)
-                filepath = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
-                file.save(filepath)
-                incident.update_image(filepath)
-                return {
-                           "status": 202,
-                           "data": [{
-                               "id": incident.id,  # red-flag record primary key
-                               "message": "Image added to intervention record"
-                           }]
-                       }, 202
+            if incident.user_id[0] == user.id or user.is_admin:
+                if incident.status[0] == "draft":
+                    file = data['file']
+                    if file and incident.allowed_file(file.filename):
+                        filename = secure_filename(file.filename)
+                        filepath = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
+                        file.save(filepath)
+                        incident.update_image(filepath)
+                        return {
+                                   "status": 202,
+                                   "data": [{
+                                       "id": incident.id,  # red-flag record primary key
+                                       "message": "Image added to intervention record"
+                                   }]
+                               }, 202
+                return {'status': 401,
+                        'message': f"Unauthorized action.The {incident.record_type[0]} "
+                        f"record's status has changed."}, 401
 
         return {"status": 404,
                 "data": [{
