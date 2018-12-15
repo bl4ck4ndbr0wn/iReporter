@@ -38,20 +38,21 @@ class BaseTest(TestCase):
 
         self.user_details = {
             "username": "alpha",
-            "password": "password",
+            "password": "p@55w0rd",
             "firstname": "Alpha",
             "lastname": "Nganga",
             "email": "alphanganga@gmail.com"
         }
         self.admin_user = {
             "username": "admin",
-            "password": "devpassword",
+            "password": "bl4ck4ndbr0wn",
             "firstname": "Alpha",
             "lastname": "Nganga",
             "email": "alphanganga@gmail.com",
             "is_admin": True
         }
         self.incident = {
+            "title": "corruption",
             "record_type": "red-flag",
             "location": "1.43434, 9.2343",
             "status": "draft",
@@ -61,24 +62,23 @@ class BaseTest(TestCase):
         }
         self.update_incident = {
             "id": 1,
+            "title": "corruption",
             "record_type": "red-flag",
             "location": "1.0000, 9.0000",
             "status": "draft",
-            "images": "/photo/1.jpg",
-            "videos": "/video/1.mkv",
             "comment": "Police bribe near Nairobi."
         }
         self.update_red_flag_status = {
             "id": 1,
+            "title": "corruption",
             "record_type": "red-flag",
             "location": "1.43434, 9.2343",
             "status": "under investigation",
-            "images": "/photo/1.jpg",
-            "videos": "/video/1.mkv",
             "comment": "Police bribe near Ruiru Sports club."
         }
         self.update_intervention_status = {
             "id": 1,
+            "title": "corruption",
             "record_type": "intervention",
             "location": "1.43434, 9.2343",
             "status": "under investigation",
@@ -152,6 +152,18 @@ class BaseTest(TestCase):
         token = self.get_token_on_user_login()
         r = self.app.post("/api/v2/interventions",
                           data=json.dumps(self.incident),
+                          headers={"content-type": "application/json",
+                                   "Authorization": f"Bearer {token}"})
+        return r
+
+    def create_new_incident(self):
+        """
+        Create new incident function
+        :return: response
+        """
+        token = self.get_token_on_user_login()
+        r = self.app.post("/api/v2/interventions",
+                          data=json.dumps(self.update_intervention_status),
                           headers={"content-type": "application/json",
                                    "Authorization": f"Bearer {token}"})
         return r

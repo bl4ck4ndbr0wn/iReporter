@@ -1,4 +1,3 @@
-import os
 import psycopg2
 from flask import current_app
 
@@ -59,13 +58,27 @@ class Model:
         create_incident_query = """CREATE TABLE IF NOT EXISTS "incident"(
                                       id serial not null primary key,
                                       user_id  integer not null references "users",
+                                      title varchar  not null,
                                       recordtype varchar not null,
                                       location varchar,
                                       status varchar not null,
-                                      comment varchar not null
+                                      comment varchar not null,
+                                      image_path varchar ,
+                                      video_path varchar 
                                     )"""
 
         self.query(create_incident_query)
+        self.save()
+
+    def create_table_token_blacklist(self):
+        """
+        Create table token, that saves token is expired.
+        :return: Table
+        """
+        create_token_query = """CREATE TABLE IF NOT EXISTS "token"(
+                                      id serial not null primary key,
+                                      token varchar not null)"""
+        self.query(create_token_query)
         self.save()
 
     def drop_tables(self):
@@ -75,6 +88,7 @@ class Model:
         """
         self.drop("incident")
         self.drop("users")
+        self.drop("token")
 
     def query(self, query):
         """

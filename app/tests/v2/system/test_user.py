@@ -69,8 +69,8 @@ class UserTest(BaseTest):
         :return Failed status
         """
         response = self.app.post("/api/v2/auth/login",
-                                 data=json.dumps({"username": "alpha21",
-                                                  "password": "password"
+                                 data=json.dumps({"username": "alpha",
+                                                  "password": "@ds3rsp4ssw0rd"
                                                   }),
                                  headers={'content-type': 'application/json'}
                                  )
@@ -79,8 +79,7 @@ class UserTest(BaseTest):
         self.assertDictEqual({"status": 401,
                               "data": [
                                   {
-                                      "message": "A user with that"
-                                                 " username doesn't exists"
+                                      "message": "Username or password is incorrect."
                                   }
                               ]},
                              json.loads(response.data),

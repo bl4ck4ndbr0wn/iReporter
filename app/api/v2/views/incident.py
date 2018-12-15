@@ -1,10 +1,18 @@
-from flask import request, jsonify, g
+from flask import g
 from flask_restful import Resource, reqparse
 from app.api.v2.models.incident import Incident
-from app.api.v2.models.user import User
 from utils.decorators import jwt_required, admin_access
+from utils.validation import validate_create_incident, validate_update_incident
 
 parser = reqparse.RequestParser(bundle_errors=True)
+update_location_parser = reqparse.RequestParser(bundle_errors=True)
+update_comment_parser = reqparse.RequestParser(bundle_errors=True)
+update_status_parser = reqparse.RequestParser(bundle_errors=True)
+parser.add_argument('title',
+                    type=str,
+                    required=True,
+                    help="This field cannot be left blank "
+                    )
 parser.add_argument('record_type',
                     type=str,
                     required=True,
@@ -16,20 +24,6 @@ parser.add_argument('record_type',
 parser.add_argument('location',
                     type=str,
                     required=True,
-                    help="This field can be left blank!"
-                    )
-
-parser.add_argument('status',
-                    type=str,
-                    required=True,
-                    help="This field can be left blank!"
-                    )
-parser.add_argument('images',
-                    action='append',
-                    help="This field can be left blank!"
-                    )
-parser.add_argument('videos',
-                    action='append',
                     help="This field can be left blank!"
                     )
 
@@ -63,9 +57,20 @@ class RedFlagRecords(Resource):
     def get(self):
         items = Incident().find_all_by_user_id(g.user.get("user_id"))
         if items:
+            response = []
+            for data in items:
+                response.append({
+                    "id": data[0],
+                    "user_id": data[1],
+                    "title": data[2],
+                    "record_type": data[3],
+                    "location": data[4],
+                    "status": data[5],
+                    "comment": data[6]
+                })
             return {"status": 200,
-                    "data": [incident.serialize() for incident in items]
-                    }, 200
+                    "data": response
+                    }
         return {"status": 200,
                 "data": []
                 }, 200
@@ -73,6 +78,13 @@ class RedFlagRecords(Resource):
     @jwt_required
     def post(self):
         data = parser.parse_args()
+
+        errors = validate_create_incident(data)
+        if errors:
+            return {"status": 404,
+                    "message": errors
+                    }, 404
+
         new_record = Incident(user_id=g.user.get("user_id"), **data)
         new_record.save_to_db()
 
@@ -97,7 +109,7 @@ class RedFlagRecord(Resource):
         incident = Incident().find_by_id(intervention_id)
         if incident:
             return {"status": 200,
-                    "data": [incident.serialize()]
+                    "data": incident.serialize()
                     }
         return {"status": 404,
                 "data": [{
@@ -121,10 +133,22 @@ class RedFlagRecord(Resource):
 
 
 class RedFlagRecordLocation(Resource):
+    update_location_parser.add_argument('location',
+                                        type=str,
+                                        required=True,
+                                        help="This field can be left blank!"
+                                        )
 
     @jwt_required
     def patch(self, intervention_id):
-        data = parser.parse_args()
+        data = update_location_parser.parse_args()
+
+        errors = validate_update_incident(data)
+        if errors:
+            return {"status": 404,
+                    "message": errors
+                    }, 404
+
         incident = Incident().find_by_id(intervention_id)
         if incident:
             incident.update_location(data["location"])
@@ -143,10 +167,22 @@ class RedFlagRecordLocation(Resource):
 
 
 class RedFlagRecordComment(Resource):
+    update_comment_parser.add_argument('comment',
+                                       type=str,
+                                       required=True,
+                                       help="This field can be left blank!"
+                                       )
 
     @jwt_required
     def patch(self, intervention_id):
-        data = parser.parse_args()
+        data = update_comment_parser.parse_args()
+
+        errors = validate_update_incident(data)
+        if errors:
+            return {"status": 404,
+                    "message": errors
+                    }, 404
+
         incident = Incident().find_by_id(intervention_id)
         if incident:
             incident.update_comment(data["comment"])
@@ -166,17 +202,30 @@ class RedFlagRecordComment(Resource):
 
 
 class RedFlagRecordStatus(Resource):
+    update_status_parser.add_argument('status',
+                                      type=str,
+                                      required=True,
+                                      help="This field can be left blank!"
+                                      )
 
     @jwt_required
     @admin_access
     def patch(self, intervention_id):
-        data = parser.parse_args()
-        if data["record_type"] != "red-flag":
-            return {"status": 401,
-                    "error": "This incident record is not a red-flag."
-                    }, 401
+        data = update_status_parser.parse_args()
+
+        errors = validate_update_incident(data)
+        if errors:
+            return {"status": 404,
+                    "message": errors
+                    }, 404
+
         incident = Incident().find_by_id(intervention_id)
         if incident:
+            if incident.record_type[0] != "red-flag":
+                return {"status": 401,
+                        "error": "This incident record is not a red-flag."
+                        }, 401
+
             incident.update_status(data["status"])
             return {
                       "status": 202,
@@ -198,13 +247,21 @@ class InterventionsRecordStatus(Resource):
     @jwt_required
     @admin_access
     def patch(self, intervention_id):
-        data = parser.parse_args()
-        if data["record_type"] != "intervention":
-            return {"status": 401,
-                    "error": "This incident record is not an intervention."
-                    }, 401
+        data = update_status_parser.parse_args()
+
+        errors = validate_update_incident(data)
+        if errors:
+            return {"status": 404,
+                    "message": errors
+                    }, 404
+
         incident = Incident().find_by_id(intervention_id)
         if incident:
+            if incident.record_type[0] != "intervention":
+                return {"status": 401,
+                        "error": "This incident record is not an intervention."
+                        }, 401
+
             incident.update_status(data["status"])
             return {
                        "status": 202,

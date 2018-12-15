@@ -36,5 +36,5 @@ class UserTest(BaseTest):
         """
         u = User(**self.user_details)
 
-        self.assertTrue(u.authenticated("password"), "Password does not match")
+        self.assertTrue(u.authenticated("p@55w0rd"), "Password does not match")
         self.assertFalse(u.authenticated("password1"), "Password match")
