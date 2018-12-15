@@ -22,6 +22,10 @@ class Config:
     MAIL_USE_SSL = False
     MAIL_USERNAME = os.getenv('EMAIL_USERNAME')
     MAIL_PASSWORD = os.getenv('EMAIL_PASSWORD')
+    # Twilio SMS
+    ACCOUNT_SID = os.getenv('ACCOUNT_SID')
+    AUTH_TOKEN = os.getenv('AUTH_TOKEN')
+    DEFAULT_PHONE_NUMBER = os.getenv("DEFAULT_PHONE_NUMBER")
 
 
 class DevelopmentConfig(Config):

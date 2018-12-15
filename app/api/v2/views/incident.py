@@ -5,7 +5,7 @@ from flask_mail import Message
 from flask_restful import Resource, reqparse
 from werkzeug.utils import secure_filename
 
-from utils.email import send_email
+from utils.email import send_email, send_sms
 from app.api.v2.models.incident import Incident
 from app.api.v2.models.user import User
 from utils.decorators import jwt_required, admin_access
@@ -256,10 +256,14 @@ class RedFlagRecordStatus(Resource):
             incident.update_status(data["status"])
             receiver = User().find_by_id(incident.user_id[0])
             if current_app.config.get("MAIL_USERNAME"):
+                body = f"Your record has been successfuly updated to {data['status']}"
                 send_email(to=receiver.email,
                            subject=f"### {incident.id} record status has been updated.",
-                           body=f"Your record has been successfuly updated to {data['status']}"
-                           )
+                           body=body)
+
+                if receiver.phonenumber:
+                    send_sms(to="+" + str(receiver.phonenumber),
+                             body=body)
             return {
                       "status": 202,
                       "data": [{
@@ -298,10 +302,14 @@ class InterventionsRecordStatus(Resource):
             incident.update_status(data["status"])
             receiver = User().find_by_id(incident.user_id[0])
             if current_app.config.get("MAIL_USERNAME"):
+                body = f"Your record has been successfuly updated to {data['status']}"
                 send_email(to=receiver.email,
                            subject=f"### {incident.id} record status has been updated.",
-                           body=f"Your record has been successfuly updated to {data['status']}"
+                           body=body
                            )
+                if receiver.phonenumber:
+                    send_sms(to="+" + str(receiver.phonenumber),
+                             body=body)
             return {
                        "status": 202,
                        "data": [{
