@@ -161,7 +161,7 @@ class Incident(Model):
         :param path:
         :return: Success
         """
-        self.cursor.execute("""UPDATE incident SET image_path = %s 
-                                        WHERE id = %s;""",
+        self.cursor.execute("UPDATE incident SET image_path = %s"
+                            " WHERE id = %s;",
                             (path, self.id,))
         self.save()

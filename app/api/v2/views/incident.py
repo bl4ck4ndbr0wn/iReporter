@@ -1,9 +1,7 @@
-import uuid
 import os
 import werkzeug
-from flask import g, jsonify, current_app
+from flask import g, current_app
 from flask_restful import Resource, reqparse
-from flask_restful.representations import json
 from werkzeug.utils import secure_filename
 
 from app.api.v2.models.incident import Incident

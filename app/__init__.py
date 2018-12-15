@@ -1,7 +1,6 @@
 from flask import Flask
 from flask_cors import CORS
 from flask_restful import Api
-from werkzeug.wsgi import SharedDataMiddleware
 
 from instance.config import config
 from app.api.v2.views.auth import SignUp, SignIn
@@ -29,9 +28,6 @@ def create_app(config_name):
     # initialize
     CORS(app)
 
-    app.wsgi_app = SharedDataMiddleware(app.wsgi_app, {
-        '/uploads': app.config['UPLOAD_FOLDER']
-    })
     # Add blueprints
     from app.api import api_bp as api_blueprint
     api = Api(api_blueprint)
