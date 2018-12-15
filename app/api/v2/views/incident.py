@@ -1,13 +1,23 @@
-from flask import g
+import uuid
+import os
+import werkzeug
+from flask import g, jsonify, current_app
 from flask_restful import Resource, reqparse
+from flask_restful.representations import json
+from werkzeug.utils import secure_filename
+
 from app.api.v2.models.incident import Incident
 from utils.decorators import jwt_required, admin_access
-from utils.validation import validate_create_incident, validate_update_incident
+from utils.validation import (validate_create_incident,
+                              validate_update_incident,
+                              validate_update_incident_image)
 
 parser = reqparse.RequestParser(bundle_errors=True)
 update_location_parser = reqparse.RequestParser(bundle_errors=True)
 update_comment_parser = reqparse.RequestParser(bundle_errors=True)
 update_status_parser = reqparse.RequestParser(bundle_errors=True)
+update_image_parser = reqparse.RequestParser(bundle_errors=True)
+
 parser.add_argument('title',
                     type=str,
                     required=True,
@@ -270,6 +280,49 @@ class InterventionsRecordStatus(Resource):
                            "message": "Updated red-flag record status."
                        }]
                    }, 202
+
+        return {"status": 404,
+                "data": [{
+                    "message": "Incident record Not Found."
+
+                }]}, 404
+
+
+class RedFlagRecordImage(Resource):
+    update_image_parser.add_argument('file',
+                                     type=werkzeug.FileStorage, location='files'
+                                     )
+
+    @jwt_required
+    def patch(self, red_flag_id):
+        data = update_image_parser.parse_args()
+
+        errors = validate_update_incident_image(data)
+        if errors:
+            return {"status": 404,
+                    "message": errors
+                    }, 404
+
+        incident = Incident().find_by_id(red_flag_id)
+        if incident:
+            if incident.record_type[0] != "red-flag":
+                return {"status": 401,
+                        "error": "This incident record is not a red-flag."
+                        }, 401
+
+            file = data['file']
+            if file and incident.allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                filepath = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
+                file.save(filepath)
+                incident.update_image(filepath)
+                return {
+                          "status": 202,
+                          "data": [{
+                             "id": incident.id,  # red-flag record primary key
+                             "message": "Image added to red-flag record"
+                          }]
+                        }, 202
 
         return {"status": 404,
                 "data": [{

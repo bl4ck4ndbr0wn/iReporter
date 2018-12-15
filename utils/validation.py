@@ -48,3 +48,9 @@ def validate_update_incident(data):
     for key in data.keys():
         if not data[key].strip():
             return {key: f"{key} Field can not be blank"}
+
+
+def validate_update_incident_image(data):
+    for key in data.keys():
+        if not data[key]:
+            return {key: f"{key} Field can not be blank"}
