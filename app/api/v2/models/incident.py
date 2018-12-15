@@ -135,7 +135,7 @@ class Incident(Model):
         Update
         :return:
         """
-        print(data)
+        # print(data)
         self.id = data[0]
         self.user_id = data[1],
         self.title = data[2]

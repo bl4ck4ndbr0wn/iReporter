@@ -1,9 +1,6 @@
 import json
 import os
-from io import BytesIO
-
 from flask import current_app
-
 from app.tests.v2.base_test import BaseTest
 
 
@@ -187,6 +184,25 @@ class RecordTest(BaseTest):
                                  "id": 1,
                                  "message": "Incident record has been deleted."
                              }]},
+                             json.loads(r.data))
+
+    def test_delete_specific_record_not_allowed(self):
+        """
+        Test if successfully deleted
+        :return: status_code 200
+        """
+        r = self.admin_create_incident()
+        self.assertEqual(r.status_code, 201)
+        token = self.get_token_on_user_login()
+        r = self.app.delete("/api/v2/interventions/1",
+                            headers={"Authorization": f"Bearer {token}"})
+
+        self.assertEqual(r.status_code, 401)
+        self.assertDictEqual({"status": 401,
+                              "message": "Unauthorized action.A user a can "
+                                         "only delete the incident record he/she"
+                                         " created."
+                              },
                              json.loads(r.data))
 
     def test_deleting_specific_record_not_found(self):

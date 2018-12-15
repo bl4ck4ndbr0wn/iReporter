@@ -156,6 +156,18 @@ class BaseTest(TestCase):
                                    "Authorization": f"Bearer {token}"})
         return r
 
+    def admin_create_incident(self):
+        """
+        Create new incident function
+        :return: response
+        """
+        token = self.admin_login()
+        r = self.app.post("/api/v2/interventions",
+                          data=json.dumps(self.incident),
+                          headers={"content-type": "application/json",
+                                   "Authorization": f"Bearer {token}"})
+        return r
+
     def create_new_incident(self):
         """
         Create new incident function

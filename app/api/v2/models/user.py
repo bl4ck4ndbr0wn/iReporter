@@ -165,14 +165,15 @@ class User(Model):
 
     def map_user(self, data):
         """ map user to user object"""
+        # print(data)
         self.id = data[0]
         self.username = data[1]
         self.password = data[2]
         self.firstname = data[3]
         self.lastname = data[4]
-        self.phonenumber = data[5]
+        self.othernames = data[5]
         self.email = data[6]
-        self.othernames = data[7]
+        self.phonenumber = data[7]
         self.is_admin = data[8]
 
         return self
