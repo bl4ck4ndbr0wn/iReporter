@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_cors import CORS
 from flask_restful import Api
+
 from instance.config import config
 from app.api.v2.views.auth import SignUp, SignIn
 from app.api.v2.views.incident import (RedFlagRecords,
@@ -8,7 +9,9 @@ from app.api.v2.views.incident import (RedFlagRecords,
                                        RedFlagRecordComment,
                                        RedFlagRecordLocation,
                                        RedFlagRecordStatus,
-                                       InterventionsRecordStatus
+                                       InterventionsRecordStatus,
+                                       RedFlagRecordImage,
+                                       InterventionsRecordImage
                                        )
 
 
@@ -58,6 +61,11 @@ def routes(api):
     api.add_resource(RedFlagRecordComment,
                      "/interventions/<int:intervention_id>/comment")
 
+    # Add images
+    api.add_resource(RedFlagRecordImage,
+                     "/red-flags/<int:red_flag_id>/addImage")
+    api.add_resource(InterventionsRecordImage,
+                     "/interventions/<int:intervention_id>/addImage")
     # Admin Routes
     api.add_resource(RedFlagRecordStatus,
                      "/red-flags/<int:intervention_id>/status")

@@ -1,5 +1,7 @@
 from instance.db import Model
 
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+
 
 class Incident(Model):
 
@@ -143,3 +145,23 @@ class Incident(Model):
         self.comment = data[6]
 
         return self
+
+    @staticmethod
+    def allowed_file(filename):
+        """
+        Check if image upload is allowed
+        :return: True
+        """
+        return '.' in filename and \
+               filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+    def update_image(self, path):
+        """
+        Add an image to a specific red-flag record.
+        :param path:
+        :return: Success
+        """
+        self.cursor.execute("UPDATE incident SET image_path = %s"
+                            " WHERE id = %s;",
+                            (path, self.id,))
+        self.save()
