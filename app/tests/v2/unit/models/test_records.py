@@ -40,14 +40,15 @@ class RecordTest(BaseTest):
         :return: object data in json format
         """
         record = Incident(**self.incident)
-        expected = dict(id=None,
-                        user_id=None,
-                        title="corruption",
-                        record_type="red-flag",
-                        location="1.43434, 9.2343",
-                        status="draft",
-                        comment="Police bribe near Ruiru Sports club."
-                        )
+        expected = {'comment': 'Police bribe near Ruiru Sports club.',
+                     'id': None,
+                     'image_path': '/photo/1.jpg',
+                     'location': '1.43434, 9.2343',
+                     'record_type': 'red-flag',
+                     'status': 'draft',
+                     'title': 'corruption',
+                     'user_id': None,
+                     'video_path': '/video/1.mkv'}
         self.assertEqual(record.serialize(), expected,
                          "The JSON export of the Incident is incorrect."
                          " Received {}, expected {}.".format(record.serialize(),

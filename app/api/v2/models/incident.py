@@ -22,12 +22,12 @@ class Incident(Model):
 
     def serialize(self):
         return {"id": self.id,
-                "user_id": self.user_id[0],
-                "record_type": self.record_type[0],
+                "user_id": self.user_id,
+                "record_type": self.record_type,
                 "title": self.title,
                 "comment": self.comment,
-                "location": self.location[0],
-                "status": self.status[0],
+                "location": self.location,
+                "status": self.status,
                 "image_path": self.images,
                 "video_path": self.videos}
 
