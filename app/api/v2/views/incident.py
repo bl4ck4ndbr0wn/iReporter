@@ -5,6 +5,7 @@ from flask_restful import Resource, reqparse
 from werkzeug.utils import secure_filename
 
 from app.api.v2.models.incident import Incident
+from app.api.v2.models.user import User
 from utils.decorators import jwt_required, admin_access
 from utils.validation import (validate_create_incident,
                               validate_update_incident,
@@ -126,14 +127,20 @@ class RedFlagRecord(Resource):
 
     @jwt_required
     def delete(self, intervention_id):
+        user = User().find_by_id(g.user.get("user_id"))
         incident = Incident().find_by_id(intervention_id)
         if incident:
-            incident.delete_from_db()
-            return {"status": 200,
-                    "data": [{
-                        "id": incident.id,
-                        "message": "Incident record has been deleted."
-                    }]}
+            if incident.user_id[0] == user.id or user.is_admin:
+                incident.delete_from_db()
+                return {"status": 200,
+                        "data": [{
+                            "id": incident.id,
+                            "message": "Incident record has been deleted."
+                        }]}
+            return {'status': 401,
+                    'message': 'Unauthorized action.A user a can only delete'
+                               ' the incident record he/she created.'}, 401
+
         return {"status": 404,
                 "data": [{
                     "message": "Incident record Not Found."
