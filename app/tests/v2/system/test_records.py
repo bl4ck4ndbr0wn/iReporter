@@ -1,4 +1,9 @@
 import json
+import os
+from io import BytesIO
+
+from flask import current_app
+
 from app.tests.v2.base_test import BaseTest
 
 
@@ -318,6 +323,114 @@ class RecordTest(BaseTest):
         r = self.app.patch("/api/v2/interventions/2/status",
                            data=json.dumps(self.update_intervention_status),
                            headers={"content-type": "application/json",
+                                    "Authorization": f"Bearer {token}"})
+
+        self.assertEqual(r.status_code, 404)
+        self.assertDictEqual({"status": 404,
+                              "data": [
+                                    {
+                                        "message": "Incident record Not Found."
+                                    }
+                                ]
+                              },
+                             json.loads(r.data))
+
+    def test_user_upload_red_flag_image(self):
+        """
+        Test incident updated successfully
+        :return: Object
+        """
+        r = self.create_incident()
+        self.assertEqual(r.status_code, 201)
+        token = self.get_token_on_user_login()
+        file = os.path.join(current_app.config['UPLOAD_FOLDER'], "0.jpeg")
+        r = self.app.patch("/api/v2/red-flags/1/addImage",
+                           data={
+                               'file': (file,
+                                        'test_asset.jpeg')
+                           },
+                           headers={"content-type": "multipart/form-data",
+                                    "Authorization": f"Bearer {token}"})
+
+        self.assertEqual(r.status_code, 202)
+        self.assertDictEqual({"status": 202,
+                              "data": [
+                                    {
+                                        "id": 1,
+                                        "message": "Image added to red-flag"
+                                                   " record"
+                                    }
+                                ]
+                              },
+                             json.loads(r.data))
+
+    def test_user_upload_red_flag_image_not_found(self):
+        """
+        Test incident updated successfully
+        :return: Object
+        """
+        token = self.get_token_on_user_login()
+        file = os.path.join(current_app.config['UPLOAD_FOLDER'], "0.jpeg")
+        r = self.app.patch("/api/v2/red-flags/1/addImage",
+                           data={
+                               'file': (file,
+                                        'test_asset.jpeg')
+                           },
+                           headers={"content-type": "multipart/form-data",
+                                    "Authorization": f"Bearer {token}"})
+
+        self.assertEqual(r.status_code, 404)
+        self.assertDictEqual({"status": 404,
+                              "data": [
+                                    {
+                                        "message": "Incident record Not Found."
+                                    }
+                                ]
+                              },
+                             json.loads(r.data))
+
+    def test_user_upload_intervention_image(self):
+        """
+        Test incident updated successfully
+        :return: Object
+        """
+        r = self.create_new_incident()
+        self.assertEqual(r.status_code, 201)
+        token = self.get_token_on_user_login()
+        file = os.path.join(current_app.config['UPLOAD_FOLDER'], "0.jpeg")
+        r = self.app.patch("/api/v2/interventions/1/addImage",
+                           data={
+                               'file': (file,
+                                        'test_asset.jpeg')
+                           },
+                           headers={"content-type": "multipart/form-data",
+                                    "Authorization": f"Bearer {token}"})
+
+        self.assertEqual(r.status_code, 202)
+        self.assertDictEqual({"status": 202,
+                              "data": [
+                                    {
+                                        "id": 1,
+                                        "message": "Image added to intervention"
+                                                   " record"
+                                    }
+                                ]
+                              },
+                             json.loads(r.data))
+
+    def test_user_upload_intervention_image_not_found(self):
+        """
+        Test incident updated successfully
+        :return: Object
+        """
+        token = self.get_token_on_user_login()
+        file = os.path.join(current_app.config['UPLOAD_FOLDER'], "0.jpeg")
+        r = self.app.patch("/api/v2/interventions/2/addImage",
+                           data={
+                               'file': (file,
+                                        'test_asset.jpeg')
+                           },
+                           headers={"content-type": "multipart/form-data",
                                     "Authorization": f"Bearer {token}"})
 
         self.assertEqual(r.status_code, 404)
