@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_cors import CORS
 from flask_restful import Api
+from flask_mail import Mail
 
 from instance.config import config
 from app.api.v2.views.auth import SignUp, SignIn
@@ -13,6 +14,7 @@ from app.api.v2.views.incident import (RedFlagRecords,
                                        RedFlagRecordImage,
                                        InterventionsRecordImage
                                        )
+mail = Mail()
 
 
 def create_app(config_name):
@@ -27,6 +29,7 @@ def create_app(config_name):
 
     # initialize
     CORS(app)
+    mail.init_app(app)
 
     # Add blueprints
     from app.api import api_bp as api_blueprint
