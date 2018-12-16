@@ -1,15 +1,17 @@
-class Login extends Component {
+class CreateIncident extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "alpha",
-      password: "Ak3Swal(",
+      title: "",
+      record_type: "intervention",
+      location: "",
+      comment: "",
+      status: "draft",
       errors: {}
     };
-
-    this.url = "/auth/login";
+    this.url = "/interventions";
     this.api = new Api();
-    this.elements = auth_login_elements();
+    this.elements = incident_record_elements();
 
     this.onChange = this.onChange.bind(this);
     this.changeEventHandler = this.changeEventHandler.bind(this);
@@ -30,8 +32,8 @@ class Login extends Component {
 
   onSubmit() {
     const errors = { ...this.state.errors };
-    const { login_submit } = this.elements;
-    login_submit.addEventListener("click", e => {
+    const { incident_submit } = this.elements;
+    incident_submit.addEventListener("click", e => {
       e.preventDefault();
 
       let data = this.state;
@@ -46,24 +48,25 @@ class Login extends Component {
           const divpop = document.getElementById("popupdiv");
 
           alert.style.display = "block";
-          message.innerText = r.data[0].message;
+          console.log(r);
 
-          if (r.status === 200) {
+          if (r.status === 201) {
             divpop.style.boxShadow = "10px 10px 60px green";
             message.style.color = "green";
-            // Save token  to localStorage
-            const { token } = r;
-            // Set token to ls
-            localStorage.setItem("jwtToken", token);
-            // Check for token
-            if (localStorage.jwtToken) {
-              window.setTimeout(function() {
-                window.location = `${window.location.origin}/UI/records.html`;
-              }, 1000);
-            }
-          } else {
+            message.innerText = r.message;
+            window.setTimeout(function() {
+              window.location = `${window.location.origin}/UI/records.html`;
+            }, 1000);
+          } else if (r.error) {
             divpop.style.boxShadow = "10px 10px 60px red";
             message.style.color = "red";
+            message.innerText = r.error;
+          } else if (r.message) {
+            divpop.style.boxShadow = "10px 10px 60px red";
+            message.style.color = "red";
+            Object.keys(r.message).forEach(key => {
+              message.innerText = `${key}: ${r.message[key]}`;
+            });
           }
 
           return r;
@@ -75,12 +78,13 @@ class Login extends Component {
     });
   }
 }
-// Initializing the classes
-const login = new Login();
 
-// login events
-login.onChange();
-login.onSubmit();
+// Initializing the classes
+const createIncident = new CreateIncident();
+
+// create Incident events
+createIncident.onChange();
+createIncident.onSubmit();
 
 // Alerts
 document.getElementById("popupCloseButton").addEventListener("click", e => {
@@ -89,7 +93,3 @@ document.getElementById("popupCloseButton").addEventListener("click", e => {
   const alert = document.getElementById("popupmessage");
   alert.style.display = "none";
 });
-
-if (window.location.pathname === "/UI/login.html" && localStorage.jwtToken) {
-  window.location = `${window.location.origin}/UI/index.html`;
-}

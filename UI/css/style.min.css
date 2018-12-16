@@ -402,6 +402,7 @@ input {
 .form-auth input[type="text"]:focus,
 .form-auth input[type="text"]:hover {
   background-color: var(--color-grey-dark-1);
+  color: var(--color-white);
 }
 .form-auth input[type="submit"] {
   background-color: var(--color-light-blue);
@@ -710,7 +711,7 @@ header .container .auth-item p a:hover {
   font-style: normal;
   font-weight: 400;
   letter-spacing: 0;
-  padding: 1rem;
+  padding: 3rem;
   text-rendering: optimizeLegibility;
 }
 
@@ -719,7 +720,7 @@ header .container .auth-item p a:hover {
   box-shadow: var(--shadow-light);
   padding: 3rem;
   flex: 0 0 100%;
-  margin-right: 4.5rem;
+  margin: 4.5rem;
 }
 
 img {
@@ -738,13 +739,18 @@ img {
   display: block;
   width: 100%;
 }
+a.btn.btn--block.card__btn {
+  text-decoration: none;
+  text-align: center;
+  font-size: larger;
+}
 
 .cards {
   display: flex;
   flex-wrap: wrap;
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding: 3rem 0 3rem 0;
 }
 .cards__item {
   display: flex;
@@ -757,7 +763,7 @@ img {
 }
 @media (min-width: 56rem) {
   .cards__item {
-    width: 33.3333%;
+    width: 25%;
   }
 }
 .card {
@@ -767,6 +773,7 @@ img {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  width: 100%;
 }
 .card:hover .card__image {
   -webkit-filter: contrast(100%);
@@ -808,16 +815,29 @@ img {
 }
 .card__title {
   color: #696969;
-  font-size: 1.25rem;
+  font-size: 3rem;
   font-weight: 300;
   letter-spacing: 2px;
   text-transform: uppercase;
 }
 .card__text {
+  display: flex;
+  justify-content: space-between;
   flex: 1 1 auto;
-  font-size: 0.875rem;
+  font-size: 1.25rem;
   line-height: 1.5;
   margin-bottom: 1.25rem;
+}
+
+.card__budge {
+  color: var(--color-primary);
+  font-size: 1rem;
+  font-weight: 300;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  background-color: var(--color-primary-light-8);
+  border-radius: 0.25rem;
+  box-shadow: 0 20px 40px -14px rgba(0, 0, 0, 0.25);
 }
 
 /*# sourceMappingURL=maps/style.min.css.map */
@@ -946,7 +966,6 @@ img {
   }
 }
 
-/* Popup box BEGIN */
 .popupmessages {
   background: rgba(0, 0, 0, 0.4);
   cursor: pointer;
@@ -1013,4 +1032,62 @@ p#popuptextmsg {
   flex-direction: column;
   justify-content: center;
 }
-/* Popup box ENDS */
+
+.description h3 {
+  display: inline-block;
+  font-family: "Roboto", sans-serif;
+  font-size: 2.8rem;
+  border-bottom: 0.2rem solid var(--color-black);
+}
+.incident {
+  padding: 3rem 0 3rem 0;
+}
+
+.incident__desctiption {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 4rem 0 4rem;
+}
+.incident__desctiption img {
+  width: 35%;
+  height: 35%;
+  left: 0;
+  top: 0;
+}
+.incident__text {
+  width: 65%;
+  border-bottom: 1px solid var(--color-grey-light-4);
+  margin-bottom: 2rem;
+  margin-left: 2rem;
+}
+
+.incident__text span {
+  font-weight: 300;
+  font-size: 5.2rem;
+  color: #43484d;
+  letter-spacing: -2px;
+}
+
+.incident__text p {
+  font-size: 1.6rem;
+  font-weight: 300;
+  color: var(--color-grey-light-5);
+  line-height: 24px;
+}
+p.card__text_location {
+  margin-top: 35%;
+  color: #168a25;
+}
+p.card__text_location::before {
+  content: "\2713 ";
+  padding: 4px 8px;
+  color: #333;
+}
+
+.budge {
+  font-size: 1.3rem;
+  color: #0584ec;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: none;
+}

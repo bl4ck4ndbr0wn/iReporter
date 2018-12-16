@@ -1,4 +1,5 @@
 const authForm = document.forms.auth_form;
+const report_form = document.forms.report_form;
 
 const auth_register_elements = () => {
   const {
@@ -29,5 +30,23 @@ const auth_login_elements = () => {
     auth_username,
     auth_password,
     login_submit
+  };
+};
+
+const incident_record_elements = () => {
+  const {
+    title,
+    record_type,
+    comment,
+    location,
+    incident_submit
+  } = report_form.elements;
+
+  return {
+    title,
+    record_type,
+    comment,
+    location,
+    incident_submit
   };
 };

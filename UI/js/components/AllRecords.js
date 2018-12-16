@@ -10,9 +10,7 @@ class AllRecords extends Component {
   }
 
   componentDidMount() {
-    console.log("getting all records");
     this.api.get(this.url).then(resp => {
-      console.log(resp);
       Object.values(resp.data).map(list => {
         this.record.recordList(list);
       });

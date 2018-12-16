@@ -16,7 +16,7 @@ class Record {
 
     const divCardTitle = document.createElement("div");
     divCardTitle.className = "card__title";
-    divCardTitle.innerText = data.record_type[0];
+    divCardTitle.innerText = data.record_type;
 
     const pCardText = document.createElement("p");
     pCardText.className = "card__text";
@@ -24,10 +24,15 @@ class Record {
 
     const pCardText2 = document.createElement("p");
     pCardText2.className = "card__text";
-    pCardText2.innerText = data.location[0];
+    pCardText2.innerText = data.location;
 
-    const cardButton = document.createElement("button");
+    const cardBudge = document.createElement("div");
+    cardBudge.className = "card__budge";
+    cardBudge.innerText = data.status;
+
+    const cardButton = document.createElement("a");
     cardButton.className = "btn btn--block card__btn";
+    cardButton.setAttribute("href", `record.html?id=${data.id}`);
     cardButton.innerText = "View more";
 
     card.appendChild(li);
@@ -37,17 +42,48 @@ class Record {
     divCardContent.appendChild(divCardTitle);
     divCardContent.appendChild(pCardText);
     divCardContent.appendChild(pCardText2);
+    pCardText2.appendChild(cardBudge);
     divCardContent.appendChild(cardButton);
-    console.log(card);
+  }
+
+  singleRecord(data) {
+    console.log(data);
+    const record_div = document.getElementById("single_incident");
+
+    const description = document.createElement("div");
+    description.className = "incident__desctiption";
+
+    const description_img = document.createElement("img");
+    description_img.setAttribute(
+      "src",
+      "https://www.healthcareinformed.com/wp-content/uploads/bb-plugin/cache/incident-and-complaint-management.fw_-1-circle.png"
+    );
+    description_img.setAttribute("alt", "Incident image");
+
+    const incident__text = document.createElement("div");
+    incident__text.className = "incident__text";
+
+    const incident__span = document.createElement("span");
+    incident__span.innerText = data.title;
+
+    const incident__budge = document.createElement("div");
+    incident__budge.className = "budge";
+    incident__budge.innerText = "Status: " + data.status[0];
+
+    const incident__p = document.createElement("p");
+    incident__p.className = "card__text";
+    incident__p.innerText = data.comment;
+
+    const incident__p_location = document.createElement("p");
+    incident__p_location.className = "card__text_location";
+    incident__p_location.innerText = data.location[0];
+
+    record_div.appendChild(description);
+    description.appendChild(description_img);
+    description.appendChild(incident__text);
+    incident__text.appendChild(incident__span);
+    incident__text.appendChild(incident__budge);
+    incident__text.appendChild(incident__p);
+    incident__text.appendChild(incident__p_location);
   }
 }
-
-// comment: "Test comment on red flag."
-// id: 2
-// location: ["Nairobi, Kenya"]
-// record_type: Array(1)
-// 0: "red-flag"
-// length: 1
-// __proto__: Array(0)
-// status: ["draft"]
-// user_id: [3]

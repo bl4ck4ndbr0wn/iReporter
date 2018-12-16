@@ -55,6 +55,23 @@ function createList(routes) {
   });
 }
 
+class Logout {
+  logOut() {
+    // Remove token from localStorage
+    localStorage.removeItem("jwtToken");
+    // Redirect to login
+
+    window.setTimeout(function() {
+      window.location = `${window.location.origin}/UI/login.html`;
+    });
+  }
+}
+
+if (window.location.pathname === "/UI/logout.html") {
+  const logout = new Logout();
+  logout.logOut();
+}
+
 // Check for token
 if (localStorage.jwtToken) {
   // Decode token and get user info and exp
@@ -77,18 +94,4 @@ if (localStorage.jwtToken) {
 
 if (window.location.pathname !== "/UI/index.html" && !localStorage.jwtToken) {
   window.location = `${window.location.origin}/UI/login.html`;
-}
-
-class Logout {
-  logOut() {
-    // Remove token from localStorage
-    localStorage.removeItem("jwtToken");
-    // Redirect to login
-    window.location = `${window.location.origin}/UI/login.html`;
-  }
-}
-
-if (window.location.pathname === "/UI/logout.html") {
-  const logout = new Logout();
-  logout.logOut();
 }

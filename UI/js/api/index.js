@@ -27,7 +27,6 @@ class Api {
     if (token) {
       headers["Authorization"] = `Bearer ${token}`;
     }
-    console.log(token);
     return fetch(URL, { headers })
       .then(this.readResponseAsJSON)
       .catch(this.logError);
@@ -35,11 +34,15 @@ class Api {
 
   post(endpoint, data) {
     const URL = `${this.apiURL}${endpoint}`;
+    let token = this.getAuthToken();
+
+    let headers = { "Content-Type": "application/json" };
+    if (token) {
+      headers["Authorization"] = `Bearer ${token}`;
+    }
     return fetch(URL, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
+      headers,
       body: JSON.stringify(data)
     })
       .then(this.readResponseAsJSON)

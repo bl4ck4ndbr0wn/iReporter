@@ -11,8 +11,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
-
-    <title>IReporter - Create interventions.</title>
+    <title>IReporter - Localized Solutions that curb Corruption</title>
 
     <!-- css Scripts -->
     <link rel="stylesheet" href="css/style.min.css" />
@@ -31,108 +30,72 @@
     <section class="banner banner-page">
       <div class="banner-content">
         <h1 class="banner-content__title breadcrumb_title">
-          Create interventions Record
+          Create Incident Record
         </h1>
         <ul class="breadcrumb">
           <li><a href="#">Home</a></li>
           <li><a href="#">Records</a></li>
-          <li>Creat New interventions record</li>
+          <li>Creat New Incident</li>
         </ul>
       </div>
     </section>
     <section class="report">
       <div class="report-content">
-        <div class="report-content_title">Create New interventions</div>
+        <div class="report-content_title">Create New Incident Record</div>
         <div class="report-content_body">
-          <form
-            id="report-form"
-            class="form form-report"
-            enctype="multipart/form-data"
-          >
+          <form id="report_form" class="form form-report">
             <div class="form-field d-flex">
               <label class="form-label" for="report-title">
                 <span class="label-text">Title</span>
               </label>
               <input
-                id="report-title"
+                name="title"
+                id="title"
                 type="text"
                 class="form-input"
-                placeholder="Claim Title"
+                placeholder="Claim title"
               />
             </div>
             <div class="form-field d-flex  ">
               <label class="form-label" for="report-category">
-                <span class="label-text">category</span>
+                <span class="label-text">Incident Type</span>
               </label>
-              <select
-                id="report-title"
-                type="text"
-                class="form-select"
-                placeholder="Claim Title"
-              >
-                <option value="Use of Shell Companies"
-                  >Use of Shell Companies</option
-                >
-                <option value="An Inadequate Internal Audit Program"
-                  >An Inadequate Internal Audit Program</option
-                >
-                <option value="Failure to Internally Assess Compliance Programs"
-                  >Failure to Internally Assess Compliance Programs</option
-                >
-                <option value="Failure to Internally Assess Compliance Programs"
-                  >Failure to Internally Assess Compliance Programs</option
-                ><option value="Other"
-                  >Other(if slected other, specify it in the field below</option
-                >
+              <select name="record_type" id="record_type" class="form-select">
+                <option value="intervention">intervention</option>
+                <option value="red-flag">red-flag</option>
               </select>
-            </div>
-            <div class="form-field d-flex ">
-              <label class="form-label" for="report-category">
-                <span class="label-text">Category</span>
-              </label>
-              <input
-                id="report-category"
-                type="text"
-                class="form-input"
-                placeholder="Claim category"
-              />
             </div>
             <div class="form-field d-flex">
               <label class="form-label" for="report-description">
-                <span class="label-text">Desctiption</span>
+                <span class="label-text">Incident description</span>
               </label>
               <textarea
-                id="report-description"
+                id="comment"
+                name="comment"
                 class="form-textarea"
                 placeholder="Claim description"
-              >
-              </textarea>
+              ></textarea>
             </div>
-
-            <div class="form-field d-flex">
-              <label class="form-label" for="report-image">
-                <span class="label-text">Image or video upload</span>
-              </label>
-              <input type="file" name="file" id="file" class="inputfile" />
-              <label for="file">Choose an Image or a video file</label>
-            </div>
-            <div id="map"></div>
-            <button id="myLocation" class="inputfile">Use My Location</button>
-            <div id="locationList"></div>
             <div class="form-field d-flex">
               <label class="form-label" for="report-address">
                 <span class="label-text">Address (latitude: longitude)</span>
               </label>
-              <textarea
-                id="report-address"
-                class="form-textarea"
+              <input
+                name="location"
+                id="location"
+                type="text"
+                class="form-input"
                 placeholder="Claim Address"
-              >
-              </textarea>
+              />
             </div>
 
             <div class="form-field">
-              <input type="submit" value="Save new changes" />
+              <input
+                name="submit"
+                id="incident_submit"
+                type="submit"
+                value="Save New Record"
+              />
             </div>
           </form>
         </div>
@@ -187,7 +150,20 @@
       </div>
     </footer>
 
+    <div id="popupmessage" class="popupmessages">
+      <span class="helper"></span>
+      <div id="popupdiv">
+        <div id="popupCloseButton" class="popupCloseButton">X</div>
+        <p id="popuptextmsg"></p>
+      </div>
+    </div>
+
     <!-- JS Scripts -->
+    <!-- JS Scripts -->
+    <script src="js/common/Elements.js"></script>
+    <script src="js/common/App.js"></script>
+    <script src="js/api/index.js"></script>
+    <script src="js/components/CreateIncident.js"></script>
     <script src="js/main.js"></script>
   </body>
 </html>
