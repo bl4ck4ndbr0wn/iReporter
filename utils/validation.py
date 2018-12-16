@@ -23,7 +23,7 @@ def validate_signup(data):
     if not re.match("^[a-zA-Z]+$", data["username"]):
         return {"username": "Username Field Should only contain characters."}
 
-    if not re.match(r'[A-Za-z0-9@#$%^&+=]{8,}', data["password"]):
+    if not re.match(r'[A-Za-z0-9@#$%^&+=]{6,}', data["password"]):
         return {"password": "Password field must be at least 8 characters."}
 
     if not re.match(r"^[^@]+@[^@]+\.[^@]+$", data["email"]):
