@@ -255,15 +255,15 @@ class RedFlagRecordStatus(Resource):
 
             incident.update_status(data["status"])
             receiver = User().find_by_id(incident.user_id[0])
+            body = f"Your record has been successfully updated to {data['status']}"
             if current_app.config.get("MAIL_USERNAME"):
-                body = f"Your record has been successfuly updated to {data['status']}"
                 send_email(to=receiver.email,
                            subject=f"### {incident.id} record status has been updated.",
-                           body=body)
-
-                if receiver.phonenumber:
-                    send_sms(to="+" + str(receiver.phonenumber),
-                             body=body)
+                           body=body
+                           )
+            if receiver.phonenumber:
+                send_sms(to="+" + str(receiver.phonenumber),
+                         body=body)
             return {
                       "status": 202,
                       "data": [{
@@ -301,15 +301,15 @@ class InterventionsRecordStatus(Resource):
 
             incident.update_status(data["status"])
             receiver = User().find_by_id(incident.user_id[0])
+            body = f"Your record has been successfully updated to {data['status']}"
             if current_app.config.get("MAIL_USERNAME"):
-                body = f"Your record has been successfuly updated to {data['status']}"
                 send_email(to=receiver.email,
                            subject=f"### {incident.id} record status has been updated.",
                            body=body
                            )
-                if receiver.phonenumber:
-                    send_sms(to="+" + str(receiver.phonenumber),
-                             body=body)
+            if receiver.phonenumber:
+                send_sms(to="+" + str(receiver.phonenumber),
+                         body=body)
             return {
                        "status": 202,
                        "data": [{
