@@ -163,9 +163,18 @@ class User(Model):
         self.cursor.execute(query, data)
         self.save()
 
+    def update_user(self, data):
+        query = "UPDATE users SET firstname = %s, lastname = %s, " \
+                "phonenumber = %s, email = %s , othernames = %s " \
+                "WHERE id = %s;"  # Note: no quotes
+        data = (data.firstname, data.lastname,
+                data.phonenumber, data.email,
+                data.othernames, self.id,)
+        self.cursor.execute(query, data)
+        self.save()
+
     def map_user(self, data):
         """ map user to user object"""
-        # print(data)
         self.id = data[0]
         self.username = data[1]
         self.password = data[2]

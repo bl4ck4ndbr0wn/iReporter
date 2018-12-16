@@ -1,13 +1,12 @@
+from flask import g
 from flask_restful import Resource, reqparse
 from app.api.v2.models.user import User
-from utils.validation import validate_login, validate_signup
+from utils.decorators import jwt_required
+from utils.validation import validate_login, validate_signup, validate_profile
 
 parser = reqparse.RequestParser(bundle_errors=True)
 Login_parser = reqparse.RequestParser(bundle_errors=True)
-Login_parser.add_argument('username', type=str, required=True,
-                    help='This field cannot be left blank!')
-Login_parser.add_argument('password', type=str, required=True,
-                    help='This field cannot be left blank!')
+profile_parser = reqparse.RequestParser(bundle_errors=True)
 
 
 class SignIn(Resource):
@@ -18,6 +17,10 @@ class SignIn(Resource):
                 }
     :returns user
     """
+    Login_parser.add_argument('username', type=str, required=True,
+                              help='This field cannot be left blank!')
+    Login_parser.add_argument('password', type=str, required=True,
+                              help='This field cannot be left blank!')
 
     def post(self):
         """
@@ -51,9 +54,9 @@ class SignIn(Resource):
 
 class SignUp(Resource):
     parser.add_argument('username', type=str, required=True,
-                              help='This field cannot be left blank!')
+                        help='This field cannot be left blank!')
     parser.add_argument('password', type=str, required=True,
-                              help='This field cannot be left blank!')
+                        help='This field cannot be left blank!')
     parser.add_argument('firstname', type=str, required=True,
                         help='This field can be left blank!')
 
@@ -93,3 +96,42 @@ class SignUp(Resource):
                     "message": "User created Successfully."
                 }]}, 201
 
+
+class Profile(Resource):
+    profile_parser.add_argument('firstname', type=str, required=True,
+                                help='This field can be left blank!')
+
+    profile_parser.add_argument('lastname', type=str, required=True,
+                                help='This field can be left blank!')
+
+    profile_parser.add_argument('othernames', type=str, default="",
+                                help='This field can be left blank!')
+
+    profile_parser.add_argument('email', type=str, required=True,
+                                help='This field can be left blank!')
+
+    profile_parser.add_argument('phonenumber', type=str, default=0,
+                                help='This field can be left blank!')
+
+    @jwt_required
+    def patch(self):
+        data = profile_parser.parse_args()
+
+        errors = validate_profile(data)
+        if errors:
+            return {"status": 404,
+                    "message": errors
+                    }, 404
+
+        user = User().find_by_id(g.user.get("user_id"))
+        if user:
+            user.update_user(data)
+            return {"status": 202,
+                    "data": [{
+                        "id": user.id,  # red-flag record primary key
+                        "message": "Updated User profile Successfully."
+                    }]}, 202
+
+        return {"status": 401,
+                "message": "A user with that id Doesn't exists"
+                }, 401

@@ -4,7 +4,7 @@ from flask_restful import Api
 from flask_mail import Mail
 
 from instance.config import config
-from app.api.v2.views.auth import SignUp, SignIn
+from app.api.v2.views.auth import SignUp, SignIn, Profile
 from app.api.v2.views.incident import (RedFlagRecords,
                                        RedFlagRecord,
                                        RedFlagRecordComment,
@@ -56,6 +56,7 @@ def routes(api):
     """
     api.add_resource(SignUp, "/auth/signup")
     api.add_resource(SignIn, "/auth/login")
+    api.add_resource(Profile, "/profile")
 
     api.add_resource(RedFlagRecords, "/interventions")
     api.add_resource(RedFlagRecord, "/interventions/<int:intervention_id>")
