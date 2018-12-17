@@ -17,7 +17,7 @@ class User(Model):
                  firstname=None,
                  othernames=None,
                  lastname=None,
-                 phonenumber=None,
+                 phonenumber=0,
                  is_admin=False):
         super().__init__()
         self.id = None
@@ -29,6 +29,18 @@ class User(Model):
         self.username = username
         self.password = User.encrypt_password(password)
         self.is_admin = is_admin
+
+    def json(self):
+        return {
+            "id": self.id,
+            "firstname": self.firstname,
+            "lastname": self.lastname,
+            "othernames": self.othernames,
+            "email": self.email,
+            "phonenumber": int(self.phonenumber),
+            "username": self.username,
+            "is_admin": self.is_admin
+        }
 
     def __repr__(self):
         """ Return repr(self). """
@@ -163,9 +175,18 @@ class User(Model):
         self.cursor.execute(query, data)
         self.save()
 
+    def update_user(self, data):
+        query = "UPDATE users SET firstname = %s, lastname = %s, " \
+                "phonenumber = %s, email = %s , othernames = %s " \
+                "WHERE id = %s;"  # Note: no quotes
+        data = (data.firstname, data.lastname,
+                data.phonenumber, data.email,
+                data.othernames, self.id,)
+        self.cursor.execute(query, data)
+        self.save()
+
     def map_user(self, data):
         """ map user to user object"""
-        # print(data)
         self.id = data[0]
         self.username = data[1]
         self.password = data[2]
