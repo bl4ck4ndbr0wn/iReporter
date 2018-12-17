@@ -30,6 +30,18 @@ class User(Model):
         self.password = User.encrypt_password(password)
         self.is_admin = is_admin
 
+    def json(self):
+        return {
+            "id": self.id,
+            "firstname": self.firstname,
+            "lastname": self.lastname,
+            "othernames": self.othernames,
+            "email": self.email,
+            "phonenumber": int(self.phonenumber),
+            "username": self.username,
+            "is_admin": self.is_admin
+        }
+
     def __repr__(self):
         """ Return repr(self). """
         return "{} in User Model.".format(self.username)

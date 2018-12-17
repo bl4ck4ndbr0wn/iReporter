@@ -114,6 +114,17 @@ class Profile(Resource):
                                 help='This field can be left blank!')
 
     @jwt_required
+    def get(self):
+        user = User().find_by_id(g.user.get("user_id"))
+        if user:
+            return {"status": 200,
+                    "data": user.json()}, 200
+
+        return {"status": 401,
+                "message": "A user with that id Doesn't exists"
+                }, 401
+
+    @jwt_required
     def patch(self):
         data = profile_parser.parse_args()
 
@@ -135,3 +146,5 @@ class Profile(Resource):
         return {"status": 401,
                 "message": "A user with that id Doesn't exists"
                 }, 401
+
+
