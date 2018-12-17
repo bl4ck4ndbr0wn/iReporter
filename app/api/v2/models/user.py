@@ -17,7 +17,7 @@ class User(Model):
                  firstname=None,
                  othernames=None,
                  lastname=None,
-                 phonenumber=None,
+                 phonenumber=0,
                  is_admin=False):
         super().__init__()
         self.id = None
