@@ -31,5 +31,3 @@ const auth_login_elements = () => {
     login_submit
   };
 };
-
-export { auth_register_elements, auth_login_elements };
