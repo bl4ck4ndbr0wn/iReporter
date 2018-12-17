@@ -357,14 +357,21 @@ input {
   font: 1.4rem FontAwesome;
   color: var(--color-grey-dark-1);
 }
+.user-phone::before {
+  content: "\f095";
+  font: 1.4rem FontAwesome;
+  color: var(--color-grey-dark-1);
+}
+
 .lock:before {
   content: "\f023";
   font: 1.4rem FontAwesome;
   color: var(--color-grey-dark-1);
 }
 .form input[type="email"] {
-  background: red;
-  width: 100%;
+  border-radius: 0.25rem;
+  padding: 1rem;
+  color: var(--color-grey-dark-1);
 }
 .form input[type="email"],
 .form input[type="password"],

@@ -8,14 +8,7 @@ const publicRoutes = [
   { href: "login.html", classname: "btn", title: "login", text: "Sign In" },
   { href: "register.html", classname: "btn", title: "register", text: "Signup" }
 ];
-const adminRoutes = [
-  {
-    href: "admin.html",
-    classname: "",
-    title: "admin",
-    text: "Admin dashboard"
-  }
-];
+
 const privateRoutesRoutes = [
   {
     href: "index.html",
@@ -33,6 +26,16 @@ const privateRoutesRoutes = [
   { href: "records.html", classname: "", title: "reports", text: "Incidents" },
 
   { href: "logout.html", classname: "btn", title: "logout", text: "Logout" }
+];
+const adminRoutes = [
+  ...privateRoutesRoutes.slice(0, -1),
+  {
+    href: "admin.html",
+    classname: "",
+    title: "admin",
+    text: "Admin dashboard"
+  },
+  ...privateRoutesRoutes.splice(-1, 1)
 ];
 
 function parseJwt(token) {
@@ -78,8 +81,13 @@ if (localStorage.jwtToken) {
   // Check for expired token
   const currentTime = Date.now() / 1000;
   const decoded = this.parseJwt(localStorage.jwtToken);
+
+  const api = new Api();
   // Create Routes
-  createList(privateRoutesRoutes);
+  api.get("/profile").then(r => {
+    r.data.is_admin ? createList(adminRoutes) : createList(privateRoutesRoutes);
+  });
+
   if (decoded.exp < currentTime) {
     // Logout user
     // Remove token from localStorage
