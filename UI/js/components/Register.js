@@ -2,14 +2,14 @@ class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstname: "dfgdfg",
-      lastname: "dfgd",
-      othernames: "dfgd",
-      email: "dfgdf",
-      phoneNumber: "dfgd",
-      username: "dfgds6d",
-      password: "dfgdf",
-      password_confirm: "dfgd",
+      firstname: "",
+      lastname: "",
+      othernames: "",
+      email: "",
+      phoneNumber: "",
+      username: "",
+      password: "",
+      password_confirm: "",
       errors: {}
     };
 
@@ -52,15 +52,20 @@ class Register extends Component {
           const divpop = document.getElementById("popupdiv");
 
           alert.style.display = "block";
-          message.innerText = r.data[0].message;
 
           if (r.status === 201) {
             divpop.style.boxShadow = "10px 10px 60px green";
             message.style.color = "green";
-
+            message.innerText = r.data[0].message;
             window.setTimeout(function() {
               window.location = `${window.location.origin}/UI/login.html`;
             }, 3000);
+          } else if (r.status === 404) {
+            divpop.style.boxShadow = "10px 10px 60px red";
+            message.style.color = "red";
+            Object.values(r.message).forEach(element => {
+              message.innerText = element;
+            });
           } else {
             divpop.style.boxShadow = "10px 10px 60px red";
             message.style.color = "red";
@@ -79,3 +84,15 @@ const register = new Register();
 // Register events
 register.onChange();
 register.onSubmit();
+
+// Alerts
+document.getElementById("popupCloseButton").addEventListener("click", e => {
+  e.preventDefault();
+
+  const alert = document.getElementById("popupmessage");
+  alert.style.display = "none";
+});
+
+if (window.location.pathname === "/UI/register.html" && localStorage.jwtToken) {
+  window.location = `${window.location.origin}/UI/index.html`;
+}

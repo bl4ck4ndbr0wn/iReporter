@@ -3,20 +3,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Ireporter | single record</title>
     <link
       rel="stylesheet prefetch"
       href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
     />
     <link
-      href="https://fonts.googleapis.com/css?family=Roboto:400,500,700"
-      rel="stylesheet"
-    />
-    <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
-
-    <title>IReporter - All Reports.</title>
 
     <!-- css Scripts -->
     <link rel="stylesheet" href="css/style.min.css" />
@@ -34,19 +29,19 @@
     <!-- Banner Area -->
     <section class="banner banner-page">
       <div class="banner-content">
-        <h1 class="banner-content__title breadcrumb_title">All Record</h1>
+        <h1 class="banner-content__title breadcrumb_title">Single Record</h1>
         <ul class="breadcrumb">
           <li><a href="#">Home</a></li>
-          <li>Records</li>
+          <li>Record</li>
         </ul>
       </div>
     </section>
 
     <div class="detail">
       <div class="description">
-        <h3>All Records</h3>
+        <h3>Incident Record</h3>
 
-        <ul id="cardComponent" class="cards"></ul>
+        <div class="incident" id="single_incident"></div>
       </div>
     </div>
 
@@ -98,12 +93,10 @@
       </div>
     </footer>
 
-    <!-- JS Scripts -->
-    <script src="js/common/Elements.js"></script>
     <script src="js/common/App.js"></script>
     <script src="js/api/index.js"></script>
     <script src="js/components/Record.js"></script>
-    <script src="js/components/AllRecords.js"></script>
+    <script src="js/components/SingleRecord.js"></script>
     <script src="js/main.js"></script>
   </body>
 </html>
