@@ -49,7 +49,9 @@ Create a virtualenvironment and activate it
  pip install - r requirements.txt
  ```
  **Run the application**
+ 
  First Create a postgresql database table named ```ireporter```
+ 
  To create tables into that database run
  ```.env
 flask migrate
