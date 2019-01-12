@@ -4,6 +4,7 @@ class Api {
   }
 
   logError(error) {
+    return error;
     console.log("Looks like there was a problem: \n", error);
   }
 

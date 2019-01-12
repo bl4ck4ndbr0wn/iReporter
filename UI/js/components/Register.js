@@ -52,6 +52,7 @@ class Register extends Component {
           const divpop = document.getElementById("popupdiv");
 
           alert.style.display = "block";
+          message.innerText = r;
 
           if (r.status === 201) {
             divpop.style.boxShadow = "10px 10px 60px green";
@@ -69,6 +70,7 @@ class Register extends Component {
           } else {
             divpop.style.boxShadow = "10px 10px 60px red";
             message.style.color = "red";
+            message.innerText = r.data[0].message;
           }
 
           return r;

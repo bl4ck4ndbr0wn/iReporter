@@ -35,7 +35,7 @@ const adminRoutes = [
     title: "admin",
     text: "Admin dashboard"
   },
-  ...privateRoutesRoutes.splice(-1, 1)
+  ...privateRoutesRoutes.slice(-1)
 ];
 
 function parseJwt(token) {

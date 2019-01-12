@@ -18,6 +18,40 @@ class CreateIncident extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
+  componentDidMount() {
+    let executed = false;
+    if (!executed) {
+      const number = this.getUrlVars()["id"];
+      if (number > 0) {
+        this.api.get(`/interventions/${number}`).then(resp => {
+          this.setState({
+            title: resp.data.title,
+            record_type: resp.data.record_type[0],
+            location: resp.data.location[0],
+            comment: resp.data.comment,
+            status: resp.data.status[0]
+          });
+
+          this.elements.title.value = this.state.title;
+          this.elements.record_type.value = this.state.record_type;
+          this.elements.comment.value = this.state.comment;
+          this.elements.location.value = this.state.location;
+        });
+      }
+      executed = true;
+    }
+  }
+
+  getUrlVars() {
+    let vars = {};
+    let parts = window.location.href.replace(
+      /[?&]+([^=&]+)=([^&]*)/gi,
+      function(m, key, value) {
+        vars[key] = value;
+      }
+    );
+    return vars;
+  }
   onChange() {
     Object.values(this.elements).map(el => {
       el.onchange = this.changeEventHandler;
@@ -83,6 +117,7 @@ class CreateIncident extends Component {
 const createIncident = new CreateIncident();
 
 // create Incident events
+createIncident.componentDidMount();
 createIncident.onChange();
 createIncident.onSubmit();
 

@@ -17,7 +17,11 @@ class Profile extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    api.get(this.url).then(r => {
+      console.log(r);
+    });
+  }
 
   update() {
     const profilename = document.getElementById("profileName");
@@ -82,6 +86,7 @@ class Profile extends Component {
 const profile = new Profile();
 
 // profile events
+profile.componentDidMount();
 profile.onChange();
 profile.onSubmit();
 

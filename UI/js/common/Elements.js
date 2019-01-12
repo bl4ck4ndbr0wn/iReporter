@@ -9,7 +9,6 @@ const auth_register_elements = () => {
     auth_othername,
     auth_username,
     auth_email,
-    auth_phonenumber,
     auth_password,
     auth_confirm_password,
     register_submit
@@ -19,7 +18,6 @@ const auth_register_elements = () => {
     auth_lastname,
     auth_othername,
     auth_username,
-    auth_phonenumber,
     auth_email,
     auth_password,
     auth_confirm_password,
