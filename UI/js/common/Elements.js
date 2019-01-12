@@ -1,5 +1,6 @@
 const authForm = document.forms.auth_form;
 const report_form = document.forms.report_form;
+const profile_form = document.forms.profile_form;
 
 const auth_register_elements = () => {
   const {
@@ -30,6 +31,25 @@ const auth_login_elements = () => {
     auth_username,
     auth_password,
     login_submit
+  };
+};
+
+const profile_elements = () => {
+  const {
+    auth_firstname,
+    auth_lastname,
+    auth_othername,
+    auth_email,
+    auth_phonenumber,
+    profile_submit
+  } = profile_form.elements;
+  return {
+    auth_firstname,
+    auth_lastname,
+    auth_othername,
+    auth_email,
+    auth_phonenumber,
+    profile_submit
   };
 };
 

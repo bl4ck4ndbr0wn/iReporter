@@ -46,11 +46,11 @@ class Login extends Component {
           const divpop = document.getElementById("popupdiv");
 
           alert.style.display = "block";
-          message.innerText = r.data[0].message;
 
           if (r.status === 200) {
             divpop.style.boxShadow = "10px 10px 60px green";
             message.style.color = "green";
+            message.innerText = r.data[0].message;
             // Save token  to localStorage
             const { token } = r;
             // Set token to ls
@@ -64,6 +64,7 @@ class Login extends Component {
           } else {
             divpop.style.boxShadow = "10px 10px 60px red";
             message.style.color = "red";
+            message.innerText = r;
           }
 
           return r;

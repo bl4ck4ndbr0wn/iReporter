@@ -1,31 +1,38 @@
-class Register extends Component {
-  constructor(props) {
-    super(props);
+class Profile extends Component {
+  constructor() {
+    super();
     this.state = {
       firstname: "",
       lastname: "",
       othernames: "",
       email: "",
-      phoneNumber: "",
-      username: "",
-      password: "",
-      password_confirm: "",
-      errors: {}
+      phoneNumber: ""
     };
-
-    this.url = "/auth/signup";
+    this.url = "/profile";
     this.api = new Api();
-    this.elements = auth_register_elements();
+    this.elements = profile_elements();
 
     this.onChange = this.onChange.bind(this);
     this.changeEventHandler = this.changeEventHandler.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
+  componentDidMount() {
+    api.get(this.url).then(r => {
+      console.log(r);
+    });
+  }
+
+  update() {
+    const profilename = document.getElementById("profileName");
+  }
+
   onChange() {
     Object.values(this.elements).map(el => {
       el.onchange = this.changeEventHandler;
     });
+
+    console.log(this.state);
   }
 
   changeEventHandler(event) {
@@ -33,33 +40,28 @@ class Register extends Component {
 
     this.setState({ [event.target.name]: event.target.value });
   }
-
   onSubmit() {
-    const errors = { ...this.state.errors };
-    const { register_submit } = this.elements;
-    register_submit.addEventListener("click", e => {
+    const { profile_submit } = this.elements;
+    profile_submit.addEventListener("click", e => {
       e.preventDefault();
 
       let data = this.state;
 
-      delete data["errors"];
-
       this.api
-        .post(this.url, data)
+        .patch(this.url, data)
         .then(r => {
           const alert = document.getElementById("popupmessage");
           const message = document.getElementById("popuptextmsg");
           const divpop = document.getElementById("popupdiv");
 
           alert.style.display = "block";
-          message.innerText = r;
 
-          if (r.status === 201) {
+          if (r.status === 202) {
             divpop.style.boxShadow = "10px 10px 60px green";
             message.style.color = "green";
             message.innerText = r.data[0].message;
             window.setTimeout(function() {
-              window.location = `${window.location.origin}/UI/login.html`;
+              window.location = `${window.location.origin}/UI/profile.html`;
             }, 3000);
           } else if (r.status === 404) {
             divpop.style.boxShadow = "10px 10px 60px red";
@@ -70,7 +72,7 @@ class Register extends Component {
           } else {
             divpop.style.boxShadow = "10px 10px 60px red";
             message.style.color = "red";
-            message.innerText = r.data[0].message;
+            message.innerText = r.message;
           }
 
           return r;
@@ -81,11 +83,12 @@ class Register extends Component {
 }
 
 // Initializing the classes
-const register = new Register();
+const profile = new Profile();
 
-// Register events
-register.onChange();
-register.onSubmit();
+// profile events
+profile.componentDidMount();
+profile.onChange();
+profile.onSubmit();
 
 // Alerts
 document.getElementById("popupCloseButton").addEventListener("click", e => {
@@ -94,7 +97,3 @@ document.getElementById("popupCloseButton").addEventListener("click", e => {
   const alert = document.getElementById("popupmessage");
   alert.style.display = "none";
 });
-
-if (window.location.pathname === "/UI/register.html" && localStorage.jwtToken) {
-  window.location = `${window.location.origin}/UI/index.html`;
-}

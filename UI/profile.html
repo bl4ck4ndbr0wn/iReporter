@@ -47,104 +47,155 @@
             class="summary-photo-profile"
           />
           <div class="summary-user-box summary-user-box-profile">
-            <p class="summary-user-name">Alpha Nganga Ndirangu</p>
-            s
+            <p class="summary-user-name" id="profileName">
+              Alpha Nganga Ndirangu
+            </p>
+
             <p class="summary-user-date">
               Created on :: May 23rd, 2018-July 2nd-2018
             </p>
           </div>
         </figcaption>
       </div>
-      <div class="summary">
-        <figcaption class="summary-user">
-          <img
-            src="https://freeiconshop.com/wp-content/uploads/edd/clipboard-list-flat.png"
-            alt="record 2"
-            class="summary-photo"
-          />
-          <div class="summary-user-box">
-            <p class="summary-user-name">All Records</p>
-            <p class="summary-user-date">May 23rd, 2018-July 2nd-2018</p>
+      <section class="report">
+        <div class="report-content">
+          <div class="report-content_title">Update User profile</div>
+          <div class="report-content_body">
+            <form id="profile_form" class="form form-report">
+              <div class="form-field">
+                <label class="user" for="auth-firstname">
+                  <span class="hidden">First Name</span>
+                </label>
+                <input
+                  id="auth_firstname"
+                  type="text"
+                  name="firstname"
+                  class="form-input"
+                  placeholder="First Name"
+                />
+              </div>
+              <div class="form-field">
+                <label class="user" for="auth-lastname">
+                  <span class="hidden">Last Name</span>
+                </label>
+                <input
+                  id="auth_lastname"
+                  type="text"
+                  name="lastname"
+                  class="form-input"
+                  placeholder="Last Name"
+                />
+              </div>
+              <div class="form-field">
+                <label class="user" for="auth-othername">
+                  <span class="hidden">Other Names</span>
+                </label>
+                <input
+                  id="auth_othername"
+                  type="text"
+                  name="othernames"
+                  class="form-input"
+                  placeholder="Other Names"
+                />
+              </div>
+              <div class="form-field">
+                <label class="user-phone" for="auth-phonenumber">
+                  <span class="hidden">Phone Number</span>
+                </label>
+                <input
+                  id="auth_phonenumber"
+                  type="text"
+                  name="phonenumber"
+                  class="form-input"
+                  placeholder="PhoneNumber"
+                />
+              </div>
+              <div class="form-field">
+                <label class="user-email" for="auth-email">
+                  <span class="hidden">Email</span>
+                </label>
+                <input
+                  id="auth_email"
+                  type="email"
+                  name="email"
+                  class="form-input"
+                  placeholder="Email"
+                />
+              </div>
+              <div class="form-field">
+                <input
+                  name="submit"
+                  id="profile_submit"
+                  type="submit"
+                  value="Save Changes"
+                />
+              </div>
+            </form>
           </div>
-          <div class="summary-rating">17</div>
-        </figcaption>
-        <figcaption class="summary-user">
-          <img
-            src="http://cdn.onlinewebfonts.com/svg/img_547390.png"
-            alt="record 2"
-            class="summary-photo"
-          />
-          <div class="summary-user-box">
-            <p class="summary-user-name">Requested records</p>
-            <p class="summary-user-date">May 23rd, 2018</p>
-          </div>
-          <div class="summary-rating">7</div>
-        </figcaption>
-        <figcaption class="summary-user">
-          <img
-            src="http://cdn.onlinewebfonts.com/svg/img_547390.png"
-            alt="record 2"
-            class="summary-photo"
-          />
-          <div class="summary-user-box">
-            <p class="summary-user-name">Requested records</p>
-            <p class="summary-user-date">May 23rd, 2018</p>
-          </div>
-          <div class="summary-rating">7</div>
-        </figcaption>
-      </div>
-      <div class="detail">
-        <div class="description">
-          <h3>All Records</h3>
-          <div
-            class="tablex tablex--colored tablex--columns tablex--bordered"
-            data-columns="4"
-            data-gutter="4"
-          >
-            <!-- Column 1 -->
-            <div class="tablex__item tablex__item--head">Name</div>
-            <div class="tablex__item">Alex</div>
-            <div class="tablex__item">Police Brutality</div>
-            <div class="tablex__item">Investigation</div>
-            <div class="tablex__item">
-              <i class="fa fa-edit"> </i> <i class="fa fa-trash"> </i>
-            </div>
-            <div class="tablex__item tablex__item--foot">Name</div>
+        </div>
+      </section>
+    </main>
 
-            <!-- Column 2 -->
-            <div class="tablex__item tablex__item--head">Title</div>
-            <div class="tablex__item">Alex</div>
-            <div class="tablex__item">Police Brutality</div>
-            <div class="tablex__item">Investigation</div>
-            <div class="tablex__item">
-              <i class="fa fa-edit"> </i> <i class="fa fa-trash"> </i>
-            </div>
-            <div class="tablex__item tablex__item--foot">Title</div>
+    <footer class="page-footer">
+      <div class="container">
+        <div class="col">
+          <h5 class="white-text">IReporter</h5>
+          <p class="grey-text">
+            Corruption is a huge bane to Africa’s development. African countries
+            must develop novel and localised solutions that will curb this
+            menace.
+          </p>
+        </div>
+        <div class="col">
+          <h5 class="white-text">Company</h5>
+          <ul>
+            <li><a class="grey-text" href="#!">About</a></li>
+            <li><a class="grey-text" href="#!">Contact Us</a></li>
+            <li><a class="grey-text" href="#!">Our Blog</a></li>
+          </ul>
+        </div>
 
-            <!-- Column 3 -->
-            <div class="tablex__item tablex__item--head">Status</div>
-            <div class="tablex__item">Alex</div>
-            <div class="tablex__item">Police Brutality</div>
-            <div class="tablex__item">Investigation</div>
-            <div class="tablex__item">
-              <i class="fa fa-edit"> </i> <i class="fa fa-trash"> </i>
-            </div>
-            <div class="tablex__item tablex__item--foot">Status</div>
-
-            <div class="tablex__item tablex__item--head">-</div>
-            <div class="tablex__item">Alex</div>
-            <div class="tablex__item">Police Brutality</div>
-            <div class="tablex__item">Investigation</div>
-            <div class="tablex__item">
-              <i class="fa fa-edit"> </i> <i class="fa fa-trash"> </i>
-            </div>
-            <div class="tablex__item tablex__item--foot">-</div>
+        <div class="col">
+          <div class="logo-footer">
+            <a href="index.html" title="IReporter">
+              <img src="img/logo.png" alt="IReporter Logo" class="brightness" />
+            </a>
           </div>
         </div>
       </div>
-    </main>
+      <div class="container">
+        <div class="social-links">
+          <ul>
+            <li><a href="#" class="fa fa-facebook"></a></li>
+            <li><a href="#" class="fa fa-google"></a></li>
+            <li><a href="#" class="fa fa-linkedin"></a></li>
+            <li><a href="#" class="fa fa-twitter"></a></li>
+          </ul>
+        </div>
+      </div>
 
+      <div class="footer-copyright">
+        <div class="container">
+          <p>
+            © 2018 Copyright IReporter by Alpha Nganga Ndirangu
+            <a class="grey-text" href="#!">Github Project</a>
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <div id="popupmessage" class="popupmessages">
+      <span class="helper"></span>
+      <div id="popupdiv">
+        <div id="popupCloseButton" class="popupCloseButton">X</div>
+        <p id="popuptextmsg"></p>
+      </div>
+    </div>
     <!-- JS Scripts -->
+    <script src="js/api/index.js"></script>
+    <script src="js/common/Elements.js"></script>
+    <script src="js/common/App.js"></script>
+    <script src="js/components/Profile.js"></script>
     <script src="js/main.js"></script>
   </body>
 </html>
