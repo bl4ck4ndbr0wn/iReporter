@@ -63,6 +63,10 @@ class Login extends Component {
                 }/iReporter/UI/records.html`;
               }, 1000);
             }
+          } else if (r.status === 400) {
+            divpop.style.boxShadow = "10px 10px 60px red";
+            message.style.color = "red";
+            message.innerText = Object.values(r.message);
           } else {
             divpop.style.boxShadow = "10px 10px 60px red";
             message.style.color = "red";
