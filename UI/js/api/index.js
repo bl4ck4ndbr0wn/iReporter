@@ -66,4 +66,17 @@ class Api {
       .then(this.readResponseAsJSON)
       .catch(this.logError);
   }
+
+  delete(endpoint) {
+    const URL = `${this.apiURL}${endpoint}`;
+    let token = this.getAuthToken();
+
+    let headers = { "Content-Type": "application/json" };
+    if (token) {
+      headers["Authorization"] = `Bearer ${token}`;
+    }
+    return fetch(URL, { method: "DELETE", headers })
+      .then(this.readResponseAsJSON)
+      .catch(this.logError);
+  }
 }

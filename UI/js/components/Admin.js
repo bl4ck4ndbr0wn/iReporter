@@ -85,6 +85,28 @@ function editIncidentRecord(id) {
   });
 }
 
+function deleteIncidentRecord(id) {
+  console.log("deleting");
+  api.delete(`/interventions/${id}`).then(r => {
+    alert.style.display = "block";
+
+    if (r.status === 200) {
+      divpop.style.boxShadow = "10px 10px 60px green";
+      message.style.color = "green";
+      message.innerText = r.data[0].message;
+
+      window.setTimeout(function() {
+        alert.style.display = "none";
+        window.location.reload();
+      }, 1000);
+    } else if (r.status === 401) {
+      divpop.style.boxShadow = "10px 10px 60px red";
+      message.style.color = "red";
+      message.innerText = r.message;
+    }
+  });
+}
+
 document.getElementById("popupCloseButton2").addEventListener("click", e => {
   e.preventDefault();
 
@@ -92,6 +114,14 @@ document.getElementById("popupCloseButton2").addEventListener("click", e => {
   window.setTimeout(function() {
     window.location.reload();
   }, 500);
+});
+
+// Alerts
+document.getElementById("popupCloseButton").addEventListener("click", e => {
+  e.preventDefault();
+
+  const alert = document.getElementById("popupmessage");
+  alert.style.display = "none";
 });
 
 componentDidMount();
