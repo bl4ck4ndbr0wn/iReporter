@@ -28,7 +28,7 @@ parser.add_argument('record_type',
                     required=True,
                     choices=("red-flag", "intervention"),
                     help="This field cannot be left "
-                         "blank or Bad choice: {error_msg}"
+                         "blank or Bad choice: Should be red-flag or intervention"
                     )
 
 parser.add_argument('location',
@@ -65,7 +65,11 @@ class RedFlagRecords(Resource):
 
     @jwt_required
     def get(self):
-        items = Incident().find_all_by_user_id(g.user.get("user_id"))
+        user = User().find_by_id(g.user.get("user_id"))
+        if user.is_admin:
+            items = Incident().get_all()
+        else:
+            items = Incident().find_all_by_user_id(user.id)
         if items:
             response = []
             for data in items:
