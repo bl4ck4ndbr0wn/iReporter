@@ -2,6 +2,7 @@ const authForm = document.forms.auth_form;
 const report_form = document.forms.report_form;
 const profile_form = document.forms.profile_form;
 const edit_incident_form = document.forms.edit_incident_form;
+const edit_incident_status_form = document.forms.edit_incident_status_form;
 
 const auth_register_elements = () => {
   const {
@@ -78,5 +79,13 @@ const edit_incident_elements = () => {
   return {
     comment,
     location
+  };
+};
+
+const edit_incident_status_elements = () => {
+  const { status } = edit_incident_status_form.elements;
+
+  return {
+    status
   };
 };
