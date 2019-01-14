@@ -1,4 +1,4 @@
-# iReporter [![Build Status](https://travis-ci.org/bl4ck4ndbr0wn/iReporter.svg?branch=gh-pages)](https://travis-ci.org/bl4ck4ndbr0wn/iReporter)
+# iReporter [![Build Status](https://travis-ci.org/bl4ck4ndbr0wn/iReporter.svg?branch=unit-testing-application-163193769)](https://travis-ci.org/bl4ck4ndbr0wn/iReporter) ![license](https://img.shields.io/github/license/mashape/apistatus.svg) [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/bl4ck4ndbr0wn/iReporter)
 
 iReporter enables any/every citizen to bring any form of corruption to the notice of appropriate authorities and the general public. Users can also report on things that needs government intervention.
 
