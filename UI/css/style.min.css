@@ -1193,3 +1193,13 @@ p.card__text_location::before {
   box-shadow: 0 2px 0 rgba(204, 204, 204, 0.15);
   margin-bottom: 20px;
 }
+
+.title_Record {
+  display: flex;
+  justify-content: space-between;
+}
+
+.title_Record button {
+  margin-left: 20rem;
+  font-size: 2rem;
+}

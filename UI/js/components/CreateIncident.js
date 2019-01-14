@@ -18,40 +18,6 @@ class CreateIncident extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  componentDidMount() {
-    let executed = false;
-    if (!executed) {
-      const number = this.getUrlVars()["id"];
-      if (number > 0) {
-        this.api.get(`/interventions/${number}`).then(resp => {
-          this.setState({
-            title: resp.data.title,
-            record_type: resp.data.record_type[0],
-            location: resp.data.location[0],
-            comment: resp.data.comment,
-            status: resp.data.status[0]
-          });
-
-          this.elements.title.value = this.state.title;
-          this.elements.record_type.value = this.state.record_type;
-          this.elements.comment.value = this.state.comment;
-          this.elements.location.value = this.state.location;
-        });
-      }
-      executed = true;
-    }
-  }
-
-  getUrlVars() {
-    let vars = {};
-    let parts = window.location.href.replace(
-      /[?&]+([^=&]+)=([^&]*)/gi,
-      function(m, key, value) {
-        vars[key] = value;
-      }
-    );
-    return vars;
-  }
   onChange() {
     Object.values(this.elements).map(el => {
       el.onchange = this.changeEventHandler;
@@ -65,22 +31,20 @@ class CreateIncident extends Component {
   }
 
   onSubmit() {
-    const errors = { ...this.state.errors };
     const { incident_submit } = this.elements;
     incident_submit.addEventListener("click", e => {
       e.preventDefault();
 
       let data = this.state;
+      const alert = document.getElementById("popupmessage");
+      const message = document.getElementById("popuptextmsg");
+      const divpop = document.getElementById("popupdiv");
 
       delete data["errors"];
 
       this.api
         .post(this.url, data)
         .then(r => {
-          const alert = document.getElementById("popupmessage");
-          const message = document.getElementById("popuptextmsg");
-          const divpop = document.getElementById("popupdiv");
-
           alert.style.display = "block";
           console.log(r);
 
@@ -89,7 +53,9 @@ class CreateIncident extends Component {
             message.style.color = "green";
             message.innerText = r.message;
             window.setTimeout(function() {
-              window.location = `${window.location.origin}/iReporter/UI/records.html`;
+              window.location = `${
+                window.location.origin
+              }/iReporter/UI/records.html`;
             }, 1000);
           } else if (r.error) {
             divpop.style.boxShadow = "10px 10px 60px red";
@@ -105,10 +71,12 @@ class CreateIncident extends Component {
 
           return r;
         })
-        .then(r => {
-          console.log(r);
-        })
-        .catch();
+        .catch(error => {
+          alert.style.display = "block";
+          divpop.style.boxShadow = "10px 10px 60px red";
+          message.style.color = "red";
+          message.innerText = error;
+        });
     });
   }
 }
@@ -117,7 +85,6 @@ class CreateIncident extends Component {
 const createIncident = new CreateIncident();
 
 // create Incident events
-createIncident.componentDidMount();
 createIncident.onChange();
 createIncident.onSubmit();
 
