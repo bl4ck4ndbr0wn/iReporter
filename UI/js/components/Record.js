@@ -139,6 +139,7 @@ class Record {
     const deleteBtn = document.createElement("a");
     const icondelete = document.createElement("i");
     icondelete.className = "fa fa-trash";
+    icondelete.setAttribute("onclick", `deleteIncidentRecord(${data.id})`);
 
     table.appendChild(tr);
     tr.appendChild(td1);

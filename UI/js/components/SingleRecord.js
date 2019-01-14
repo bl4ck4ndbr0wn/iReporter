@@ -15,6 +15,23 @@ class SingleRecord extends Component {
     if (number > 0) {
       this.api.get(`/interventions/${number}`).then(resp => {
         this.setState({ data: resp.data });
+        if (resp.status === 404) {
+          const alert = document.getElementById("popupmessage");
+          const message = document.getElementById("popuptextmsg");
+          const divpop = document.getElementById("popupdiv");
+          alert.style.display = "block";
+
+          divpop.style.boxShadow = "10px 10px 60px green";
+          message.style.color = "red";
+          message.innerText = resp.data[0].message;
+
+          window.setTimeout(function() {
+            alert.style.display = "none";
+          }, 1000);
+          window.location = `${
+            window.location.origin
+          }/iReporter/UI/records.html`;
+        }
         this.record.singleRecord(resp.data);
       });
     } else {
