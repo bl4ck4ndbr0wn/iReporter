@@ -58,13 +58,15 @@ class Login extends Component {
             // Check for token
             if (localStorage.jwtToken) {
               window.setTimeout(function() {
-                window.location = `${window.location.origin}/iReporter/UI/records.html`;
+                window.location = `${
+                  window.location.origin
+                }/iReporter/UI/records.html`;
               }, 1000);
             }
           } else {
             divpop.style.boxShadow = "10px 10px 60px red";
             message.style.color = "red";
-            message.innerText = r;
+            message.innerText = r.data[0].message;
           }
 
           return r;
@@ -91,6 +93,9 @@ document.getElementById("popupCloseButton").addEventListener("click", e => {
   alert.style.display = "none";
 });
 
-if (window.location.pathname === "/iReporter/UI/login.html" && localStorage.jwtToken) {
+if (
+  window.location.pathname === "/iReporter/UI/login.html" &&
+  localStorage.jwtToken
+) {
   window.location = `${window.location.origin}/iReporter/UI/index.html`;
 }
