@@ -15,7 +15,7 @@ class SingleRecord extends Component {
       });
     } else {
       window.setTimeout(function() {
-        window.location = `${window.location.origin}/UI/records.html`;
+        window.location = `${window.location.origin}/iReporter/UI/records.html`;
       }, 1000);
     }
   }

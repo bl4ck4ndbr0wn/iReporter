@@ -59,7 +59,9 @@ class Register extends Component {
             message.style.color = "green";
             message.innerText = r.data[0].message;
             window.setTimeout(function() {
-              window.location = `${window.location.origin}/UI/login.html`;
+              window.location = `${
+                window.location.origin
+              }/iReporter/UI/login.html`;
             }, 3000);
           } else if (r.status === 404) {
             divpop.style.boxShadow = "10px 10px 60px red";
@@ -95,6 +97,9 @@ document.getElementById("popupCloseButton").addEventListener("click", e => {
   alert.style.display = "none";
 });
 
-if (window.location.pathname === "/UI/register.html" && localStorage.jwtToken) {
-  window.location = `${window.location.origin}/UI/index.html`;
+if (
+  window.location.pathname === "/iReporter/UI/register.html" &&
+  localStorage.jwtToken
+) {
+  window.location = `${window.location.origin}/iReporter/UI/index.html`;
 }

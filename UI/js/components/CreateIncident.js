@@ -89,7 +89,7 @@ class CreateIncident extends Component {
             message.style.color = "green";
             message.innerText = r.message;
             window.setTimeout(function() {
-              window.location = `${window.location.origin}/UI/records.html`;
+              window.location = `${window.location.origin}/iReporter/UI/records.html`;
             }, 1000);
           } else if (r.error) {
             divpop.style.boxShadow = "10px 10px 60px red";
