@@ -46,6 +46,18 @@ live-server UI/
 
 The results are shown in the browser's console.
 
+**Test the application**
+
+```.env
+npm install
+
+npm test
+
+or
+
+npm run coveralls
+```
+
 ## License
 
 MIT License
