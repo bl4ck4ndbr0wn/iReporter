@@ -10,7 +10,7 @@ beforeAll(async () => {
 describe("iReporter Home", () => {
   describe("Landing page redirect to login ", () => {
     beforeEach(async () => {
-      await page.goto("http://127.0.0.1:5500/iReporter/UI");
+      await page.goto("https://bl4ck4ndbr0wn.github.io/iReporter/UI");
     }, 10000);
 
     describe("Page title", () => {
@@ -25,7 +25,7 @@ describe("iReporter Home", () => {
 describe("iReporter Home", () => {
   describe("Login page redirect to all reports  ", () => {
     beforeEach(async () => {
-      await page.goto("http://127.0.0.1:5500/iReporter/UI");
+      await page.goto("https://bl4ck4ndbr0wn.github.io/iReporter/UI");
     }, 10000);
 
     describe("Page on form submit", () => {
