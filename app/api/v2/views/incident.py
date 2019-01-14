@@ -1,7 +1,6 @@
 import os
 import werkzeug
 from flask import g, current_app
-from flask_mail import Message
 from flask_restful import Resource, reqparse
 from werkzeug.utils import secure_filename
 
@@ -92,9 +91,9 @@ class RedFlagRecords(Resource):
 
         errors = validate_create_incident(data)
         if errors:
-            return {"status": 404,
+            return {"status": 400,
                     "message": errors
-                    }, 404
+                    }, 400
 
         new_record = Incident(user_id=g.user.get("user_id"), **data)
         new_record.save_to_db()
@@ -165,9 +164,9 @@ class RedFlagRecordLocation(Resource):
 
         errors = validate_update_incident(data)
         if errors:
-            return {"status": 404,
+            return {"status": 400,
                     "message": errors
-                    }, 404
+                    }, 400
 
         user = User().find_by_id(g.user.get("user_id"))
         incident = Incident().find_by_id(intervention_id)
@@ -202,9 +201,9 @@ class RedFlagRecordComment(Resource):
 
         errors = validate_update_incident(data)
         if errors:
-            return {"status": 404,
+            return {"status": 400,
                     "message": errors
-                    }, 404
+                    }, 400
 
         user = User().find_by_id(g.user.get("user_id"))
         incident = Incident().find_by_id(intervention_id)
@@ -212,11 +211,11 @@ class RedFlagRecordComment(Resource):
             if incident.user_id[0] == user.id or user.is_admin:
                 if incident.status[0] == "draft":
                     incident.update_comment(data["comment"])
-                    return {"status": 202,
+                    return {"status": 200,
                             "data": [{
                                 "id": incident.id,  # red-flag record primary key
                                 "message": "Updated red-flag record’s comment."
-                            }]}, 202
+                            }]}, 200
                 return {'status': 401,
                         'message': f"Unauthorized action.The {incident.record_type[0]} "
                         f"record's status has changed."}, 401
@@ -242,16 +241,16 @@ class RedFlagRecordStatus(Resource):
 
         errors = validate_update_incident(data)
         if errors:
-            return {"status": 404,
+            return {"status": 400,
                     "message": errors
-                    }, 404
+                    }, 400
 
         incident = Incident().find_by_id(intervention_id)
         if incident:
             if incident.record_type[0] != "red-flag":
-                return {"status": 401,
+                return {"status": 400,
                         "error": "This incident record is not a red-flag."
-                        }, 401
+                        }, 400
 
             incident.update_status(data["status"])
             receiver = User().find_by_id(incident.user_id[0])
@@ -288,9 +287,9 @@ class InterventionsRecordStatus(Resource):
 
         errors = validate_update_incident(data)
         if errors:
-            return {"status": 404,
+            return {"status": 400,
                     "message": errors
-                    }, 404
+                    }, 400
 
         incident = Incident().find_by_id(intervention_id)
         if incident:
@@ -336,16 +335,16 @@ class RedFlagRecordImage(Resource):
 
         errors = validate_update_incident_image(data)
         if errors:
-            return {"status": 404,
+            return {"status": 400,
                     "message": errors
-                    }, 404
+                    }, 400
         user = User().find_by_id(g.user.get("user_id"))
         incident = Incident().find_by_id(red_flag_id)
         if incident:
             if incident.record_type[0] != "red-flag":
-                return {"status": 401,
+                return {"status": 400,
                         "error": "This incident record is not a red-flag."
-                        }, 401
+                        }, 400
             if incident.user_id[0] == user.id or user.is_admin:
                 if incident.status[0] == "draft":
                     file = data['file']
@@ -379,16 +378,16 @@ class InterventionsRecordImage(Resource):
 
         errors = validate_update_incident_image(data)
         if errors:
-            return {"status": 404,
+            return {"status": 400,
                     "message": errors
-                    }, 404
+                    }, 400
         user = User().find_by_id(g.user.get("user_id"))
         incident = Incident().find_by_id(intervention_id)
         if incident:
             if incident.record_type[0] != "intervention":
-                return {"status": 401,
+                return {"status": 400,
                         "error": "This incident record is not an intervention."
-                        }, 401
+                        }, 400
             if incident.user_id[0] == user.id or user.is_admin:
                 if incident.status[0] == "draft":
                     file = data['file']

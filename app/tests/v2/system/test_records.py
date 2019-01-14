@@ -84,8 +84,8 @@ class RecordTest(BaseTest):
                            headers={"content-type": "application/json",
                                     "Authorization": f"Bearer {token}"})
 
-        self.assertEqual(r.status_code, 202)
-        self.assertDictEqual({"status": 202,
+        self.assertEqual(r.status_code, 200)
+        self.assertDictEqual({"status": 200,
                               "data": [
                                     {
                                         "id": 1,
@@ -280,8 +280,8 @@ class RecordTest(BaseTest):
                            headers={"content-type": "application/json",
                                     "Authorization": f"Bearer {token}"})
 
-        self.assertEqual(r.status_code, 401)
-        self.assertDictEqual({"status": 401,
+        self.assertEqual(r.status_code, 400)
+        self.assertDictEqual({"status": 400,
                               "error": "This incident record is not a red-flag."
                               },
                              json.loads(r.data))
