@@ -100,6 +100,20 @@ if (localStorage.jwtToken) {
   createList(publicRoutes);
 }
 
-if (window.location.pathname !== "/iReporter/UI/index.html" && !localStorage.jwtToken) {
+if (
+  window.location.pathname !== "/iReporter/UI/index.html" &&
+  !localStorage.jwtToken
+) {
   window.location = `${window.location.origin}/iReporter/UI/login.html`;
 }
+
+api.get("/profile").then(r => {
+  if (
+    window.location.pathname === "/iReporter/UI/admin.html" &&
+    localStorage.jwtToken
+  ) {
+    if (!r.data.is_admin) {
+      window.location = `${window.location.origin}/iReporter/UI/index.html`;
+    }
+  }
+});

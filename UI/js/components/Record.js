@@ -85,4 +85,87 @@ class Record {
     incident__text.appendChild(incident__p);
     incident__text.appendChild(incident__p_location);
   }
+
+  tableItem(data) {
+    const table = document.getElementById("table_body");
+
+    const tr = document.createElement("div");
+    tr.className = "tr";
+
+    const td1 = document.createElement("div");
+    td1.className = "td center";
+    const span1 = document.createElement("span");
+    span1.innerText = data.id;
+
+    const td2 = document.createElement("div");
+    td2.className = "td grow";
+    const span2 = document.createElement("span");
+    span2.innerText = data.title;
+
+    const td3 = document.createElement("div");
+    td3.className = "td grow";
+    const span3 = document.createElement("span");
+    span3.innerText = data.record_type;
+
+    const td4 = document.createElement("div");
+    td4.className = "td  grow";
+    const span4 = document.createElement("span");
+    span4.innerText = data.comment;
+
+    const td5 = document.createElement("div");
+    td5.className = "td grow end";
+    const span5 = document.createElement("span");
+    span5.innerText = data.status;
+
+    const td6 = document.createElement("div");
+    td6.className = "td end";
+
+    const viewBtn = document.createElement("a");
+    viewBtn.setAttribute("href", `record.html?id=${data.id}`);
+    const viewicon = document.createElement("i");
+    viewicon.className = "fa fa-eye";
+
+    const td7 = document.createElement("div");
+    td7.className = "td end";
+
+    const editBtn = document.createElement("a");
+    const iconedit = document.createElement("i");
+    iconedit.className = "fa fa-edit";
+    iconedit.setAttribute("onclick", `editIncidentRecord(${data.id})`);
+
+    const td8 = document.createElement("div");
+    td8.className = "td end";
+
+    const deleteBtn = document.createElement("a");
+    const icondelete = document.createElement("i");
+    icondelete.className = "fa fa-trash";
+
+    table.appendChild(tr);
+    tr.appendChild(td1);
+    td1.appendChild(span1);
+
+    tr.appendChild(td2);
+    td2.appendChild(span2);
+
+    tr.appendChild(td3);
+    td3.appendChild(span3);
+
+    tr.appendChild(td4);
+    td4.appendChild(span4);
+
+    tr.appendChild(td5);
+    td5.appendChild(span5);
+
+    tr.appendChild(td6);
+    td6.appendChild(viewBtn);
+    viewBtn.appendChild(viewicon);
+
+    tr.appendChild(td7);
+    td7.appendChild(editBtn);
+    editBtn.appendChild(iconedit);
+
+    tr.appendChild(td8);
+    td8.appendChild(deleteBtn);
+    deleteBtn.appendChild(icondelete);
+  }
 }

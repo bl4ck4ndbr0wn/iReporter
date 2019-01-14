@@ -125,59 +125,60 @@
           </figcaption>
         </div>
 
-        <div class="detail">
+        <div class="detail detail_full_">
           <div class="description">
             <h3>All Records</h3>
-            <div
-              class="tablex tablex--colored tablex--columns tablex--bordered"
-              data-columns="4"
-              data-gutter="4"
-            >
-              <!-- Column 1 -->
-              <div class="tablex__item tablex__item--head">Name</div>
-              <div class="tablex__item">Alex</div>
-              <div class="tablex__item">Police Brutality</div>
-              <div class="tablex__item">Investigation</div>
-              <div class="tablex__item">
-                <i class="fa fa-edit"> </i> <i class="fa fa-trash"> </i>
-              </div>
-              <div class="tablex__item tablex__item--foot">Name</div>
 
-              <!-- Column 2 -->
-              <div class="tablex__item tablex__item--head">Title</div>
-              <div class="tablex__item">Alex</div>
-              <div class="tablex__item">Police Brutality</div>
-              <div class="tablex__item">Investigation</div>
-              <div class="tablex__item">
-                <i class="fa fa-edit"> </i> <i class="fa fa-trash"> </i>
+            <div id="cool_table" class="table">
+              <div class="tr th">
+                <div class="td">id</div>
+                <div class="td grow">title</div>
+                <div class="td grow">Record Type</div>
+                <div class="td grow">Comment</div>
+                <div class="td grow">Status</div>
+                <div class="td"></div>
+                <div class="td"></div>
+                <div class="td"></div>
               </div>
-              <div class="tablex__item tablex__item--foot">Title</div>
-
-              <!-- Column 3 -->
-              <div class="tablex__item tablex__item--head">Status</div>
-              <div class="tablex__item">Alex</div>
-              <div class="tablex__item">Police Brutality</div>
-              <div class="tablex__item">Investigation</div>
-              <div class="tablex__item">
-                <i class="fa fa-edit"> </i> <i class="fa fa-trash"> </i>
-              </div>
-              <div class="tablex__item tablex__item--foot">Status</div>
-
-              <div class="tablex__item tablex__item--head">-</div>
-              <div class="tablex__item">Alex</div>
-              <div class="tablex__item">Police Brutality</div>
-              <div class="tablex__item">Investigation</div>
-              <div class="tablex__item">
-                <i class="fa fa-edit"> </i> <i class="fa fa-trash"> </i>
-              </div>
-              <div class="tablex__item tablex__item--foot">-</div>
+              <div id="table_body" class="body"></div>
             </div>
           </div>
         </div>
       </main>
     </div>
 
+    <div id="editStatusForm" class="popupmessages">
+      <span class="helper"></span>
+      <div class="form">
+        <div id="popupCloseButton2" class="popupCloseButton">X</div>
+        <p>Update Incident Record Status</p>
+        <form id="edit_incident_status_form" class="form form-report">
+          <div class="form-field">
+            <label for="status"> <span class="hidden1">Status</span> </label>
+            <select name="status" id="status" class="form-select">
+              <option value="draft">draft</option>
+              <option value="under investigation">under investigation</option>
+              <option value="resolved">resolved</option>
+              <option value="rejected">rejected</option>
+            </select>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div id="popupmessage" class="popupmessages">
+      <span class="helper"></span>
+      <div id="popupdiv">
+        <div id="popupCloseButton" class="popupCloseButton">X</div>
+        <p id="popuptextmsg"></p>
+      </div>
+    </div>
+
     <!-- JS Scripts -->
+    <script src="js/api/index.js"></script>
+    <script src="js/common/Elements.js"></script>
+    <script src="js/common/App.js"></script>
+    <script src="js/components/Record.js"></script>
+    <script src="js/components/Admin.js"></script>
     <script src="js/main.js"></script>
   </body>
 </html>

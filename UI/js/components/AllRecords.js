@@ -11,7 +11,7 @@ class AllRecords extends Component {
 
   componentDidMount() {
     this.api.get(this.url).then(resp => {
-      Object.values(resp.data).map(list => {
+      Object.values(resp.data.reverse()).map(list => {
         this.record.recordList(list);
       });
     });
