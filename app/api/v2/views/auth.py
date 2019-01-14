@@ -31,9 +31,9 @@ class SignIn(Resource):
 
         errors = validate_login(request_data)
         if errors:
-            return {"status": 404,
+            return {"status": 400,
                     "message": errors
-                    }, 404
+                    }, 400
 
         u = User().find_by_name(request_data["username"])
 
@@ -77,9 +77,9 @@ class SignUp(Resource):
 
         errors = validate_signup(request_data)
         if errors:
-            return {"status": 404,
+            return {"status": 400,
                     "message": errors
-                    }, 404
+                    }, 400
 
         u = User().find_by_name(request_data["username"])
         if u:
@@ -130,9 +130,9 @@ class Profile(Resource):
 
         errors = validate_profile(data)
         if errors:
-            return {"status": 404,
+            return {"status": 400,
                     "message": errors
-                    }, 404
+                    }, 400
 
         user = User().find_by_id(g.user.get("user_id"))
         if user:
