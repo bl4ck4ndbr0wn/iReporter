@@ -39,8 +39,8 @@ const adminRoutes = [
 ];
 
 function parseJwt(token) {
-  var base64Url = token.split(".")[1];
-  var base64 = base64Url.replace("-", "+").replace("_", "/");
+  let base64Url = token.split(".")[1];
+  let base64 = base64Url.replace("-", "+").replace("_", "/");
   return JSON.parse(window.atob(base64));
 }
 
@@ -65,12 +65,12 @@ class Logout {
     // Redirect to login
 
     window.setTimeout(function() {
-      window.location = `${window.location.origin}/UI/login.html`;
+      window.location = `${window.location.origin}/iReporter/UI/login.html`;
     });
   }
 }
 
-if (window.location.pathname === "/UI/logout.html") {
+if (window.location.pathname === "/iReporter/UI/logout.html") {
   const logout = new Logout();
   logout.logOut();
 }
@@ -80,7 +80,7 @@ if (localStorage.jwtToken) {
   // Decode token and get user info and exp
   // Check for expired token
   const currentTime = Date.now() / 1000;
-  const decoded = this.parseJwt(localStorage.jwtToken);
+  const decoded = parseJwt(localStorage.jwtToken);
 
   const api = new Api();
   // Create Routes
@@ -93,13 +93,13 @@ if (localStorage.jwtToken) {
     // Remove token from localStorage
     localStorage.removeItem("jwtToken");
     // Redirect to login
-    window.location = `${window.location.origin}/UI/login.html`;
+    window.location = `${window.location.origin}/iReporter/UI/login.html`;
   }
 } else {
   // Create Routes
   createList(publicRoutes);
 }
 
-if (window.location.pathname !== "/UI/index.html" && !localStorage.jwtToken) {
-  window.location = `${window.location.origin}/UI/login.html`;
+if (window.location.pathname !== "/iReporter/UI/index.html" && !localStorage.jwtToken) {
+  window.location = `${window.location.origin}/iReporter/UI/login.html`;
 }

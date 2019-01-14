@@ -61,7 +61,9 @@ class Profile extends Component {
             message.style.color = "green";
             message.innerText = r.data[0].message;
             window.setTimeout(function() {
-              window.location = `${window.location.origin}/UI/profile.html`;
+              window.location = `${
+                window.location.origin
+              }/iReporter/UI/profile.html`;
             }, 3000);
           } else if (r.status === 404) {
             divpop.style.boxShadow = "10px 10px 60px red";

@@ -3,7 +3,7 @@
   --color-primary-light: #508991;
   --color-primary-dark: #172a3a;
   --color-grey-light-1: #faf9f9;
-  --color-grey-light-2: #f4f2f2;
+  --color-grey-light-2: #f3f3f3;
   --color-grey-light-3: #f0eeee;
   --color-grey-light-4: #ccc;
   --color-grey-dark-1: #333;
@@ -38,10 +38,24 @@ html {
 }
 body {
   font-family: "Open Sans", sans-serif;
+  background: #f9f9f9;
   line-height: 1.6;
   font-weight: 400;
   margin: 0;
   min-height: 100vh;
+}
+a {
+  text-decoration: none;
+  color: rgba(105, 105, 105, 0.88);
+  transition: color 0.3s ease;
+}
+a:hover {
+  color: #fc6e51;
+}
+img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: sub;
 }
 .d-flex {
   display: flex;
@@ -718,8 +732,8 @@ header .container .auth-item p a:hover {
   font-style: normal;
   font-weight: 400;
   letter-spacing: 0;
-  padding: 3rem;
   text-rendering: optimizeLegibility;
+  width: 80%;
 }
 
 .description {
@@ -1082,7 +1096,7 @@ p#popuptextmsg {
   line-height: 24px;
 }
 p.card__text_location {
-  margin-top: 35%;
+  margin-top: 3%;
   color: #168a25;
 }
 p.card__text_location::before {
@@ -1097,4 +1111,95 @@ p.card__text_location::before {
   letter-spacing: 1px;
   text-transform: uppercase;
   text-decoration: none;
+}
+
+.clearfix,
+.container {
+  zoom: 1;
+}
+.container {
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+}
+.heading {
+  margin: 3rem;
+}
+.heading h3 {
+  display: inline-block;
+  font-family: "Roboto", sans-serif;
+  font-size: 2.8rem;
+  border-bottom: 0.2rem solid var(--color-black);
+}
+
+.btn-navbar {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.nav ul {
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+.nav li {
+  list-style: none;
+  font-size: 1.8rem;
+  margin: 0;
+}
+.btn-navbar li:first-child {
+  margin-left: 0;
+}
+.btn-navbar li {
+  float: left;
+  margin: 0 5px;
+}
+
+.btn-navbar .active {
+  background: #6ad1dd;
+  color: #fff;
+}
+
+.btn-navbar .btn {
+  font-size: 0.6875em;
+}
+.btn {
+  display: inline-block;
+  padding: 0.6rem 1.4rem;
+  background: var(--colo);
+  border-radius: 0.3rem;
+  font-size: 0.8125em;
+  color: var(--color-grey-dark-2);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.inner_container {
+  zoom: 1;
+  width: 102%;
+  margin-left: -1%;
+}
+.inner_container:before,
+.inner_container:after {
+  content: ".";
+  display: block;
+  overflow: hidden;
+  visibility: hidden;
+  font-size: 0;
+  line-height: 0;
+  width: 0;
+  height: 0;
+}
+.record {
+  font-family: "Source Sans Pro", sans-serif;
+  box-shadow: 0 2px 0 rgba(204, 204, 204, 0.15);
+  margin-bottom: 20px;
+}
+
+.title_Record {
+  display: flex;
+  justify-content: space-between;
+}
+
+.title_Record button {
+  margin-left: 20rem;
+  font-size: 2rem;
 }

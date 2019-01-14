@@ -4,7 +4,7 @@ iReporter enables any/every citizen to bring any form of corruption to the notic
 
 To view the site navigate to this url
 
-[iReporter](https://bl4ck4ndbr0wn.github.io/iReporter/UI)
+[iReporter](https://bl4ck4ndbr0wn.github.io/iReporter/iReporter/UI)
 
 ### pivalal tracker IReport project stories
 

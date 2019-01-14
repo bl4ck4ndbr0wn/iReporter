@@ -58,7 +58,7 @@ class Login extends Component {
             // Check for token
             if (localStorage.jwtToken) {
               window.setTimeout(function() {
-                window.location = `${window.location.origin}/UI/records.html`;
+                window.location = `${window.location.origin}/iReporter/UI/records.html`;
               }, 1000);
             }
           } else {
@@ -91,6 +91,6 @@ document.getElementById("popupCloseButton").addEventListener("click", e => {
   alert.style.display = "none";
 });
 
-if (window.location.pathname === "/UI/login.html" && localStorage.jwtToken) {
-  window.location = `${window.location.origin}/UI/index.html`;
+if (window.location.pathname === "/iReporter/UI/login.html" && localStorage.jwtToken) {
+  window.location = `${window.location.origin}/iReporter/UI/index.html`;
 }

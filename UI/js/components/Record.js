@@ -47,7 +47,6 @@ class Record {
   }
 
   singleRecord(data) {
-    console.log(data);
     const record_div = document.getElementById("single_incident");
 
     const description = document.createElement("div");
@@ -78,11 +77,6 @@ class Record {
     incident__p_location.className = "card__text_location";
     incident__p_location.innerText = data.location[0];
 
-    const cardButton = document.createElement("a");
-    cardButton.className = "btn btn--block card__btn";
-    cardButton.setAttribute("href", `create-incident.html?id=${data.id}`);
-    cardButton.innerText = "Edit";
-
     record_div.appendChild(description);
     description.appendChild(description_img);
     description.appendChild(incident__text);
@@ -90,6 +84,5 @@ class Record {
     incident__text.appendChild(incident__budge);
     incident__text.appendChild(incident__p);
     incident__text.appendChild(incident__p_location);
-    incident__text.appendChild(cardButton);
   }
 }
