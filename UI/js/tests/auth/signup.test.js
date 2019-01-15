@@ -8,7 +8,7 @@ const state = {
   lastname: faker.lorem.word(),
   email: faker.internet.email(),
   username: faker.name.firstName(),
-  password: faker.internet.password()
+  password: faker.internet.password() + faker.internet.password()
 };
 
 beforeEach(async () => {
