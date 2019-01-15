@@ -237,6 +237,7 @@ describe("iReporter register", () => {
   }, 10000);
 }, 10000);
 
+//Checks if the register page renders correctly
 describe("iReporter Render", () => {
   describe("Register  page", () => {
     beforeEach(async () => {

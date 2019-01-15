@@ -154,6 +154,7 @@ describe("iReporter ", () => {
   }, 10000);
 }, 10000);
 
+//Checks if the login page renders correctly
 describe("iReporter Render", () => {
   describe("Login  page", () => {
     beforeEach(async () => {
