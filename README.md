@@ -20,15 +20,22 @@ general public. Users can also report on things that needs government interventi
 ## Features
 
 :one: Users can create an account and log in.
+
 :two: Users can create a red-flag record (An incident linked to corruption).
+
 :three: Users can create intervention record (a call for a government agency to intervene e.g
    repair bad road sections, collapsed bridges, flooding e.t.c).
+   
 :four: Users can edit their red-flag or intervention records.
+
 :five: Users can delete their red-flag or intervention records.
+
 :six: Users can add geolocation (Lat Long Coordinates) to their red-flag or intervention
    records.
+   
 :seven: Users can change the geolocation (Lat Long Coordinates) attached to their red-flag or
    intervention records.
+   
 :eight: Admin can change the status of a record to either under investigation, rejected (in the
    event of a false claim) or resolved (in the event that the claim has been investigated and
    resolved).
