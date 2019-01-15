@@ -36,7 +36,7 @@ function editIncidentRecord(id) {
 
     elements.status.addEventListener("change", e => {
       e.preventDefault();
-      if (resp.data.record_type == "red-flag") {
+      if (resp.data.record_type === "red-flag") {
         api
           .patch(`/red-flags/${id}/status`, {
             status: e.target.value
