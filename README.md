@@ -52,8 +52,8 @@ live-server UI/
 ```
 
 The results are shown in the browser's console.
-
-**Test the application**
+ 
+**Test the application** :construction: :beginner:
 
 ```.env
 npm install
@@ -68,4 +68,5 @@ npm run coveralls
 ## License
 
 MIT License :hotsprings:
+
 :copyright:2019 Alpha Nganga Ndirangu 
