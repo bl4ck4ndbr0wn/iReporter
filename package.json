@@ -7,11 +7,12 @@
     "coveralls": "jest --coverage"
   },
   "keywords": [],
-  "author": "",
+  "author": "Alpha Ng'ang'a",
   "license": "ISC",
   "description": "",
   "devDependencies": {
     "coveralls": "^3.0.2",
+    "faker": "^4.1.0",
     "jest": "^23.6.0",
     "puppeteer": "^1.11.0"
   }

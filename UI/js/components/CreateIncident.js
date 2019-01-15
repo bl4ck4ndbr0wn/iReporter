@@ -35,47 +35,72 @@ class CreateIncident extends Component {
     incident_submit.addEventListener("click", e => {
       e.preventDefault();
 
+      incident_submit.value = "Creating new Incident ...";
+
       let data = this.state;
-      const alert = document.getElementById("popupmessage");
-      const message = document.getElementById("popuptextmsg");
-      const divpop = document.getElementById("popupdiv");
 
       delete data["errors"];
 
       this.api
         .post(this.url, data)
         .then(r => {
-          alert.style.display = "block";
-          console.log(r);
+          const alert = document.getElementById("popupmessage");
+          const message = document.createElement("div");
 
           if (r.status === 201) {
-            divpop.style.boxShadow = "10px 10px 60px green";
-            message.style.color = "green";
+            alert.className = "alert alert-success alert-dismissible fade show";
             message.innerText = r.message;
+            message.id = "popuptextmsg";
+            alert.appendChild(message);
+
             window.setTimeout(function() {
-              window.location = `${
-                window.location.origin
-              }/iReporter/UI/records.html`;
-            }, 1000);
-          } else if (r.error) {
-            divpop.style.boxShadow = "10px 10px 60px red";
-            message.style.color = "red";
-            message.innerText = r.error;
-          } else if (r.message) {
-            divpop.style.boxShadow = "10px 10px 60px red";
-            message.style.color = "red";
-            Object.keys(r.message).forEach(key => {
-              message.innerText = `${key}: ${r.message[key]}`;
+              alert.style.display = "none";
+            }, 3000);
+
+            window.setTimeout(function() {
+              redirect: window.location.replace("./records.html");
+            }, 500);
+          } else if (r.status === 400) {
+            alert.className = "alert alert-danger alert-dismissible fade show";
+            message.id = "popuptextmsg";
+
+            Object.values(r.message).forEach(element => {
+              message.innerText = element;
             });
+            alert.appendChild(message);
+
+            window.setTimeout(function() {
+              alert.removeChild(message);
+              alert.className = "alert alert-danger alert-dismissible fade ";
+
+              register_submit.value = "Save New Record";
+            }, 3000);
+          } else {
+            alert.className = "alert alert-danger alert-dismissible fade show";
+            message.id = "popuptextmsg";
+            message.innerText = r.data[0].message;
+            alert.appendChild(message);
+
+            window.setTimeout(function() {
+              alert.removeChild(message);
+              alert.className = "alert alert-danger alert-dismissible fade ";
+
+              register_submit.value = "Sign UP";
+            }, 3000);
           }
 
           return r;
         })
         .catch(error => {
-          alert.style.display = "block";
-          divpop.style.boxShadow = "10px 10px 60px red";
-          message.style.color = "red";
+          alert.className = "alert alert-danger alert-dismissible fade show";
+          message.id = "popuptextmsg";
           message.innerText = error;
+          alert.appendChild(message);
+
+          window.setTimeout(function() {
+            alert.removeChild(message);
+            alert.className = "alert alert-danger alert-dismissible fade ";
+          }, 3000);
         });
     });
   }

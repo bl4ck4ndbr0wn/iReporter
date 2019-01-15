@@ -2,8 +2,8 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "alpha",
-      password: "Ak3Swal(",
+      username: "",
+      password: "",
       errors: {}
     };
 
@@ -36,49 +36,76 @@ class Login extends Component {
 
       let data = this.state;
 
+      login_submit.value = "Login in ...";
+
       delete data["errors"];
 
       this.api
         .post(this.url, data)
         .then(r => {
           const alert = document.getElementById("popupmessage");
-          const message = document.getElementById("popuptextmsg");
-          const divpop = document.getElementById("popupdiv");
-
-          alert.style.display = "block";
+          const message = document.createElement("div");
 
           if (r.status === 200) {
-            divpop.style.boxShadow = "10px 10px 60px green";
-            message.style.color = "green";
-            message.innerText = r.data[0].message;
             // Save token  to localStorage
             const { token } = r;
             // Set token to ls
             localStorage.setItem("jwtToken", token);
             // Check for token
             if (localStorage.jwtToken) {
+              alert.className =
+                "alert alert-success alert-dismissible fade show";
+              message.innerText = r.data[0].message;
+              message.id = "popuptextmsg";
+              alert.appendChild(message);
+
               window.setTimeout(function() {
-                window.location = `${
-                  window.location.origin
-                }/iReporter/UI/records.html`;
-              }, 1000);
+                alert.style.display = "none";
+              }, 3000);
+
+              window.setTimeout(function() {
+                redirect: window.location.replace("./records.html");
+              }, 1900);
             }
           } else if (r.status === 400) {
-            divpop.style.boxShadow = "10px 10px 60px red";
-            message.style.color = "red";
+            alert.className = "alert alert-danger alert-dismissible fade show";
             message.innerText = Object.values(r.message);
-          } else {
-            divpop.style.boxShadow = "10px 10px 60px red";
-            message.style.color = "red";
-            message.innerText = r.data[0].message;
-          }
+            message.id = "popuptextmsg";
+            alert.appendChild(message);
 
-          return r;
+            window.setTimeout(function() {
+              alert.removeChild(message);
+              alert.className = "alert alert-danger alert-dismissible fade ";
+
+              login_submit.value = "Sign in";
+            }, 3000);
+
+            alert.className = "";
+          } else if (r.status === 401) {
+            alert.className = "alert alert-warning alert-dismissible fade show";
+            message.innerText = r.data[0].message;
+            message.id = "popuptextmsg";
+            alert.appendChild(message);
+
+            window.setTimeout(function() {
+              alert.removeChild(message);
+              alert.className = "alert alert-danger alert-dismissible fade ";
+
+              login_submit.value = "Sign in";
+            }, 3000);
+          }
         })
-        .then(r => {
-          console.log(r);
-        })
-        .catch();
+        .catch(error => {
+          alert.className = "alert alert-danger alert-dismissible fade show";
+          message.id = "popuptextmsg";
+          message.innerText = error;
+          alert.appendChild(message);
+
+          window.setTimeout(function() {
+            alert.removeChild(message);
+            alert.className = "alert alert-danger alert-dismissible fade ";
+          }, 3000);
+        });
     });
   }
 }
@@ -101,5 +128,5 @@ if (
   window.location.pathname === "/iReporter/UI/login.html" &&
   localStorage.jwtToken
 ) {
-  window.location = `${window.location.origin}/iReporter/UI/index.html`;
+  redirect: window.location.replace("./index.html");
 }

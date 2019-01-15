@@ -25,8 +25,24 @@
             <img src="img/logo.png" class="brightness" alt="IReport Logo" />
           </a>
         </div>
-        <h1 class="text--center">Sign up</h1>
+        <h1 id="registertitle" class="text--center">Sign up</h1>
         <div class="auth-item">
+          <div
+            id="popupmessage"
+            class="alert alert-warning alert-dismissible fade"
+            role="alert"
+          >
+            <button
+              id="popupCloseButton"
+              type="button"
+              class="close"
+              data-dismiss="alert"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
           <form id="auth_form" class="form form-auth">
             <div class="form-field">
               <label class="user" for="auth-firstname">
@@ -123,17 +139,13 @@
               />
             </div>
           </form>
-          <p>Already have an account? <a href="login.html">Sign in</a></p>
+          <p>
+            Already have an account?
+            <a id="signinLink" href="login.html">Sign in</a>
+          </p>
         </div>
       </div>
     </header>
-    <div id="popupmessage" class="popupmessages">
-      <span class="helper"></span>
-      <div id="popupdiv">
-        <div id="popupCloseButton" class="popupCloseButton">X</div>
-        <p id="popuptextmsg"></p>
-      </div>
-    </div>
 
     <!-- JS Scripts -->
     <script src="js/common/Elements.js"></script>
