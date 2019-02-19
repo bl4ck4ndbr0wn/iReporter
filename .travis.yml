@@ -6,6 +6,10 @@ node_js:
   - "10"
 
 dist: trusty
+
+git:
+  depth: 1
+
 branches:
   only:
     - gh-pages
@@ -13,9 +17,6 @@ branches:
 cache:
   directories:
     - node_modules
-
-before_install:
-  - npm update
 
 install:
   - npm install
