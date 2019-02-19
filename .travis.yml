@@ -24,5 +24,5 @@ script:
   - npm test
 
 after_success:
-  - "npm run coveralls"
+  - npm run coveralls
   - codecov --token=COV_TOKEN
