@@ -19,9 +19,7 @@ beforeEach(async () => {
 describe("iReporter register", () => {
   describe("register page redirect to login  ", () => {
     beforeEach(async () => {
-      await page.goto(
-        "https://bl4ck4ndbr0wn.github.io/iReporter/UI/register.html"
-      );
+      await page.goto("http://alphanganga.me/iReporter/UI/register.html");
     }, 10000);
 
     describe("Page on form submit ", () => {
@@ -57,9 +55,7 @@ describe("iReporter register", () => {
 describe("iReporter register", () => {
   describe("register page redirect to login  ", () => {
     beforeEach(async () => {
-      await page.goto(
-        "https://bl4ck4ndbr0wn.github.io/iReporter/UI/register.html"
-      );
+      await page.goto("http://alphanganga.me/iReporter/UI/register.html");
     }, 10000);
 
     describe("Page on form submit ", () => {
@@ -80,9 +76,7 @@ describe("iReporter register", () => {
 describe("iReporter register", () => {
   describe("register page redirect to login  ", () => {
     beforeEach(async () => {
-      await page.goto(
-        "https://bl4ck4ndbr0wn.github.io/iReporter/UI/register.html"
-      );
+      await page.goto("http://alphanganga.me/iReporter/UI/register.html");
     }, 10000);
 
     describe("Page on form submit ", () => {
@@ -106,9 +100,7 @@ describe("iReporter register", () => {
 describe("iReporter register", () => {
   describe("register page redirect to login  ", () => {
     beforeEach(async () => {
-      await page.goto(
-        "https://bl4ck4ndbr0wn.github.io/iReporter/UI/register.html"
-      );
+      await page.goto("http://alphanganga.me/iReporter/UI/register.html");
     }, 10000);
 
     describe("Page on form submit ", () => {
@@ -135,9 +127,7 @@ describe("iReporter register", () => {
 describe("iReporter register", () => {
   describe("register page redirect to login  ", () => {
     beforeEach(async () => {
-      await page.goto(
-        "https://bl4ck4ndbr0wn.github.io/iReporter/UI/register.html"
-      );
+      await page.goto("http://alphanganga.me/iReporter/UI/register.html");
     }, 10000);
 
     describe("Page on form submit ", () => {
@@ -167,9 +157,7 @@ describe("iReporter register", () => {
 describe("iReporter register", () => {
   describe("register page redirect to login  ", () => {
     beforeEach(async () => {
-      await page.goto(
-        "https://bl4ck4ndbr0wn.github.io/iReporter/UI/register.html"
-      );
+      await page.goto("http://alphanganga.me/iReporter/UI/register.html");
     }, 10000);
 
     describe("Page on form submit ", () => {
@@ -202,9 +190,7 @@ describe("iReporter register", () => {
 describe("iReporter register", () => {
   describe("register page redirect to login  ", () => {
     beforeEach(async () => {
-      await page.goto(
-        "https://bl4ck4ndbr0wn.github.io/iReporter/UI/register.html"
-      );
+      await page.goto("http://alphanganga.me/iReporter/UI/register.html");
     }, 10000);
 
     describe("Page on form submit ", () => {
@@ -241,9 +227,7 @@ describe("iReporter register", () => {
 describe("iReporter Render", () => {
   describe("Register  page", () => {
     beforeEach(async () => {
-      await page.goto(
-        "https://bl4ck4ndbr0wn.github.io/iReporter/UI/register.html"
-      );
+      await page.goto("http://alphanganga.me/iReporter/UI/register.html");
     }, 10000);
 
     describe("Page Render ", () => {

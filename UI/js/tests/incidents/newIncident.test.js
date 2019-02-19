@@ -20,7 +20,7 @@ describe("iReporter New Incident", () => {
   describe("Page on form submit ", () => {
     beforeEach(async () => {
       await page.goto(
-        "https://bl4ck4ndbr0wn.github.io/iReporter/UI/create-incident.html"
+        "http://alphanganga.me/iReporter/UI/create-incident.html"
       );
     }, 10000);
     it("User should be able to login with correct credentials", async () => {

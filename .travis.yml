@@ -1,8 +1,9 @@
 sudo: false
+
 language: node_js
 
 node_js:
-  - "10.15"
+  - "10"
 
 dist: trusty
 branches:
@@ -21,3 +22,7 @@ install:
 
 script:
   - npm test
+
+after_success:
+  - "npm run coveralls"
+  - codecov --token=COV_TOKEN

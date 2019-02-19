@@ -10,10 +10,8 @@ beforeEach(async () => {
 describe("iReporter Login", () => {
   describe("Login page redirect to all reports  ", () => {
     beforeEach(async () => {
-      await page.goto(
-        "https://bl4ck4ndbr0wn.github.io/iReporter/UI/login.html"
-      );
-    }, 10000);
+      await page.goto("http://alphanganga.me/iReporter/UI/login.html");
+    }, 100000);
 
     describe("Page on form submit ", () => {
       it("with correct credentials", async () => {
@@ -31,18 +29,16 @@ describe("iReporter Login", () => {
           response => response.innerText
         );
         expect(message).toMatch("You were successfully logged in alpha");
-      }, 10000);
-    }, 10000);
-  }, 10000);
-}, 10000);
+      }, 100000);
+    }, 100000);
+  }, 100000);
+}, 100000);
 
 describe("iReporter ", () => {
   describe("Login  Form", () => {
     beforeEach(async () => {
-      await page.goto(
-        "https://bl4ck4ndbr0wn.github.io/iReporter/UI/login.html"
-      );
-    }, 10000);
+      await page.goto("http://alphanganga.me/iReporter/UI/login.html");
+    }, 100000);
 
     describe("Page onSubmit ", () => {
       it("with password field empty", async () => {
@@ -60,18 +56,16 @@ describe("iReporter ", () => {
           response => response.innerText
         );
         expect(message).toMatch("password Field can not be blank");
-      }, 10000);
-    }, 10000);
-  }, 10000);
-}, 10000);
+      }, 100000);
+    }, 100000);
+  }, 100000);
+}, 100000);
 
 describe("iReporter ", () => {
   describe("Login  Form", () => {
     beforeEach(async () => {
-      await page.goto(
-        "https://bl4ck4ndbr0wn.github.io/iReporter/UI/login.html"
-      );
-    }, 10000);
+      await page.goto("http://alphanganga.me/iReporter/UI/login.html");
+    }, 100000);
 
     describe("Page onSubmit ", () => {
       it("with username and password empty or username empty", async () => {
@@ -90,17 +84,15 @@ describe("iReporter ", () => {
         );
         expect(message).toMatch("username Field can not be blank");
       });
-    }, 10000);
-  }, 10000);
-}, 10000);
+    }, 100000);
+  }, 100000);
+}, 100000);
 
 describe("iReporter ", () => {
   describe("Login  Form", () => {
     beforeEach(async () => {
-      await page.goto(
-        "https://bl4ck4ndbr0wn.github.io/iReporter/UI/login.html"
-      );
-    }, 10000);
+      await page.goto("http://alphanganga.me/iReporter/UI/login.html");
+    }, 100000);
 
     describe("Page onSubmit ", () => {
       it("with incorrect password syntax", async () => {
@@ -121,17 +113,15 @@ describe("iReporter ", () => {
           "Password field must be at least 8 characters."
         );
       });
-    }, 10000);
-  }, 10000);
-}, 10000);
+    }, 100000);
+  }, 100000);
+}, 100000);
 
 describe("iReporter ", () => {
   describe("Login  Form", () => {
     beforeEach(async () => {
-      await page.goto(
-        "https://bl4ck4ndbr0wn.github.io/iReporter/UI/login.html"
-      );
-    }, 10000);
+      await page.goto("http://alphanganga.me/iReporter/UI/login.html");
+    }, 100000);
 
     describe("Page onSubmit ", () => {
       it("with incorrect credentials", async () => {
@@ -150,18 +140,16 @@ describe("iReporter ", () => {
         );
         expect(message).toMatch("Username or password is incorrect.");
       });
-    }, 10000);
-  }, 10000);
-}, 10000);
+    }, 100000);
+  }, 100000);
+}, 100000);
 
 //Checks if the login page renders correctly
 describe("iReporter Render", () => {
   describe("Login  page", () => {
     beforeEach(async () => {
-      await page.goto(
-        "https://bl4ck4ndbr0wn.github.io/iReporter/UI/login.html"
-      );
-    }, 10000);
+      await page.goto("http://alphanganga.me/iReporter/UI/login.html");
+    }, 100000);
 
     describe("Page Render ", () => {
       it("Correctly", async () => {
@@ -183,10 +171,10 @@ describe("iReporter Render", () => {
         expect(loginPage.signuplink).toBe("Sign up");
         expect(loginPage.username).toBeDefined();
         expect(loginPage.password).toBeDefined();
-      }, 10000);
-    }, 10000);
-  }, 10000);
-}, 10000);
+      }, 100000);
+    }, 100000);
+  }, 100000);
+}, 100000);
 
 afterEach(async () => {
   await browser.close();

@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
-    "coveralls": "jest --coverage"
+    "test": "jest --ccoverage",
+    "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "keywords": [],
   "author": "Alpha Ng'ang'a",
@@ -13,7 +13,7 @@
   "devDependencies": {
     "coveralls": "^3.0.2",
     "faker": "^4.1.0",
-    "jest": "^23.6.0",
+    "jest": "^24.1.0",
     "puppeteer": "^1.11.0"
   }
 }
