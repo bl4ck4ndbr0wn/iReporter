@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "jest --ccoverage",
+    "test": "jest --coverage",
     "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "keywords": [],
